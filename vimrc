@@ -1,0 +1,397 @@
+"======================================================================
+"======================== Usability ===================================
+"======================================================================
+" Request cursor position for xterm.
+set t_u7=
+
+" Make work with Vim faster, use jk instead on <Esc>
+imap jk <Esc>
+
+" Set no compatible with old vi
+set nocompatible
+
+" Set line numbers
+set number
+
+" utf-8 of course
+set encoding=utf-8
+set fileencoding=utf-8
+
+" Disable error sounds and window flash
+" set noerrorbells visualbell t_vb=
+set t_vb=
+" set visualbell
+
+if has('autocmd')
+  " Reloads VIM on the fly, after :w command
+  " NB! It takes a lot of resources and make terminal very slow.
+  " Do not forget to quit vim more often.
+  autocmd bufwritepost .vimrc source $MYVIMRC
+endif
+
+" Detect file type
+filetype on
+filetype plugin on
+filetype indent on
+set omnifunc=syntaxcomplete#Complete
+ 
+" Syntax hightlighting
+syntax on
+
+" Set language for spell check
+set spelllang=en_us
+"set spelllang=ru_ru
+
+" Enable folding
+set foldmethod=indent
+set foldlevel=99
+
+" Force Vim to use system clipboard
+set clipboard=unnamedplus
+
+" Set my favourite dark scheme, cannot live without it.
+set termguicolors
+set background=dark
+colorscheme tokyonight
+let g:tokyonight_style = 'night'
+" colorscheme darkspace
+
+set tabstop=4
+set shiftwidth=4
+set softtabstop=4
+set noexpandtab
+
+" Set smart tab
+set smarttab
+
+" Autoindent, not forgot this
+set autoindent
+
+" Smartindent, not forgot this
+set smartindent
+
+set ruler
+set rulerformat=%l,%v
+
+" Will work in old unix style with max line size of 79 chars
+highlight ColorColumn ctermbg=232 guibg=#262626
+let &colorcolumn="75,79"
+
+" Show hidden symbols
+set nolist
+" set listchars=tab:▸\ ,eol:$,trail:.
+set listchars=tab:▸\ ,trail:.
+" set showbreak="2026"
+
+" Invisible character colors
+highlight NonText guifg=#4a4a59 ctermfg=233
+highlight SpecialKey guifg=#4a4a59 ctermfg=233
+highlight Todo ctermfg=black ctermbg=yellow
+
+" Insert mode backspace won't delete over line breaks, or
+" automatically-inserted indentation, let's change that
+set backspace=indent,eol,start
+
+" Searching
+set hlsearch        " highlight matches
+set incsearch       " incremental searching
+set ignorecase      " searches are case insensitive...
+set infercase       " completion case
+set smartcase       " unless they contain at least one capital letter
+map <silent> <C-l> :noh<CR>
+
+" Hightlight search colors
+hi! Search cterm=NONE ctermbg=221
+hi! TermCursorNC ctermfg=15 guifg=#fdf6e3 ctermbg=14 guibg=#93a1a1 cterm=NONE gui=NONE
+
+" Don't unload buffers when they are abandoned, instead stay in the
+" background.
+set hidden
+
+" Spell check
+map <leader>s :set spell!<CR>
+
+" When reading files try unix line endings then dos, also use unix for
+" new buffers
+" set fileformats=unix
+
+" save up to 100 marks, enable capital marks
+set viminfo='100,f1
+
+" screen will not be redrawn while running macros, registers or other
+" non-typed comments
+set lazyredraw
+
+" Reload files outside of Vim
+set autoread
+
+" Flagging Unnecessary Whitespace
+highlight BadWhitespace ctermbg=red guibg=darkred
+
+" Undo settings
+set undofile
+set undodir="~/.vim/undodir"
+
+" Wildmode like in bash
+" set wildmode=longest,list
+set wildmode=full
+
+" While we have a lot of memory record more history commands.
+set history=5000
+
+" Matchit.vim
+runtime macros/matchit.vim
+
+"======================================================================
+"======================== Commands ====================================
+"======================================================================
+" Wrap commad to wrap text
+" command! -nargs=* Wrap set wrap linebreak nolist
+
+" Project find and replace
+" vim -o *.html (or any other extension or even just * **/*?)
+" First of all use
+" :vimgrep /{pattern}/g[e] ##
+" Then run Qargs to get only files containing the match
+" :Qargs
+" Then apply :argdo %s/{pattern}/{replacement}/g
+" command! -nargs=0 -bar Qargs execute 'args' QuickfixFilenames()
+" function! QuickfixFilenames()
+"   " Building a hash ensures we get each buffer only once
+"   let buffer_numbers = {}
+"   for quickfix_item in getqflist()
+"     let buffer_numbers[quickfix_item['bufnr']] = bufname(quickfix_item['bufnr'])
+"   endfor
+"   return join(map(values(buffer_numbers), 'fnameescape(v:val)'))
+" endfunction
+
+" Share the code with https://sprunge.us
+command! -nargs=0 -bar Share execute "!cat % | curl -F 'sprunge=<-' http://sprunge.us"
+
+"======================================================================
+"======================== Abbrevs =====================================
+"======================================================================
+iab <expr> dt! strftime("%Y-%m-%d")
+iab <expr> dts! strftime("%Y-%m-%dT%H:%M:%S")
+" iab {} {<CR>}<Esc><S-o>
+" iab "" "<Esc><BS>"
+
+"======================================================================
+"======================== Mappings ====================================
+"======================================================================
+" Disabled arrow to get use hjkl
+noremap <up> <nop>
+noremap <down> <nop>
+noremap <left> <nop>
+noremap <right> <nop>
+
+tnoremap <Esc> <C-\><C-n>
+
+" Ctrl+S for save files
+nnoremap <silent> <C-S> :<C-u>write<CR>
+
+" Use spell check
+nmap <silent> <leader>l :set spell!<CR>
+
+" Edit .vimrc in new tab
+nmap <leader>v :tabedit $MYVIMRC<CR>
+
+" Buffers navigation
+nnoremap <silent> [b :bprev<CR>
+nnoremap <silent> ]b :bnext<CR>
+nnoremap <silent> [B :bfirst<CR>
+nnoremap <silent> ]B :blast<CR>
+
+" Count navigation (quickfix list)
+nnoremap <silent> [c :cprev<CR>
+nnoremap <silent> ]c :cnext<CR>
+nnoremap <silent> [C :cfirst<CR>
+nnoremap <silent> ]C :clast<CR>
+
+" Move line up and down
+nnoremap <C-S-j> :m .+1<CR>==
+nnoremap <C-S-k> :m .-2<CR>==
+
+" Repeat command with Q (resets default Ex-mode mode with Q)
+nnoremap Q @='n.'<CR>
+
+" Substitute :&&
+nnoremap & :&&<CR>
+xnoremap & :&&<CR>
+
+nnoremap <Leader>; A;<ESC>
+inoremap <Leader>; <ESC>A;
+
+" Tabs navigation -----------------------------------------------------
+nnoremap <silent> ]t :tabnext<CR>
+nnoremap <silent> [t :tabprev<cr>
+nnoremap <silent> [T :tabfirst<cr>
+nnoremap <silent> ]T :tablast<CR>
+" nnoremap <silent> <C-t> :tabnew<CR>
+
+" Remove trailing Whitespaces
+function! <SID>StripTrailingWhitespaces()
+    " Preparation: save last search, and cursor position.
+    let _s=@/
+    let l = line(".")
+    let c = col(".")
+    " Do the business:
+    %s/\s\+$//e
+    " Clean up: restore previous search history, and cursor position
+    let @/=_s
+    call cursor(l, c)
+endfunction
+nnoremap <silent> <leader><C-s><C-s> :call <SID>StripTrailingWhitespaces()<CR>
+
+" Expands the path by %% expression
+cnoremap %% <C-R>=fnameescape(expand('%:h')).'/'<cr>
+
+" From Practical Vim book
+" cnoremap <expr> %% getcmdtype() == ':' ? expand('%:h').'/' : '%%'
+
+map <leader>ew :e %%
+map <leader>es :sp %%
+map <leader>ev :vsp %%
+map <leader>et :tabe %%
+
+"======================================================================
+"========================== Plugins ===================================
+"======================================================================
+packloadall
+packadd minpac
+call minpac#init()
+
+" Common
+call minpac#add('tpope/vim-commentary')
+call minpac#add('SirVer/ultisnips')
+call minpac#add('vim-airline/vim-airline')
+call minpac#add('tpope/vim-surround')
+" call minpac#add('tpope/vim-abolish')
+call minpac#add('vim-syntastic/syntastic')
+call minpac#add('ctrlpvim/ctrlp.vim')
+call minpac#add('Yggdroot/indentLine')
+call minpac#add('rstacruz/vim-closer')
+" call minpac#add('tpope/vim-endwise')
+" call minpac#add('jiangmiao/auto-pairs')
+call minpac#add('nelstrom/vim-visual-star-search')
+" call minpac#add('neoclide/coc.nvim')
+call minpac#add('dhruvasagar/vim-table-mode')
+call minpac#add('ervandew/supertab')
+let g:SuperTabDefaultCompletionType = "<C-X><C-O>"
+
+" Lua
+call minpac#add('tbastos/vim-lua')
+call minpac#add('xolox/vim-misc')
+call minpac#add('xolox/vim-lua-ftplugin')
+
+" Go
+call minpac#add('fatih/vim-go')
+nnoremap <leader>g :tabe /home/xdkn1ght/.vim/ftplugin/go.vim<CR>
+
+" Web
+call minpac#add('mattn/emmet-vim')
+call minpac#add('alvan/vim-closetag')
+call minpac#add('vim-scripts/loremipsum')
+call minpac#add('prettier/vim-prettier')
+
+" UltiSnips
+let g:UltiSnipsExpandTrigger="<Tab>"
+" If you want :UltiSnipsEdit to split your window.
+let g:UltiSnipsEditSplit="horizontal"
+
+" Cleans installed packages
+command! PackUpdate call minpac#update()
+command! PackClean call minpac#clean()
+
+" Spilts diff screen VERTICALY, not horizontally!
+set diffopt+=vertical
+
+" Syntastic
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
+
+" IndentLine
+" let g:indentLine_char_list = ['|', '¦', '┆', '┊']
+let g:indentLine_char_list = ['┊']
+
+" Emmet
+let g:user_emmet_leader_key='<C-y>'
+let g:user_emmet_install_global = 0
+autocmd FileType html,css,markdown EmmetInstall
+
+" Surround
+let g:surround_indent = 1
+
+" CtrlP
+set wildignore+=*/node_modules/*,*.so,*.swp,*.zip,*.git
+
+" Lua
+" let g:lua_syntax_someoption = 1
+" let g:lua_complete_omni = 1
+
+" Airline
+" air-line plugin specific commands
+let g:airline_powerline_fonts = 1
+
+if !exists('g:airline_symbols')
+  let g:airline_symbols = {}
+endif
+
+" netrw standard plugin
+let g:netrw_banner = 1 " 0 for remove banner, I command toggles banner
+let g:netrw_liststyle = 3
+" 1 - open files in a new horizontal split
+" 2 - open files in a new vertical split
+" 3 - open files in a new tab
+" 4 - open in previous window
+let g:netrw_browse_split = 4
+let g:netrw_winsize = 100 " in percent
+let g:netrw_altv = 1
+
+function! s:close_explorer_buffers()
+  for i in range(1, bufnr('$'))
+    if getbufvar(i, '&filetype') == "netrw"
+      silent exe 'bdelete! ' . i
+    endif
+  endfor
+endfunction
+
+noremap <C-g> :Vex<CR>
+noremap <C-g><C-x> :call <SID>close_explorer_buffers()<CR>
+
+" Auto open project drawer for Vim like NERDTree
+" augroup ProjectDrawer
+"   autocmd!
+"   autocmd VimEnter * :Vexplore
+" augroup END
+"
+" ctags
+" autocmd BufWritePost * call system("ctags -R")
+
+" Table mode
+function! s:isAtStartOfLine(mapping)
+  let text_before_cursor = getline('.')[0 : col('.')-1]
+  let mapping_pattern = '\V' . escape(a:mapping, '\')
+  let comment_pattern = '\V' . escape(substitute(&l:commentstring, '%s.*$', '', ''), '\')
+  return (text_before_cursor =~? '^' . ('\v(' . comment_pattern . '\v)?') . '\s*\v' . mapping_pattern . '\v$')
+endfunction
+
+inoreabbrev <expr> <bar><bar>
+          \ <SID>isAtStartOfLine('\|\|') ?
+          \ '<c-o>:TableModeEnable<cr><bar><space><bar><left><left>' : '<bar><bar>'
+inoreabbrev <expr> __
+          \ <SID>isAtStartOfLine('__') ?
+          \ '<c-o>:silent! TableModeDisable<cr>' : '__'
+
+" ============================== END ====================================
+
+" Only project specific exec .vimrc from dir.
+" It is better to set this option at the end of the file.
+"set exrc " noexrc
+set secure
+
