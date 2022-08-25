@@ -69,7 +69,6 @@ highlight Todo ctermfg=black ctermbg=yellow
 set ignorecase      " searches are case insensitive...
 set infercase       " completion case
 set smartcase       " unless they contain at least one capital letter
-map <silent> <C-l> :noh<CR>
 
 " Hightlight search colors
 hi! Search cterm=NONE ctermbg=221
@@ -111,10 +110,13 @@ iab <expr> dts! strftime("%Y-%m-%dT%H:%M:%S")
 " use jk instead on <Esc>
 imap jk <Esc>
 
-noremap <up> <nop>
-noremap <down> <nop>
-noremap <left> <nop>
-noremap <right> <nop>
+map <up> <nop>
+map <down> <nop>
+map <left> <nop>
+map <right> <nop>
+
+" Clear search highlight
+map <silent> <C-l> :noh<CR>
 
 tnoremap <Esc> <C-\><C-n>
 
@@ -128,7 +130,7 @@ map <leader>s :set spell!<CR>
 nmap <silent> <leader>l :set spell!<CR>
 
 " Edit .vimrc in new tab
-nmap <leader>v :tabedit $MYVIMRC<CR>
+nmap <leader>v :tabedit $VIM/vimrc<CR>
 
 " Buffers navigation
 nnoremap <silent> [b :bprev<CR>
