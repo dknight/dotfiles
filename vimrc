@@ -1,33 +1,16 @@
 "======================================================================
 "======================== Usability ===================================
 "======================================================================
-" Request cursor position for xterm.
-set t_u7=
-
-" Make work with Vim faster, use jk instead on <Esc>
-imap jk <Esc>
-
-" Set no compatible with old vi
-set nocompatible
-
 " Set line numbers
 set number
 
-" utf-8 of course
-set encoding=utf-8
+" utf-8 for files.
 set fileencoding=utf-8
 
 " Disable error sounds and window flash
 " set noerrorbells visualbell t_vb=
-set t_vb=
+" set t_vb=
 " set visualbell
-
-if has('autocmd')
-  " Reloads VIM on the fly, after :w command
-  " NB! It takes a lot of resources and make terminal very slow.
-  " Do not forget to quit vim more often.
-  autocmd bufwritepost .vimrc source $MYVIMRC
-endif
 
 " Detect file type
 filetype on
@@ -56,21 +39,15 @@ colorscheme tokyonight
 let g:tokyonight_style = 'night'
 " colorscheme darkspace
 
-set tabstop=4
-set shiftwidth=4
-set softtabstop=4
-set noexpandtab
-
-" Set smart tab
-set smarttab
-
-" Autoindent, not forgot this
-set autoindent
-
-" Smartindent, not forgot this
+" set tabstop=4
+" set shiftwidth=4
+" set softtabstop=4
+" set noexpandtab
+"
+" Smartindent, do not forgot this
 set smartindent
 
-set ruler
+" Rulers
 set rulerformat=%l,%v
 
 " Will work in old unix style with max line size of 79 chars
@@ -78,23 +55,17 @@ highlight ColorColumn ctermbg=232 guibg=#262626
 let &colorcolumn="75,79"
 
 " Show hidden symbols
-set nolist
+" set nolist
+
 " set listchars=tab:▸\ ,eol:$,trail:.
 set listchars=tab:▸\ ,trail:.
-" set showbreak="2026"
 
 " Invisible character colors
 highlight NonText guifg=#4a4a59 ctermfg=233
 highlight SpecialKey guifg=#4a4a59 ctermfg=233
 highlight Todo ctermfg=black ctermbg=yellow
 
-" Insert mode backspace won't delete over line breaks, or
-" automatically-inserted indentation, let's change that
-set backspace=indent,eol,start
-
 " Searching
-set hlsearch        " highlight matches
-set incsearch       " incremental searching
 set ignorecase      " searches are case insensitive...
 set infercase       " completion case
 set smartcase       " unless they contain at least one capital letter
@@ -104,26 +75,12 @@ map <silent> <C-l> :noh<CR>
 hi! Search cterm=NONE ctermbg=221
 hi! TermCursorNC ctermfg=15 guifg=#fdf6e3 ctermbg=14 guibg=#93a1a1 cterm=NONE gui=NONE
 
-" Don't unload buffers when they are abandoned, instead stay in the
-" background.
-set hidden
-
-" Spell check
-map <leader>s :set spell!<CR>
-
-" When reading files try unix line endings then dos, also use unix for
-" new buffers
-" set fileformats=unix
-
 " save up to 100 marks, enable capital marks
 set viminfo='100,f1
 
 " screen will not be redrawn while running macros, registers or other
 " non-typed comments
 set lazyredraw
-
-" Reload files outside of Vim
-set autoread
 
 " Flagging Unnecessary Whitespace
 highlight BadWhitespace ctermbg=red guibg=darkred
@@ -132,39 +89,12 @@ highlight BadWhitespace ctermbg=red guibg=darkred
 set undofile
 set undodir="~/.vim/undodir"
 
-" Wildmode like in bash
-" set wildmode=longest,list
-set wildmode=full
-
-" While we have a lot of memory record more history commands.
-set history=5000
-
 " Matchit.vim
 runtime macros/matchit.vim
 
 "======================================================================
 "======================== Commands ====================================
 "======================================================================
-" Wrap commad to wrap text
-" command! -nargs=* Wrap set wrap linebreak nolist
-
-" Project find and replace
-" vim -o *.html (or any other extension or even just * **/*?)
-" First of all use
-" :vimgrep /{pattern}/g[e] ##
-" Then run Qargs to get only files containing the match
-" :Qargs
-" Then apply :argdo %s/{pattern}/{replacement}/g
-" command! -nargs=0 -bar Qargs execute 'args' QuickfixFilenames()
-" function! QuickfixFilenames()
-"   " Building a hash ensures we get each buffer only once
-"   let buffer_numbers = {}
-"   for quickfix_item in getqflist()
-"     let buffer_numbers[quickfix_item['bufnr']] = bufname(quickfix_item['bufnr'])
-"   endfor
-"   return join(map(values(buffer_numbers), 'fnameescape(v:val)'))
-" endfunction
-
 " Share the code with https://sprunge.us
 command! -nargs=0 -bar Share execute "!cat % | curl -F 'sprunge=<-' http://sprunge.us"
 
@@ -173,13 +103,14 @@ command! -nargs=0 -bar Share execute "!cat % | curl -F 'sprunge=<-' http://sprun
 "======================================================================
 iab <expr> dt! strftime("%Y-%m-%d")
 iab <expr> dts! strftime("%Y-%m-%dT%H:%M:%S")
-" iab {} {<CR>}<Esc><S-o>
-" iab "" "<Esc><BS>"
 
 "======================================================================
 "======================== Mappings ====================================
 "======================================================================
-" Disabled arrow to get use hjkl
+" Disabled arrow to get us" Make work with Vim faster, 
+" use jk instead on <Esc>
+imap jk <Esc>
+
 noremap <up> <nop>
 noremap <down> <nop>
 noremap <left> <nop>
@@ -189,6 +120,9 @@ tnoremap <Esc> <C-\><C-n>
 
 " Ctrl+S for save files
 nnoremap <silent> <C-S> :<C-u>write<CR>
+
+" Spell check
+map <leader>s :set spell!<CR>
 
 " Use spell check
 nmap <silent> <leader>l :set spell!<CR>
