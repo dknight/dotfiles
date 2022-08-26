@@ -36,7 +36,7 @@ set clipboard=unnamedplus
 set termguicolors
 set background=dark
 colorscheme tokyonight
-let g:tokyonight_style = 'night'
+let g:tokyonight_style='night'
 " colorscheme darkspace
 
 " set tabstop=4
@@ -199,7 +199,9 @@ call minpac#init()
 
 " Common
 call minpac#add('tpope/vim-commentary')
-call minpac#add('SirVer/ultisnips')
+" call minpac#add('SirVer/ultisnips')
+call minpac#add('Shougo/neosnippet.vim')
+call minpac#add('Shougo/neosnippet-snippets')
 call minpac#add('vim-airline/vim-airline')
 call minpac#add('tpope/vim-surround')
 " call minpac#add('tpope/vim-abolish')
@@ -213,7 +215,6 @@ call minpac#add('nelstrom/vim-visual-star-search')
 " call minpac#add('neoclide/coc.nvim')
 call minpac#add('dhruvasagar/vim-table-mode')
 call minpac#add('ervandew/supertab')
-let g:SuperTabDefaultCompletionType = "<C-X><C-O>"
 
 " Lua
 call minpac#add('tbastos/vim-lua')
@@ -230,10 +231,8 @@ call minpac#add('alvan/vim-closetag')
 call minpac#add('vim-scripts/loremipsum')
 call minpac#add('prettier/vim-prettier')
 
-" UltiSnips
-let g:UltiSnipsExpandTrigger="<Tab>"
-" If you want :UltiSnipsEdit to split your window.
-let g:UltiSnipsEditSplit="horizontal"
+" Super Tab
+let g:SuperTabDefaultCompletionType = "<C-X><C-O>"
 
 " Cleans installed packages
 command! PackUpdate call minpac#update()
@@ -331,3 +330,22 @@ inoreabbrev <expr> __
 "set exrc " noexrc
 set secure
 
+" Plugin key-mappings.
+" Note: It must be "imap" and "smap".  It uses <Plug> mappings.
+imap <C-k>     <Plug>(neosnippet_expand_or_jump)
+smap <C-k>     <Plug>(neosnippet_expand_or_jump)
+xmap <C-k>     <Plug>(neosnippet_expand_target)
+
+" SuperTab like snippets behavior.
+" Note: It must be "imap" and "smap".  It uses <Plug> mappings.
+"imap <expr><TAB>
+" \ pumvisible() ? "\<C-n>" :
+" \ neosnippet#expandable_or_jumpable() ?
+" \    "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
+smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
+\ "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
+
+" For conceal markers.
+if has('conceal')
+  set conceallevel=2 concealcursor=niv
+endif
