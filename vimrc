@@ -17,7 +17,7 @@ filetype on
 filetype plugin on
 filetype indent on
 set omnifunc=syntaxcomplete#Complete
- 
+
 " Syntax hightlighting
 syntax on
 
@@ -167,15 +167,15 @@ nnoremap <silent> ]T :tablast<CR>
 
 " Remove trailing Whitespaces
 function! <SID>StripTrailingWhitespaces()
-    " Preparation: save last search, and cursor position.
-    let _s=@/
-    let l = line(".")
-    let c = col(".")
-    " Do the business:
-    %s/\s\+$//e
-    " Clean up: restore previous search history, and cursor position
-    let @/=_s
-    call cursor(l, c)
+" Preparation: save last search, and cursor position.
+let _s=@/
+let l = line(".")
+let c = col(".")
+" Do the business:
+%s/\s\+$//e
+" Clean up: restore previous search history, and cursor position
+let @/=_s
+call cursor(l, c)
 endfunction
 nnoremap <silent> <leader><C-s><C-s> :call <SID>StripTrailingWhitespaces()<CR>
 
@@ -223,7 +223,6 @@ call minpac#add('xolox/vim-lua-ftplugin')
 
 " Go
 call minpac#add('fatih/vim-go')
-nnoremap <leader>g :tabe /home/xdkn1ght/.vim/ftplugin/go.vim<CR>
 
 " Web
 call minpac#add('mattn/emmet-vim')
@@ -274,7 +273,7 @@ set wildignore+=*/node_modules/*,*.so,*.swp,*.zip,*.git
 let g:airline_powerline_fonts = 1
 
 if !exists('g:airline_symbols')
-  let g:airline_symbols = {}
+let g:airline_symbols = {}
 endif
 
 " netrw standard plugin
@@ -289,11 +288,11 @@ let g:netrw_winsize = 100 " in percent
 let g:netrw_altv = 1
 
 function! s:close_explorer_buffers()
-  for i in range(1, bufnr('$'))
-    if getbufvar(i, '&filetype') == "netrw"
-      silent exe 'bdelete! ' . i
-    endif
-  endfor
+for i in range(1, bufnr('$'))
+if getbufvar(i, '&filetype') == "netrw"
+silent exe 'bdelete! ' . i
+endif
+endfor
 endfunction
 
 noremap <C-g> :Vex<CR>
@@ -310,42 +309,42 @@ noremap <C-g><C-x> :call <SID>close_explorer_buffers()<CR>
 
 " Table mode
 function! s:isAtStartOfLine(mapping)
-  let text_before_cursor = getline('.')[0 : col('.')-1]
-  let mapping_pattern = '\V' . escape(a:mapping, '\')
-  let comment_pattern = '\V' . escape(substitute(&l:commentstring, '%s.*$', '', ''), '\')
-  return (text_before_cursor =~? '^' . ('\v(' . comment_pattern . '\v)?') . '\s*\v' . mapping_pattern . '\v$')
+    let text_before_cursor = getline('.')[0 : col('.')-1]
+    let mapping_pattern = '\V' . escape(a:mapping, '\')
+    let comment_pattern = '\V' . escape(substitute(&l:commentstring, '%s.*$', '', ''), '\')
+    return (text_before_cursor =~? '^' . ('\v(' . comment_pattern . '\v)?') . '\s*\v' . mapping_pattern . '\v$')
 endfunction
 
 inoreabbrev <expr> <bar><bar>
-          \ <SID>isAtStartOfLine('\|\|') ?
-          \ '<c-o>:TableModeEnable<cr><bar><space><bar><left><left>' : '<bar><bar>'
+  \ <SID>isAtStartOfLine('\|\|') ?
+  \ '<c-o>:TableModeEnable<cr><bar><space><bar><left><left>' : '<bar><bar>'
 inoreabbrev <expr> __
-          \ <SID>isAtStartOfLine('__') ?
-          \ '<c-o>:silent! TableModeDisable<cr>' : '__'
+  \ <SID>isAtStartOfLine('__') ?
+  \ '<c-o>:silent! TableModeDisable<cr>' : '__'
 
 " ============================== END ====================================
+
+" neosnippet {
+    imap <C-k>     <Plug>(neosnippet_expand_or_jump)
+    smap <C-k>     <Plug>(neosnippet_expand_or_jump)
+    xmap <C-k>     <Plug>(neosnippet_expand_target)
+    " xmap <C-l>     <Plug>(neosnippet_start_unite_snippet_target)
+
+    " SuperTab like snippets behavior.
+    " imap <expr><TAB> neosnippet#expandable_or_jumpable() ?
+    "  \ "\<Plug>(neosnippet_expand_or_jump)"
+    "  \: pumvisible() ? "\<C-n>" : "\<TAB>"
+    " smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
+    "  \ "\<Plug>(neosnippet_expand_or_jump)"
+    "  \: "\<TAB>"
+
+    " For snippet_complete marker.
+    if has('conceal')
+      set conceallevel=2 concealcursor=i
+    endif
+"}
 
 " Only project specific exec .vimrc from dir.
 " It is better to set this option at the end of the file.
 "set exrc " noexrc
 set secure
-
-" Plugin key-mappings.
-" Note: It must be "imap" and "smap".  It uses <Plug> mappings.
-imap <C-k>     <Plug>(neosnippet_expand_or_jump)
-smap <C-k>     <Plug>(neosnippet_expand_or_jump)
-xmap <C-k>     <Plug>(neosnippet_expand_target)
-
-" SuperTab like snippets behavior.
-" Note: It must be "imap" and "smap".  It uses <Plug> mappings.
-"imap <expr><TAB>
-" \ pumvisible() ? "\<C-n>" :
-" \ neosnippet#expandable_or_jumpable() ?
-" \    "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
-smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
-\ "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
-
-" For conceal markers.
-if has('conceal')
-  set conceallevel=2 concealcursor=niv
-endif
