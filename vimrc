@@ -88,6 +88,9 @@ highlight BadWhitespace ctermbg=red guibg=darkred
 set undofile
 set undodir="~/.vim/undodir"
 
+" Spilts diff screen VERTICALY, not horizontally!
+set diffopt+=vertical
+
 " Matchit.vim
 runtime macros/matchit.vim
 
@@ -106,7 +109,7 @@ iab <expr> dts! strftime("%Y-%m-%dT%H:%M:%S")
 "======================================================================
 "======================== Mappings ====================================
 "======================================================================
-" Disabled arrow to get us" Make work with Vim faster, 
+" Disabled arrow to get us" Make work with Vim faster,
 " use jk instead on <Esc>
 imap jk <Esc>
 
@@ -167,15 +170,15 @@ nnoremap <silent> ]T :tablast<CR>
 
 " Remove trailing Whitespaces
 function! <SID>StripTrailingWhitespaces()
-" Preparation: save last search, and cursor position.
-let _s=@/
-let l = line(".")
-let c = col(".")
-" Do the business:
-%s/\s\+$//e
-" Clean up: restore previous search history, and cursor position
-let @/=_s
-call cursor(l, c)
+    " Preparation: save last search, and cursor position.
+    let _s=@/
+    let l = line(".")
+    let c = col(".")
+    " Do the business:
+    %s/\s\+$//e
+    " Clean up: restore previous search history, and cursor position
+    let @/=_s
+    call cursor(l, c)
 endfunction
 nnoremap <silent> <leader><C-s><C-s> :call <SID>StripTrailingWhitespaces()<CR>
 
@@ -190,6 +193,9 @@ map <leader>es :sp %%
 map <leader>ev :vsp %%
 map <leader>et :tabe %%
 
+noremap <C-g> :Vex<CR>
+noremap <C-g><C-x> :call <SID>close_explorer_buffers()<CR>
+
 "======================================================================
 "========================== Plugins ===================================
 "======================================================================
@@ -203,6 +209,7 @@ call minpac#add('tpope/vim-commentary')
 call minpac#add('Shougo/neosnippet.vim')
 call minpac#add('Shougo/neosnippet-snippets')
 call minpac#add('vim-airline/vim-airline')
+call minpac#add('vim-airline/vim-airline-themes')
 call minpac#add('tpope/vim-surround')
 " call minpac#add('tpope/vim-abolish')
 call minpac#add('vim-syntastic/syntastic')
@@ -217,9 +224,9 @@ call minpac#add('dhruvasagar/vim-table-mode')
 call minpac#add('ervandew/supertab')
 
 " Lua
-call minpac#add('tbastos/vim-lua')
-call minpac#add('xolox/vim-misc')
-call minpac#add('xolox/vim-lua-ftplugin')
+" call minpac#add('tbastos/vim-lua')
+" call minpac#add('xolox/vim-misc')
+" call minpac#add('xolox/vim-lua-ftplugin')
 
 " Go
 call minpac#add('fatih/vim-go')
@@ -230,99 +237,87 @@ call minpac#add('alvan/vim-closetag')
 call minpac#add('vim-scripts/loremipsum')
 call minpac#add('prettier/vim-prettier')
 
-" Super Tab
-let g:SuperTabDefaultCompletionType = "<C-X><C-O>"
-
 " Cleans installed packages
 command! PackUpdate call minpac#update()
 command! PackClean call minpac#clean()
 
-" Spilts diff screen VERTICALY, not horizontally!
-set diffopt+=vertical
+" Super Tab {
+    let g:SuperTabDefaultCompletionType = "<C-X><C-O>"
+"}
 
-" Syntastic
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 1
-let g:syntastic_check_on_wq = 0
+" Syntastic {
+    set statusline+=%#warningmsg#
+    set statusline+=%{SyntasticStatuslineFlag()}
+    set statusline+=%*
+    let g:syntastic_always_populate_loc_list = 1
+    let g:syntastic_auto_loc_list = 1
+    let g:syntastic_check_on_open = 1
+    let g:syntastic_check_on_wq = 0
+"}
 
-" IndentLine
-" let g:indentLine_char_list = ['|', '¦', '┆', '┊']
-let g:indentLine_char_list = ['┊']
+" IndentLine {
+    " let g:indentLine_char_list = ['|', '¦', '┆', '┊']
+    let g:indentLine_char_list = ['┊']
+"}
 
-" Emmet
-let g:user_emmet_leader_key='<C-y>'
-let g:user_emmet_install_global = 0
-autocmd FileType html,css,markdown EmmetInstall
+" Emmet {
+    let g:user_emmet_leader_key='<C-y>'
+    let g:user_emmet_install_global = 0
+    autocmd FileType html,css,markdown EmmetInstall
+"}
 
-" Surround
-let g:surround_indent = 1
+" Surround {
+    let g:surround_indent = 1
+"}
 
-" CtrlP
-set wildignore+=*/node_modules/*,*.so,*.swp,*.zip,*.git
+" CtrlP {
+    set wildignore+=*/node_modules/*,*.so,*.swp,*.zip,*.git
+"}
 
-" Lua
-" let g:lua_syntax_someoption = 1
-" let g:lua_complete_omni = 1
+" Lua {
+    " let g:lua_syntax_someoption = 1
+    " let g:lua_complete_omni = 1
+"}
 
-" Airline
-" air-line plugin specific commands
-let g:airline_powerline_fonts = 1
+" netrw standard plugin {
+    let g:netrw_banner = 1 " 0 for remove banner, I command toggles banner
+    let g:netrw_liststyle = 3
+    " 1 - open files in a new horizontal split
+    " 2 - open files in a new vertical split
+    " 3 - open files in a new tab
+    " 4 - open in previous window
+    let g:netrw_browse_split = 4
+    let g:netrw_winsize = 100 " in percent
+    let g:netrw_altv = 1
+    function! s:close_explorer_buffers()
+       for i in range(1, bufnr('$'))
+           if getbufvar(i, '&filetype') == "netrw"
+               silent exe 'bdelete! ' . i
+           endif
+       endfor
+   endfunction
+"}
 
-if !exists('g:airline_symbols')
-let g:airline_symbols = {}
-endif
+" ctags {
+    " autocmd BufWritePost * call system("ctags -R")
+"}
 
-" netrw standard plugin
-let g:netrw_banner = 1 " 0 for remove banner, I command toggles banner
-let g:netrw_liststyle = 3
-" 1 - open files in a new horizontal split
-" 2 - open files in a new vertical split
-" 3 - open files in a new tab
-" 4 - open in previous window
-let g:netrw_browse_split = 4
-let g:netrw_winsize = 100 " in percent
-let g:netrw_altv = 1
+" Table mode {
+    function! s:isAtStartOfLine(mapping)
+        let text_before_cursor = getline('.')[0 : col('.')-1]
+        let mapping_pattern = '\V' . escape(a:mapping, '\')
+        let comment_pattern = '\V' . escape(substitute(&l:commentstring, '%s.*$', '', ''), '\')
+        return (text_before_cursor =~? '^' . ('\v(' . comment_pattern . '\v)?') . '\s*\v' . mapping_pattern . '\v$')
+    endfunction
 
-function! s:close_explorer_buffers()
-for i in range(1, bufnr('$'))
-if getbufvar(i, '&filetype') == "netrw"
-silent exe 'bdelete! ' . i
-endif
-endfor
-endfunction
+    inoreabbrev <expr> <bar><bar>
+      \ <SID>isAtStartOfLine('\|\|') ?
+      \ '<c-o>:TableModeEnable<cr><bar><space><bar><left><left>' : '<bar><bar>'
+    inoreabbrev <expr> __
+      \ <SID>isAtStartOfLine('__') ?
+      \ '<c-o>:silent! TableModeDisable<cr>' : '__'
 
-noremap <C-g> :Vex<CR>
-noremap <C-g><C-x> :call <SID>close_explorer_buffers()<CR>
-
-" Auto open project drawer for Vim like NERDTree
-" augroup ProjectDrawer
-"   autocmd!
-"   autocmd VimEnter * :Vexplore
-" augroup END
-"
-" ctags
-" autocmd BufWritePost * call system("ctags -R")
-
-" Table mode
-function! s:isAtStartOfLine(mapping)
-    let text_before_cursor = getline('.')[0 : col('.')-1]
-    let mapping_pattern = '\V' . escape(a:mapping, '\')
-    let comment_pattern = '\V' . escape(substitute(&l:commentstring, '%s.*$', '', ''), '\')
-    return (text_before_cursor =~? '^' . ('\v(' . comment_pattern . '\v)?') . '\s*\v' . mapping_pattern . '\v$')
-endfunction
-
-inoreabbrev <expr> <bar><bar>
-  \ <SID>isAtStartOfLine('\|\|') ?
-  \ '<c-o>:TableModeEnable<cr><bar><space><bar><left><left>' : '<bar><bar>'
-inoreabbrev <expr> __
-  \ <SID>isAtStartOfLine('__') ?
-  \ '<c-o>:silent! TableModeDisable<cr>' : '__'
-
-" ============================== END ====================================
+"}
 
 " neosnippet {
     imap <C-k>     <Plug>(neosnippet_expand_or_jump)
@@ -343,6 +338,17 @@ inoreabbrev <expr> __
       set conceallevel=2 concealcursor=i
     endif
 "}
+
+" airline {
+   let g:airline_theme='serene'
+   " if !exists('g:airline_symbols')
+   "    let g:airline_symbols = {}
+   " endif
+   let g:airline_symbols.colnr = ':'
+   let g:airline_symbols.linenr = ' '
+   let g:airline_symbols.maxlinenr = ''
+"}
+" ============================== END ====================================
 
 " Only project specific exec .vimrc from dir.
 " It is better to set this option at the end of the file.
