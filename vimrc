@@ -219,9 +219,9 @@ call minpac#add('dhruvasagar/vim-table-mode')
 call minpac#add('ervandew/supertab')
 
 " Lua
-" call minpac#add('tbastos/vim-lua')
-" call minpac#add('xolox/vim-misc')
-" call minpac#add('xolox/vim-lua-ftplugin')
+call minpac#add('tbastos/vim-lua')
+call minpac#add('xolox/vim-misc')
+call minpac#add('xolox/vim-lua-ftplugin')
 
 " Go
 call minpac#add('fatih/vim-go')
@@ -251,8 +251,8 @@ command! PackClean call minpac#clean()
 "}
 
 " IndentLine {
-    " let g:indentLine_char_list = ['|', '¦', '┆', '┊']
-    let g:indentLine_char_list = ['┊']
+    let g:indentLine_char_list = ['|', '¦', '┆', '┊']
+    " let g:indentLine_char_list = ['┊']
 "}
 
 " Emmet {
@@ -336,9 +336,9 @@ command! PackClean call minpac#clean()
 
 " airline {
    let g:airline_theme='serene'
-   " if !exists('g:airline_symbols')
-   "    let g:airline_symbols = {}
-   " endif
+   if !exists('g:airline_symbols')
+      let g:airline_symbols = {}
+   endif
    let g:airline_symbols.colnr = ':'
    let g:airline_symbols.linenr = ' '
    let g:airline_symbols.maxlinenr = ''
