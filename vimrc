@@ -3,6 +3,12 @@
 "======================================================================
 let $VIMRUNTIME="$HOME/.vim"
 
+" No compat with vi
+set nocompatible
+
+" Backspace setup
+set backspace=indent,eol,start
+
 " Set line numbers
 set number
 
