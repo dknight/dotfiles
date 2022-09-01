@@ -1,17 +1,6 @@
 "======================================================================
 "======================== Usability ===================================
 "======================================================================
-let $VIMRUNTIME="$HOME/.vim"
-
-" No compat with vi
-set nocompatible
-
-" Backspace setup
-set backspace=indent,eol,start
-
-" Set line numbers
-set number
-
 " utf-8 for files.
 set fileencoding=utf-8
 
@@ -63,7 +52,7 @@ highlight ColorColumn ctermbg=232 guibg=#262626
 let &colorcolumn="75,79"
 
 " Show hidden symbols
-" set nolist
+set list
 
 " set listchars=tab:▸\ ,eol:$,trail:.
 set listchars=tab:▸\ ,trail:.
@@ -352,6 +341,16 @@ command! PackClean call minpac#clean()
    let g:airline_symbols.linenr = ' '
    let g:airline_symbols.maxlinenr = ''
 "}
+
+" vim-go {
+   au FileType go nmap <F5> :w<CR>:GoRun %<CR>
+   au FileType go nmap <F6> :w<CR>:GoBuild<CR>
+   au FileType go nmap <F6> :w<CR>:GoDef<CR>
+   au FileType go set tabstop=4
+   au FileType go set shiftwidth=4
+   au FileType go set softtabstop=4
+"}
+
 " ============================== END ====================================
 
 " Only project specific exec .vimrc from dir.
