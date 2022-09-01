@@ -1,6 +1,8 @@
 "======================================================================
 "======================== Usability ===================================
 "======================================================================
+let $VIMRUNTIME="$HOME/.vim"
+
 " Set line numbers
 set number
 
@@ -132,9 +134,6 @@ map <leader>s :set spell!<CR>
 " Use spell check
 nmap <silent> <leader>l :set spell!<CR>
 
-" Edit .vimrc in new tab
-nmap <leader>v :tabedit $VIM/vimrc<CR>
-
 " Buffers navigation
 nnoremap <silent> [b :bprev<CR>
 nnoremap <silent> ]b :bnext<CR>
@@ -205,7 +204,6 @@ call minpac#init()
 
 " Common
 call minpac#add('tpope/vim-commentary')
-" call minpac#add('SirVer/ultisnips')
 call minpac#add('Shougo/neosnippet.vim')
 call minpac#add('Shougo/neosnippet-snippets')
 call minpac#add('vim-airline/vim-airline')
