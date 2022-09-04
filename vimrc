@@ -29,7 +29,7 @@ set foldmethod=indent
 set foldlevel=99
 
 " Force Vim to use system clipboard
-set clipboard=unnamedplus
+" set clipboard=unnamedplus
 
 " Set my favourite dark scheme, cannot live without it.
 set termguicolors
