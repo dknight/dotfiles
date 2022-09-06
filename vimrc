@@ -354,6 +354,9 @@ command! PackClean call minpac#clean()
    au FileType go set completeopt=longest,menuone
 "}
 
+" shell {
+    au FileType sh nmap <F5> :w<CR>!%</CR>
+"}
 " ============================== END ====================================
 
 " Only project specific exec .vimrc from dir.
