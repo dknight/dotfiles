@@ -1,7 +1,8 @@
 "======================================================================
-"======================== Variables ===================================
+"======================== Global Variables ============================
 "======================================================================
-  let s:uname = system("uname -s")
+" let s:uname = system("uname -s")
+
 "======================================================================
 "======================== Usability ===================================
 "======================================================================
@@ -35,11 +36,7 @@ set foldlevel=99
 " Force Vim to use system clipboard
 " set clipboard=unnamedplus
 
-" Set my favourite dark scheme, cannot live without it.
-if s:uname == "Linux"
-  set termguicolors
-  set background=dark
-endif
+" Set my favourite dark scheme.
 colorscheme tokyonight
 let g:tokyonight_style='night'
 " colorscheme darkspace
