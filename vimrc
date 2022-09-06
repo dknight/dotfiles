@@ -1,4 +1,8 @@
 "======================================================================
+"======================== Variables ===================================
+"======================================================================
+  let s:uname = system("uname -s")
+"======================================================================
 "======================== Usability ===================================
 "======================================================================
 set number
@@ -32,8 +36,10 @@ set foldlevel=99
 " set clipboard=unnamedplus
 
 " Set my favourite dark scheme, cannot live without it.
-set termguicolors
-set background=dark
+if s:uname == "Linux"
+  set termguicolors
+  set background=dark
+endif
 colorscheme tokyonight
 let g:tokyonight_style='night'
 " colorscheme darkspace
