@@ -62,10 +62,14 @@ set list
 " set listchars=tab:▸\ ,eol:$,trail:.
 set listchars=tab:▸\ ,trail:.
 
-" Invisible character colors
-highlight NonText guifg=#4a4a59 ctermfg=233
-highlight SpecialKey guifg=#4a4a59 ctermfg=233
-highlight Todo ctermfg=black ctermbg=yellow
+" Highlights
+highlight NonText guifg=#4a4a59 ctermfg=232
+highlight SpecialKey guifg=#4a4a59 ctermfg=232
+highlight Todo ctermfg=9 ctermbg=11
+
+" Highlight cursor line
+set cursorline
+highlight CursorLineNr ctermfg=185
 
 " Searching
 set ignorecase      " searches are case insensitive...
