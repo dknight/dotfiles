@@ -151,8 +151,8 @@ nnoremap <silent> [C :cfirst<CR>
 nnoremap <silent> ]C :clast<CR>
 
 " Move line up and down
-nnoremap <C-S-j> :m .+1<CR>==
-nnoremap <C-S-k> :m .-2<CR>==
+nnoremap <leader>j :m.+1<CR>
+nnoremap <leader>k :m.-2<CR>
 
 " Repeat command with Q (resets default Ex-mode mode with Q)
 nnoremap Q @='n.'<CR>
