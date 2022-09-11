@@ -41,9 +41,9 @@ colorscheme tokyonight
 let g:tokyonight_style='night'
 " colorscheme darkspace
 
-" set tabstop=4
-" set shiftwidth=4
-" set softtabstop=4
+ set tabstop=4
+ set shiftwidth=4
+ set softtabstop=4
 " set noexpandtab
 "
 " Smartindent, do not forgot this
@@ -218,7 +218,7 @@ call minpac#add('vim-syntastic/syntastic')
 call minpac#add('ctrlpvim/ctrlp.vim')
 call minpac#add('Yggdroot/indentLine')
 call minpac#add('rstacruz/vim-closer')
-" call minpac#add('tpope/vim-endwise')
+call minpac#add('tpope/vim-endwise')
 " call minpac#add('jiangmiao/auto-pairs')
 call minpac#add('nelstrom/vim-visual-star-search')
 " call minpac#add('neoclide/coc.nvim')
