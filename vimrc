@@ -173,7 +173,7 @@ nnoremap <silent> ]T :tablast<CR>
 
 " Remove trailing Whitespaces
 function! <SID>StripTrailingWhitespaces()
-    " Preparation: save last search, and cursor position.
+    " Preparation : save last search, and cursor position.
     let _s=@/
     let l = line(".")
     let c = col(".")
@@ -277,8 +277,8 @@ command! PackClean call minpac#clean()
 "}
 
 " Lua {
-    " let g:lua_syntax_someoption = 1
-    " let g:lua_complete_omni = 1
+    let g:lua_syntax_someoption = 1
+    let g:lua_complete_omni = 1
 "}
 
 " netrw standard plugin {
@@ -292,10 +292,10 @@ command! PackClean call minpac#clean()
     let g:netrw_winsize = 100 " in percent
     let g:netrw_altv = 1
     function! s:close_explorer_buffers()
-       for i in range(1, bufnr('$'))
-           if getbufvar(i, '&filetype') == "netrw"
-               silent exe 'bdelete! ' . i
-           endif
+        for i in range(1, bufnr('$'))
+            if getbufvar(i, '&filetype') == "netrw"
+                silent exe 'bdelete! ' . i
+            endif
        endfor
    endfunction
 "}
@@ -337,46 +337,46 @@ command! PackClean call minpac#clean()
 
     " For snippet_complete marker.
     if has('conceal')
-      set conceallevel=2 concealcursor=i
+        set conceallevel=2 concealcursor=i
     endif
 "}
 
 " airline {
-  let g:airline_theme='serene'
-  if !exists('g:airline_symbols')
-    let g:airline_symbols = {}
-  endif
-  let g:airline_symbols.colnr = ':'
-  let g:airline_symbols.linenr = ' '
-  let g:airline_symbols.maxlinenr = ''
+    let g:airline_theme='serene'
+    if !exists('g:airline_symbols')
+        let g:airline_symbols = {}
+    endif
+    let g:airline_symbols.colnr = ':'
+    let g:airline_symbols.linenr = ' '
+    let g:airline_symbols.maxlinenr = ''
 "}
 
 " vim-go {
-  au FileType go nmap <F5> :w<CR>:GoRun %<CR>
-  au FileType go nmap <F6> :w<CR>:GoBuild<CR>
-  au FileType go nmap <F6> :w<CR>:GoDef<CR>
-  au FileType go set tabstop=4
-  au FileType go set shiftwidth=4
-  au FileType go set softtabstop=4
-  au FileType go set completeopt=longest,menuone
+    au FileType go nmap <F5> :w<CR>:GoRun %<CR>
+    au FileType go nmap <F6> :w<CR>:GoBuild<CR>
+    au FileType go nmap <F6> :w<CR>:GoDef<CR>
+    au FileType go set tabstop=4
+    au FileType go set shiftwidth=4
+    au FileType go set softtabstop=4
+    au FileType go set completeopt=longest,menuone
 "}
 
 " html {
-  au FileType html set tabstop=2
-  au FileType html set shiftwidth=2
-  au FileType html set softtabstop=2
+    au FileType html set tabstop=2
+    au FileType html set shiftwidth=2
+    au FileType html set softtabstop=2
 "}
 
 " css {
-  au FileType css set tabstop=2
-  au FileType css set shiftwidth=2
-  au FileType css set softtabstop=2
+    au FileType css set tabstop=2
+    au FileType css set shiftwidth=2
+    au FileType css set softtabstop=2
 "}
 
 " html {
-  au FileType javascript set tabstop=4
-  au FileType javascript set shiftwidth=4
-  au FileType javascript set softtabstop=4
+    au FileType javascript set tabstop=4
+    au FileType javascript set shiftwidth=4
+    au FileType javascript set softtabstop=4
 "}
 
 " shell {
