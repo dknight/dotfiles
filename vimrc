@@ -124,9 +124,6 @@ map <down> <nop>
 map <left> <nop>
 map <right> <nop>
 
-" Clear search highlight
-map <silent> <C-l> :noh<CR>
-
 tnoremap <Esc> <C-\><C-n>
 
 " Ctrl+S for save files
@@ -219,9 +216,6 @@ call minpac#add('ctrlpvim/ctrlp.vim')
 call minpac#add('Yggdroot/indentLine')
 call minpac#add('jiangmiao/auto-pairs')
 call minpac#add('nelstrom/vim-visual-star-search')
-call minpac#add('neoclide/coc.nvim')
-" Fix coc when needed
-" exec coc#util#install() 
 call minpac#add('dhruvasagar/vim-table-mode')
 call minpac#add('ervandew/supertab')
 
