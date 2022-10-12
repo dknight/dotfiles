@@ -37,6 +37,7 @@ set foldlevel=99
 " set clipboard=unnamedplus
 
 " Set my favourite dark scheme.
+set termguicolors
 colorscheme tokyonight
 let g:tokyonight_style='night'
 " colorscheme darkspace
