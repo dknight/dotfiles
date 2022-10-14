@@ -66,11 +66,12 @@ set listchars=tab:▸\ ,trail:.
 " Highlights
 highlight NonText guifg=#4a4a59 ctermfg=232
 highlight SpecialKey guifg=#4a4a59 ctermfg=232
-highlight Todo ctermfg=9 ctermbg=11
+highlight Todo ctermfg=9 ctermbg=220 cterm=bold
 
 " Highlight cursor line
 set cursorline
 highlight CursorLineNr ctermfg=185
+highlight CursorLine ctermfg=185 guibg=None
 
 " Searching
 set ignorecase      " searches are case insensitive...
