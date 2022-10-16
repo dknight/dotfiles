@@ -93,6 +93,7 @@ set lazyredraw
 " Flagging Unnecessary Whitespace
 highlight BadWhitespace ctermbg=red guibg=darkred
 
+
 " Undo settings
 set undofile
 set undodir="~/.vim/undodir"
@@ -198,6 +199,8 @@ map <leader>et :tabe %%
 
 noremap <C-g> :Vex<CR>
 noremap <C-g><C-x> :call <SID>close_explorer_buffers()<CR>
+
+nnoremap <C-l> :set hlsearch!<CR>
 
 "======================================================================
 "========================== Plugins ===================================
@@ -357,6 +360,15 @@ command! PackClean call minpac#clean()
     au FileType go set completeopt=longest,menuone
 "}
 
+" UltiSnips {
+    let g:UltiSnipsExpandTrigger="<tab>"
+    let g:UltiSnipsJumpForwardTrigger="<c-b>"
+    let g:UltiSnipsJumpBackwardTrigger="<c-z>"
+    let g:UltiSnipsEditSplit="vertical"
+"}
+
+" If you want :UltiSnipsEdit to split your window.
+let g:UltiSnipsEditSplit="vertical"
 " html {
     au FileType html set tabstop=2
     au FileType html set shiftwidth=2
