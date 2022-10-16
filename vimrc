@@ -6,6 +6,7 @@
 "======================================================================
 "======================== Usability ===================================
 "======================================================================
+set nocompatible
 set number
 
 " utf-8 for files.
@@ -37,7 +38,7 @@ set foldlevel=99
 " set clipboard=unnamedplus
 
 " Set my favourite dark scheme.
-set termguicolors
+" "set termguicolors
 colorscheme tokyonight
 let g:tokyonight_style='night'
 " colorscheme darkspace
@@ -71,7 +72,7 @@ highlight Todo ctermfg=9 ctermbg=220 cterm=bold
 " Highlight cursor line
 set cursorline
 highlight CursorLineNr ctermfg=185
-highlight CursorLine ctermfg=185 guibg=None
+" highlight CursorLine ctermfg=185
 
 " Searching
 set ignorecase      " searches are case insensitive...
@@ -207,8 +208,7 @@ call minpac#init()
 
 " Common
 call minpac#add('tpope/vim-commentary')
-call minpac#add('Shougo/neosnippet.vim')
-call minpac#add('Shougo/neosnippet-snippets')
+call minpac#add('sirver/UltiSnips')
 call minpac#add('vim-airline/vim-airline')
 call minpac#add('vim-airline/vim-airline-themes')
 call minpac#add('tpope/vim-surround')
