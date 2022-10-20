@@ -26,6 +26,9 @@ set omnifunc=syntaxcomplete#Complete
 " Syntax hightlighting
 syntax on
 
+" Allow hidden buffers.
+set hidden
+
 " Set language for spell check
 set spelllang=en_us
 "set spelllang=ru_ru
