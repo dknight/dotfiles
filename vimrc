@@ -323,26 +323,6 @@ command! PackClean call minpac#clean()
 
 "}
 
-" neosnippet {
-    imap <C-k>     <Plug>(neosnippet_expand_or_jump)
-    smap <C-k>     <Plug>(neosnippet_expand_or_jump)
-    xmap <C-k>     <Plug>(neosnippet_expand_target)
-    " xmap <C-l>     <Plug>(neosnippet_start_unite_snippet_target)
-
-    " SuperTab like snippets behavior.
-    " imap <expr><TAB> neosnippet#expandable_or_jumpable() ?
-    "  \ "\<Plug>(neosnippet_expand_or_jump)"
-    "  \: pumvisible() ? "\<C-n>" : "\<TAB>"
-    " smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
-    "  \ "\<Plug>(neosnippet_expand_or_jump)"
-    "  \: "\<TAB>"
-
-    " For snippet_complete marker.
-    if has('conceal')
-        set conceallevel=2 concealcursor=i
-    endif
-"}
-
 " airline {
     let g:airline_theme='serene'
     if !exists('g:airline_symbols')
@@ -370,8 +350,6 @@ command! PackClean call minpac#clean()
     let g:UltiSnipsEditSplit="vertical"
 "}
 
-" If you want :UltiSnipsEdit to split your window.
-let g:UltiSnipsEditSplit="vertical"
 " html {
     au FileType html set tabstop=2
     au FileType html set shiftwidth=2
