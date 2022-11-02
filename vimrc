@@ -362,12 +362,19 @@ command! PackClean call minpac#clean()
     au FileType css set softtabstop=2
 "}
 
-" html {
+" javascript {
     au FileType javascript set tabstop=4
     au FileType javascript set shiftwidth=4
     au FileType javascript set softtabstop=4
 "}
 
+" lua {
+    au FileType lua set tabstop=2
+    au FileType lua set shiftwidth=2
+    au FileType lua set softtabstop=2
+    au FileType lua nmap <F5> :w<CR>:!lua %<CR>
+    au FileType lua nmap <F6> :w<CR>:!make<CR>
+"}
 " shell {
     au FileType sh nmap <F5> :w<CR>!%</CR>
 "}
