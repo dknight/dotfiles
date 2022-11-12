@@ -12,6 +12,10 @@ set number
 " utf-8 for files.
 set fileencoding=utf-8
 
+" Change cursors
+let &t_SI = "\e[6 q"
+let &t_EI = "\e[2 q"
+
 " Disable error sounds and window flash
 " set noerrorbells visualbell t_vb=
 " set t_vb=
