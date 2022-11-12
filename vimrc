@@ -42,8 +42,7 @@ set foldlevel=99
 
 " Set my favourite dark scheme.
 " "set termguicolors
-colorscheme tokyonight
-let g:tokyonight_style='night'
+colorscheme znake
 " colorscheme darkspace
 
 set tabstop=4
@@ -226,6 +225,7 @@ call minpac#add('jiangmiao/auto-pairs')
 call minpac#add('nelstrom/vim-visual-star-search')
 call minpac#add('dhruvasagar/vim-table-mode')
 call minpac#add('ervandew/supertab')
+call minpac#add('flazz/vim-colorschemes')
 
 " Lua
 call minpac#add('tbastos/vim-lua')
@@ -260,8 +260,9 @@ command! PackClean call minpac#clean()
 "}
 
 " IndentLine {
+    let g:indentLine_color_term = 233
+    let g:indentLine_setColors = 1
     let g:indentLine_char_list = ['|', '¦', '┆', '┊']
-    " let g:indentLine_char_list = ['┊']
 "}
 
 " Emmet {
@@ -276,11 +277,6 @@ command! PackClean call minpac#clean()
 
 " CtrlP {
     set wildignore+=*/node_modules/*,*.so,*.swp,*.zip,*.git
-"}
-
-" Lua {
-    let g:lua_syntax_someoption = 1
-    let g:lua_complete_omni = 1
 "}
 
 " netrw standard plugin {
@@ -349,6 +345,10 @@ command! PackClean call minpac#clean()
     let g:UltiSnipsJumpBackwardTrigger="<c-z>"
     let g:UltiSnipsEditSplit="vertical"
 "}
+"
+"indentLine {
+  let g:indentLine_color_term = 232
+"}
 
 " html {
     au FileType html set tabstop=2
@@ -369,6 +369,8 @@ command! PackClean call minpac#clean()
 "}
 
 " lua {
+    let g:lua_syntax_someoption = 1
+    let g:lua_complete_omni = 1
     au FileType lua set tabstop=2
     au FileType lua set shiftwidth=2
     au FileType lua set softtabstop=2
