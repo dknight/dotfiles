@@ -61,7 +61,7 @@ set smartindent
 set rulerformat=%l,%v
 
 " Will work in old unix style with max line size of 79 chars
-highlight ColorColumn ctermbg=232 guibg=#262626
+highlight ColorColumn ctermbg=234
 let &colorcolumn="75,79"
 
 " Show hidden symbols
@@ -71,14 +71,14 @@ set list
 set listchars=tab:▸\ ,trail:.
 
 " Highlights
-highlight NonText guifg=#4a4a59 ctermfg=232
-highlight SpecialKey guifg=#4a4a59 ctermfg=232
-highlight Todo ctermfg=9 ctermbg=220 cterm=bold
+highlight NonText ctermfg=233
+highlight SpecialKey ctermfg=233
+highlight Todo ctermfg=9 ctermbg=214 cterm=bold
 
 " Highlight cursor line
 set cursorline
-highlight CursorLineNr ctermfg=185
-" highlight CursorLine ctermfg=185
+" highlight CursorLineNr ctermfg=4
+highlight CursorLine ctermbg=233 ctermfg=none
 
 " Searching
 set ignorecase      " searches are case insensitive...
@@ -86,8 +86,8 @@ set infercase       " completion case
 set smartcase       " unless they contain at least one capital letter
 
 " Hightlight search colors
-hi! Search cterm=NONE ctermbg=221
-hi! TermCursorNC ctermfg=15 guifg=#fdf6e3 ctermbg=14 guibg=#93a1a1 cterm=NONE gui=NONE
+hi! Search cterm=none ctermbg=221
+hi! TermCursorNC ctermfg=15 ctermbg=14 cterm=none
 
 " save up to 100 marks, enable capital marks
 set viminfo='100,f1
@@ -97,8 +97,7 @@ set viminfo='100,f1
 set lazyredraw
 
 " Flagging Unnecessary Whitespace
-highlight BadWhitespace ctermbg=red guibg=darkred
-
+highlight BadWhitespace ctermbg=red
 
 " Undo settings
 set undofile
@@ -263,9 +262,8 @@ command! PackClean call minpac#clean()
     let g:syntastic_check_on_wq = 0
 "}
 
-" IndentLine {
-    let g:indentLine_color_term = 233
-    let g:indentLine_setColors = 1
+" indentLine {
+    " let g:indentLine_color_term = 232
     let g:indentLine_char_list = ['|', '¦', '┆', '┊']
 "}
 
@@ -350,9 +348,6 @@ command! PackClean call minpac#clean()
     let g:UltiSnipsEditSplit="vertical"
 "}
 "
-"indentLine {
-  let g:indentLine_color_term = 232
-"}
 
 " html {
     au FileType html set tabstop=2
