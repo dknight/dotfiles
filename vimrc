@@ -42,7 +42,7 @@ set foldlevel=99
 
 " Set my favourite dark scheme.
 " "set termguicolors
-colorscheme znake
+colorscheme wasabi256
 " colorscheme darkspace
 
 set tabstop=4
