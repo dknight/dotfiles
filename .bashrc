@@ -9,7 +9,7 @@ fi
 export GOPATH="$HOME/go"
 export GOROOT="/usr/lib/golang"
 export PATH="/home/xdkn1ght/.luarocks/bin:/usr/lib64/ccache:/usr/local/bin:/usr/bin:/bin:/usr/local/sbin:/usr/sbin:$HOME/.local/bin:$HOME/bin:$GOPATH/bin"
-export VIM="$HOME/.config/vim"
+export VIM="$HOME/.config/nvim"
 export LYNX_CFG="$HOME/lab/dotfiles/lynx.cfg"
 
 # ======== ALIASES ========
@@ -23,8 +23,8 @@ alias la='ls -A'
 alias l='ls -CF'
 alias l.='ls -d .* --color=auto'
 alias serve="browser-sync $1"
-alias vim=vimx
-alias vi=vimx
+alias vim=nvim
+alias vi=nvim
 
 # ======== COSMETICS ========
 [ -n "$XTERM_VERSION" ] && transset-df -a 0.98 --id "$WINDOWID" >/dev/null
