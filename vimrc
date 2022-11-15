@@ -1,3 +1,4 @@
+" I try to keep it compatible with vim and neovim both.
 "======================================================================
 "======================== Global Variables ============================
 "======================================================================
@@ -216,7 +217,8 @@ call minpac#init()
 
 " Common
 call minpac#add('tpope/vim-commentary')
-call minpac#add('sirver/UltiSnips')
+call minpac#add('Shougo/neosnippet.vim')
+call minpac#add('Shougo/neosnippet-snippets')
 call minpac#add('vim-airline/vim-airline')
 call minpac#add('vim-airline/vim-airline-themes')
 call minpac#add('tpope/vim-surround')
@@ -321,6 +323,27 @@ command! PackClean call minpac#clean()
 
 "}
 
+" neosnippets {
+    " Note: It must be "imap" and "smap".  It uses <Plug> mappings.
+    imap <C-k>     <Plug>(neosnippet_expand_or_jump)
+    smap <C-k>     <Plug>(neosnippet_expand_or_jump)
+    xmap <C-k>     <Plug>(neosnippet_expand_target)
+
+    " SuperTab like snippets behavior.
+    " Note: It must be "imap" and "smap".  It uses <Plug> mappings.
+    "imap <expr><TAB>
+    " \ pumvisible() ? "\<C-n>" :
+    " \ neosnippet#expandable_or_jumpable() ?
+    " \    "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
+    smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
+    \ "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
+
+    " For conceal markers.
+    if has('conceal')
+    set conceallevel=2 concealcursor=niv
+    endif
+"}
+
 " airline {
     let g:airline_theme='serene'
     if !exists('g:airline_symbols')
@@ -340,14 +363,6 @@ command! PackClean call minpac#clean()
     au FileType go set softtabstop=4
     au FileType go set completeopt=longest,menuone
 "}
-
-" UltiSnips {
-    let g:UltiSnipsExpandTrigger="<tab>"
-    let g:UltiSnipsJumpForwardTrigger="<c-b>"
-    let g:UltiSnipsJumpBackwardTrigger="<c-z>"
-    let g:UltiSnipsEditSplit="vertical"
-"}
-"
 
 " html {
     au FileType html set tabstop=2
