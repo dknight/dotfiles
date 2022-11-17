@@ -10,6 +10,9 @@
 set nocompatible
 set number
 
+" Disable mouse for neovim
+set mouse=
+
 " utf-8 for files.
 set fileencoding=utf-8
 
