@@ -77,7 +77,7 @@ set listchars=tab:▸\ ,trail:.
 " Highlights
 highlight NonText ctermfg=233
 highlight SpecialKey ctermfg=233
-highlight Todo ctermfg=9 ctermbg=214 cterm=bold
+highlight Todo ctermbg=None ctermfg=11 cterm=Bold
 
 " Highlight cursor line
 set cursorline
