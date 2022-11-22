@@ -357,7 +357,7 @@ command! PackClean call minpac#clean()
     let g:airline_symbols.maxlinenr = ''
 "}
 
-" vim-go {
+" go {
     au FileType go nmap <F4> :w<CR>:GoDef<CR>
     au FileType go nmap <F5> :w<CR>:GoRun %<CR>
     au FileType go nmap <F6> :w<CR>:GoBuild<CR>
@@ -365,6 +365,11 @@ command! PackClean call minpac#clean()
     au FileType go set shiftwidth=4
     au FileType go set softtabstop=4
     au FileType go set completeopt=longest,menuone
+    let g:go_term_enabled=0
+    let g:go_term_reuse=1
+    let g:go_term_mode=":split eadirection"
+    let g:go_term_close_on_exit = 0
+    let g:go_term_height=40
 "}
 
 " html {
