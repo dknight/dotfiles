@@ -71,12 +71,11 @@ let &colorcolumn="75,79"
 " Show hidden symbols
 set list
 
-" set listchars=tab:▸\ ,eol:$,trail:.
-set listchars=tab:▸\ ,trail:.
+set listchars=tab:▸\ ,trail:.,extends:>,precedes:< ",eol:$
 
 " Highlights
-highlight NonText ctermfg=233
-highlight SpecialKey ctermfg=233
+highlight NonText ctermfg=234
+highlight SpecialKey ctermfg=234
 highlight Todo ctermbg=None ctermfg=11 cterm=Bold
 
 " Highlight cursor line
