@@ -197,6 +197,10 @@ nnoremap <silent> <leader><C-s><C-s> :call <SID>StripTrailingWhitespaces()<CR>
 " Expands the path by %% expression
 cnoremap %% <C-R>=fnameescape(expand('%:h')).'/'<cr>
 
+" Show traling spaces
+match TrailingSpaces /\s\+$/
+highlight TrailingSpaces ctermbg=red guibg=red
+
 " From Practical Vim book
 " cnoremap <expr> %% getcmdtype() == ':' ? expand('%:h').'/' : '%%'
 
