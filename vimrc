@@ -39,7 +39,13 @@ set hidden
 
 " Set language for spell check
 set spelllang=en_us
-"set spelllang=ru_ru
+
+" TODO make function to swith to russian.
+" set spelllang=ru_ru
+" set keymap=russian-jcuken
+
+" TODO contribute estonian language (when free time or ask help)
+" http://ftp.vim.org/vim/runtime/spell/README.txt
 
 " Enable folding
 set foldmethod=indent
