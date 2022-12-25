@@ -406,8 +406,8 @@ command! PackClean call minpac#clean()
     au FileType lua nmap <F5> :w<CR>:!lua %<CR>
     au FileType lua nmap <F6> :w<CR>:!make<CR>
 "}
-" shell {
-    au FileType sh nmap <F5> :w<CR>!%</CR>
+" sh {
+    au FileType sh nmap <F5> :w<CR>:!%%%<CR>
 "}
 " ============================== END ====================================
 
