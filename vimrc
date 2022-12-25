@@ -109,6 +109,9 @@ set undodir="~/.vim/undodir"
 " Spilts diff screen VERTICALY, not horizontally!
 set diffopt+=vertical
 
+" Hard wrap (experimental for me).
+set textwidth=80
+
 " Matchit.vim
 runtime macros/matchit.vim
 
