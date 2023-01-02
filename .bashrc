@@ -7,8 +7,9 @@ if command -v most > /dev/null 2>&1; then
     export PAGER="most"
 fi
 export GOPATH="$HOME/go"
+export GOBIN="$GOPATH/bin"
 export GOROOT="/usr/lib/golang"
-export PATH="/home/xdkn1ght/.luarocks/bin:/usr/lib64/ccache:/usr/local/bin:/usr/bin:/bin:/usr/local/sbin:/usr/sbin:$HOME/.local/bin:$HOME/bin:$GOPATH/bin"
+export PATH="/home/xdkn1ght/.luarocks/bin:/usr/lib64/ccache:/usr/local/bin:/usr/bin:/bin:/usr/local/sbin:/usr/sbin:$HOME/.local/bin:$HOME/bin:$GOBIN"
 export VIM="$HOME/.config/nvim"
 export LYNX_CFG="$HOME/lab/dotfiles/lynx.cfg"
 
