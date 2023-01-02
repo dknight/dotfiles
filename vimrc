@@ -116,7 +116,7 @@ set undodir="~/.vim/undodir"
 set diffopt+=vertical
 
 " Hard wrap (experimental for me).
-set textwidth=80
+set textwidth=78
 
 " Matchit.vim
 runtime macros/matchit.vim
