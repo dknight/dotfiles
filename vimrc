@@ -386,7 +386,7 @@ command! PackClean call minpac#clean()
     let g:go_term_mode=":split eadirection"
     let g:go_term_close_on_exit = 0
     let g:go_term_height=40
-    au BufReadPost *.gohtml set syntax=html
+    autocmd BufNewFile,BufRead *.gohtml set filetype=html
 "}
 
 " html {
