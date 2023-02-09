@@ -373,7 +373,7 @@ command! PackClean call minpac#clean()
 
 " go {
     au FileType go nmap <F4> :w<CR>:GoDef<CR>
-    au FileType go nmap <F5> :w<CR>:GoRun %<CR>
+    au FileType go nmap <F5> :w<CR>:GoRun ./...<CR>
     au FileType go nmap <F6> :w<CR>:GoBuild<CR>
     au FileType go nmap <F7> :w<CR>:GoTest<CR>
     au FileType go nmap <F8> :w<CR>:!go test -coverprofile c.out && go tool cover -html c.out<CR>
