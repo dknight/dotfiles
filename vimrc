@@ -4,6 +4,11 @@
 "======================================================================
 " let s:uname = system("uname -s")
 
+" Fix scrolling issue in tmux or GNU screen.
+if &term =~ '256color'
+    set t_ut=y
+endif
+
 "======================================================================
 "======================== Usability ===================================
 "======================================================================
@@ -102,7 +107,7 @@ hi! TermCursorNC ctermfg=15 ctermbg=14 cterm=none
 set viminfo='100,f1
 
 " screen will not be redrawn while running macros, registers or other
-" non-typed comments
+" non-typed commands.
 set lazyredraw
 
 " Flagging Unnecessary Whitespace
