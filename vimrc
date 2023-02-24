@@ -146,6 +146,8 @@ iab <expr> dt3339! system("date --rfc-3339=seconds")
 " use jk instead on <Esc>
 imap jk <Esc>
 
+map <leader>b :bd!<CR>
+
 map <up> <nop>
 map <down> <nop>
 map <left> <nop>
