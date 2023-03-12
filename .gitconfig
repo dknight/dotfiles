@@ -1,0 +1,28 @@
+[user]
+	name = Dmitri Smirnov
+	email = smirnov.dmitri@gmail.com
+[credential]
+	helper = store
+[color]
+	ui = auto
+[alias]
+	st = status
+	co = checkout
+	ci = commit
+	df = difftool
+[init]
+	defaultBranch = master
+[diff]
+	tool = nvimdiff
+[merge]
+	tool = nvimdiff3
+[difftool]
+	prompt = false
+[mergetool]
+	prompt = false
+[url "https://github.com/"]
+	insteadOf = git://github.com/
+[url "https://"]
+	insteadOf = git://
+[core]
+	editor = nvim
