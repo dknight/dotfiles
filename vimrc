@@ -255,7 +255,6 @@ call minpac#add('fatih/vim-go')
 
 " Web
 call minpac#add('mattn/emmet-vim')
-call minpac#add('alvan/vim-closetag')
 call minpac#add('vim-scripts/loremipsum')
 
 " Cleans installed packages
