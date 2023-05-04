@@ -161,9 +161,6 @@ nnoremap <silent> <C-S> :<C-u>write<CR>
 " Spell check
 map <leader>s :set spell!<CR>
 
-" Use spell check
-nmap <silent> <leader>l :set spell!<CR>
-
 " Buffers navigation
 nnoremap <silent> [b :bprev<CR>
 nnoremap <silent> ]b :bnext<CR>
@@ -243,8 +240,6 @@ call minpac#add('tpope/vim-commentary')
 call minpac#add('tpope/vim-surround')
 call minpac#add('tpope/vim-repeat')
 " call minpac#add('tpope/vim-abolish')
-" call minpac#add('Shougo/neosnippet.vim')
-" call minpac#add('Shougo/neosnippet-snippets')
 call minpac#add('vim-airline/vim-airline')
 call minpac#add('vim-airline/vim-airline-themes')
 call minpac#add('ctrlpvim/ctrlp.vim')
@@ -254,11 +249,6 @@ call minpac#add('nelstrom/vim-visual-star-search')
 call minpac#add('dhruvasagar/vim-table-mode')
 call minpac#add('ervandew/supertab')
 call minpac#add('flazz/vim-colorschemes')
-
-" Lua
-call minpac#add('tbastos/vim-lua')
-call minpac#add('xolox/vim-misc')
-call minpac#add('xolox/vim-lua-ftplugin')
 
 " Go
 call minpac#add('fatih/vim-go')
@@ -397,20 +387,11 @@ command! PackClean call minpac#clean()
 "}
 
 " javascript {
-    au FileType javascript set tabstop=4
-    au FileType javascript set shiftwidth=4
-    au FileType javascript set softtabstop=4
+    au FileType javascript set tabstop=2
+    au FileType javascript set shiftwidth=2
+    au FileType javascript set softtabstop=2
 "}
 
-" lua {
-    let g:lua_syntax_someoption = 1
-    let g:lua_complete_omni = 1
-    au FileType lua set tabstop=2
-    au FileType lua set shiftwidth=2
-    au FileType lua set softtabstop=2
-    au FileType lua nmap <F5> :w<CR>:!lua %<CR>
-    au FileType lua nmap <F6> :w<CR>:!make<CR>
-"}
 " sh {
     au FileType sh nmap <F5> :w<CR>:!%%%<CR>
 "}
