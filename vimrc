@@ -247,7 +247,6 @@ call minpac#add('tpope/vim-repeat')
 " call minpac#add('Shougo/neosnippet-snippets')
 call minpac#add('vim-airline/vim-airline')
 call minpac#add('vim-airline/vim-airline-themes')
-call minpac#add('vim-syntastic/syntastic')
 call minpac#add('ctrlpvim/ctrlp.vim')
 call minpac#add('Yggdroot/indentLine')
 call minpac#add('jiangmiao/auto-pairs')
@@ -255,7 +254,6 @@ call minpac#add('nelstrom/vim-visual-star-search')
 call minpac#add('dhruvasagar/vim-table-mode')
 call minpac#add('ervandew/supertab')
 call minpac#add('flazz/vim-colorschemes')
-call minpac#add('neovim/nvim-lspconfig')
 
 " Lua
 call minpac#add('tbastos/vim-lua')
@@ -269,7 +267,6 @@ call minpac#add('fatih/vim-go')
 call minpac#add('mattn/emmet-vim')
 call minpac#add('alvan/vim-closetag')
 call minpac#add('vim-scripts/loremipsum')
-call minpac#add('prettier/vim-prettier')
 
 " Cleans installed packages
 command! PackUpdate call minpac#update()
@@ -277,16 +274,6 @@ command! PackClean call minpac#clean()
 
 " Super Tab {
     let g:SuperTabDefaultCompletionType = "<C-X><C-O>"
-"}
-
-" Syntastic {
-    set statusline+=%#warningmsg#
-    set statusline+=%{SyntasticStatuslineFlag()}
-    set statusline+=%*
-    let g:syntastic_always_populate_loc_list = 1
-    let g:syntastic_auto_loc_list = 1
-    let g:syntastic_check_on_open = 1
-    let g:syntastic_check_on_wq = 0
 "}
 
 " indentLine {
@@ -349,24 +336,24 @@ command! PackClean call minpac#clean()
 "}
 
 " neosnippets {
+     " Note: It must be "imap" and "smap".  It uses <Plug> mappings.
+    imap <C-k>     <Plug>(neosnippet_expand_or_jump)
+    smap <C-k>     <Plug>(neosnippet_expand_or_jump)
+    xmap <C-k>     <Plug>(neosnippet_expand_target)
+
+    " SuperTab like snippets behavior.
     " Note: It must be "imap" and "smap".  It uses <Plug> mappings.
-    "imap <C-k>     <Plug>(neosnippet_expand_or_jump)
-    "smap <C-k>     <Plug>(neosnippet_expand_or_jump)
-    "xmap <C-k>     <Plug>(neosnippet_expand_target)
+    "imap <expr><TAB>
+    " \ pumvisible() ? "\<C-n>" :
+    " \ neosnippet#expandable_or_jumpable() ?
+    " \    "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
+    smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
+    \ "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
 
-    "" SuperTab like snippets behavior.
-    "" Note: It must be "imap" and "smap".  It uses <Plug> mappings.
-    ""imap <expr><TAB>
-    "" \ pumvisible() ? "\<C-n>" :
-    "" \ neosnippet#expandable_or_jumpable() ?
-    "" \    "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
-    "smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
-    "\ "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
-
-    "" For conceal markers.
-    "if has('conceal')
-    "set conceallevel=2 concealcursor=niv
-    "endif
+    " For conceal markers.
+    if has('conceal')
+    set conceallevel=2 concealcursor=niv
+    endif
 "}
 
 " airline {
