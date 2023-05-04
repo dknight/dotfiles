@@ -243,8 +243,8 @@ call minpac#add('tpope/vim-commentary')
 call minpac#add('tpope/vim-surround')
 call minpac#add('tpope/vim-repeat')
 " call minpac#add('tpope/vim-abolish')
-call minpac#add('Shougo/neosnippet.vim')
-call minpac#add('Shougo/neosnippet-snippets')
+" call minpac#add('Shougo/neosnippet.vim')
+" call minpac#add('Shougo/neosnippet-snippets')
 call minpac#add('vim-airline/vim-airline')
 call minpac#add('vim-airline/vim-airline-themes')
 call minpac#add('vim-syntastic/syntastic')
@@ -255,6 +255,7 @@ call minpac#add('nelstrom/vim-visual-star-search')
 call minpac#add('dhruvasagar/vim-table-mode')
 call minpac#add('ervandew/supertab')
 call minpac#add('flazz/vim-colorschemes')
+call minpac#add('neovim/nvim-lspconfig')
 
 " Lua
 call minpac#add('tbastos/vim-lua')
@@ -349,23 +350,23 @@ command! PackClean call minpac#clean()
 
 " neosnippets {
     " Note: It must be "imap" and "smap".  It uses <Plug> mappings.
-    imap <C-k>     <Plug>(neosnippet_expand_or_jump)
-    smap <C-k>     <Plug>(neosnippet_expand_or_jump)
-    xmap <C-k>     <Plug>(neosnippet_expand_target)
+    "imap <C-k>     <Plug>(neosnippet_expand_or_jump)
+    "smap <C-k>     <Plug>(neosnippet_expand_or_jump)
+    "xmap <C-k>     <Plug>(neosnippet_expand_target)
 
-    " SuperTab like snippets behavior.
-    " Note: It must be "imap" and "smap".  It uses <Plug> mappings.
-    "imap <expr><TAB>
-    " \ pumvisible() ? "\<C-n>" :
-    " \ neosnippet#expandable_or_jumpable() ?
-    " \    "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
-    smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
-    \ "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
+    "" SuperTab like snippets behavior.
+    "" Note: It must be "imap" and "smap".  It uses <Plug> mappings.
+    ""imap <expr><TAB>
+    "" \ pumvisible() ? "\<C-n>" :
+    "" \ neosnippet#expandable_or_jumpable() ?
+    "" \    "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
+    "smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
+    "\ "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
 
-    " For conceal markers.
-    if has('conceal')
-    set conceallevel=2 concealcursor=niv
-    endif
+    "" For conceal markers.
+    "if has('conceal')
+    "set conceallevel=2 concealcursor=niv
+    "endif
 "}
 
 " airline {
