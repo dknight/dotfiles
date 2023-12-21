@@ -81,3 +81,25 @@ cpuld() {
         sed "s/.*, *\([0-9.]*\)%* id.*/\1/" | \
 		awk '{printf 100 - $1 "%"}'
 }
+
+# Node and webdev realted stuff.
+
+# pnpm
+export PNPM_HOME="/home/xdkn1ght/.local/share/pnpm"
+case ":$PATH:" in
+  *":$PNPM_HOME:"*) ;;
+  *) export PATH="$PNPM_HOME:$PATH" ;;
+esac
+# pnpm end
+
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+# Load Angular CLI autocompletion.
+source <(ng completion script)
+
+
+# Load Angular CLI autocompletion.
+source <(ng completion script)
