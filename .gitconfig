@@ -9,13 +9,14 @@
 	st = status
 	co = checkout
 	ci = commit
+	br = branch
 	df = difftool
 [init]
 	defaultBranch = master
 [diff]
-	tool = nvimdiff
+	tool = "nvim -d"
 [merge]
-	tool = nvimdiff3
+	tool = "nvim -d"
 [difftool]
 	prompt = false
 [mergetool]
