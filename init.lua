@@ -1,3 +1,5 @@
+--
+local homedir = vim.fn.expand('$HOME')
 local uname = vim.fn.system('uname -s')
 if vim.o.term:find('256color') then
     vim.go.t_ut = true
@@ -25,7 +27,7 @@ vim.opt.listchars = {tab = '>~', trail = '.', eol = '$'}
 vim.opt.rulerformat = '%l,%v'
 vim.opt.colorcolumn = '75,79'
 vim.opt.undofile =  true
-vim.opt.undodir =  '~/.vim/undodir'
+vim.opt.undodir =  homedir .. '/.undodir'
 vim.opt.lazyredraw = false
 vim.opt.textwidth = 78
 vim.cmd.colorscheme('wasabi256')
@@ -41,6 +43,10 @@ vim.cmd.colorscheme('wasabi256')
 vim.cmd([[
 command! -nargs=0 -bar Share execute "!cat % | curl -F 'sprunge=<-' http://sprunge.us"
 ]])
+vim.api.nvim_create_autocmd({'FileType'}, {
+  pattern = {'sh'},
+  command = 'nmap <f5> :w<cr>:!%%%<cr>',
+})
 
 -------------------------- Abbreviations ---------------------------------
 vim.cmd('iab <expr> date! system("date +%Y-%m-%d")')
