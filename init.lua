@@ -30,7 +30,6 @@ vim.opt.undofile =  true
 vim.opt.undodir =  homedir .. '/.undodir'
 vim.opt.lazyredraw = false
 vim.opt.textwidth = 78
-vim.cmd.colorscheme('wasabi256')
 
 -------------------------- ctags -----------------------------------------
 -- Use correct patterns if needed
@@ -158,3 +157,4 @@ require('whitespace-nvim').highlight()
 --set keymap=russian-jcuken
 -- TODO contribute estonian language (when free time or ask help)
 -- http://ftp.vim.org/vim/runtime/spell/README.txt
+vim.cmd.colorscheme('wasabi256')
