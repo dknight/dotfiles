@@ -103,3 +103,7 @@ source <(ng completion script)
 
 # Load Angular CLI autocompletion.
 source <(ng completion script)
+
+# Lua LSP
+PATH="$PATH:$HOME/.config/lua-language-server-3.7.4-linux-x64/bin"
+

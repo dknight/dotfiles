@@ -23,7 +23,7 @@ vim.opt.list = true
 vim.opt.ignorecase = true
 vim.opt.infercase = true
 vim.opt.smartcase = true
-vim.opt.listchars = {tab = '>~', trail = '.', eol = '$'}
+vim.opt.listchars = {tab = '>~', trail = '.'} -- , eol = '$'
 vim.opt.rulerformat = '%l,%v'
 vim.opt.colorcolumn = '75,79'
 vim.opt.undofile =  true
@@ -75,6 +75,7 @@ vim.keymap.set('n', '<leader>T', '<cmd>tabnew<cr>', {silent = true})
 vim.keymap.set('n', '<leader>j', '<cmd>m.+1<cr>')
 vim.keymap.set('n', '<leader>k', '<cmd>m.-2<cr>')
 vim.keymap.set({'n', 'i'}, '<leader>;', 'A;<esc>')
+vim.keymap.set({'n', 'i'}, '<leader>,', 'A,<esc>')
 vim.keymap.set({'n', 'x',}, '&', '<cmd>&&<esc>')
 vim.keymap.set('n', '<c-l>', '<cmd>set hlsearch!<cr>')
 vim.keymap.set('c', '%%', '<c-r>=fnameescape(expand("%:h"))."/"<cr>')
@@ -108,6 +109,8 @@ local plugins = {
     'ervandew/supertab',
     'flazz/vim-colorschemes',
     'johnfrankmorgan/whitespace.nvim',
+    'neovim/nvim-lspconfig',
+    'neoclide/coc.nvim',
     -- Go
     'fatih/vim-go',
     -- Web
@@ -125,7 +128,7 @@ vim.g.airline_symbols = {
 }
 
 -- Super tap
-vim.g.SuperTabDefaultCompletionType = '<C-X><C-O>'
+-- vim.g.SuperTabDefaultCompletionType = '<C-X><C-O>'
 
 --Emmet
 vim.g.user_emmet_leader_key = '<C-y>'
@@ -152,9 +155,10 @@ vim.keymap.set({'n', 'i'}, '<c-g>', '<cmd>Vex<cr>')
 require('lazy').setup(plugins, opts)
 require('whitespace-nvim').highlight()
 
+vim.cmd.colorscheme('wasabi256')
+
 -- TODO make function to swith to russian.
 --et spelllang=ru_ru
 --set keymap=russian-jcuken
 -- TODO contribute estonian language (when free time or ask help)
 -- http://ftp.vim.org/vim/runtime/spell/README.txt
-vim.cmd.colorscheme('wasabi256')
