@@ -111,6 +111,7 @@ local plugins = {
     'johnfrankmorgan/whitespace.nvim',
     'neovim/nvim-lspconfig',
     'neoclide/coc.nvim',
+    'Evalir/dosbox-vim-colorscheme',
     -- Go
     'fatih/vim-go',
     -- Web
