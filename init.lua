@@ -108,10 +108,10 @@ local plugins = {
     'dhruvasagar/vim-table-mode',
     'ervandew/supertab',
     'flazz/vim-colorschemes',
+    'Evalir/dosbox-vim-colorscheme',
     'johnfrankmorgan/whitespace.nvim',
     'neovim/nvim-lspconfig',
     'neoclide/coc.nvim',
-    'Evalir/dosbox-vim-colorscheme',
     -- Go
     'fatih/vim-go',
     -- Web
