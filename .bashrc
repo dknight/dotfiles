@@ -24,9 +24,17 @@ alias ll='ls -alF'
 alias la='ls -A'
 alias l='ls -CF'
 alias l.='ls -d .* --color=auto'
-alias serve="browser-sync $1"
 alias vim=nvim
 alias vi=nvim
+
+# ==== HTTP server
+function serve() {
+    ip=$2
+    if [[ -z "$ip" ]]; then
+        ip="127.0.0.1"
+    fi
+    python3 -m http.server -d "./$1" -b "$ip"
+}
 
 # ======== COSMETICS ========
 [ -n "$XTERM_VERSION" ] && transset-df -a 0.98 --id "$WINDOWID" >/dev/null
