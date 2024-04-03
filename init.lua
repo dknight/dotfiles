@@ -1,4 +1,3 @@
---
 local homedir = vim.fn.expand('$HOME')
 local uname = vim.fn.system('uname -s')
 if vim.o.term:find('256color') then
@@ -106,7 +105,6 @@ local plugins = {
     'jiangmiao/auto-pairs',
     'nelstrom/vim-visual-star-search',
     'dhruvasagar/vim-table-mode',
-    'ervandew/supertab',
     'flazz/vim-colorschemes',
     'Evalir/dosbox-vim-colorscheme',
     'johnfrankmorgan/whitespace.nvim',
@@ -127,9 +125,6 @@ vim.g.airline_symbols = {
     colnr = ':',
     linenr = ' ',
 }
-
--- Super tap
--- vim.g.SuperTabDefaultCompletionType = '<C-X><C-O>'
 
 --Emmet
 vim.g.user_emmet_leader_key = '<C-y>'
