@@ -247,7 +247,6 @@ call minpac#add('Yggdroot/indentLine')
 call minpac#add('jiangmiao/auto-pairs')
 call minpac#add('nelstrom/vim-visual-star-search')
 call minpac#add('dhruvasagar/vim-table-mode')
-call minpac#add('ervandew/supertab')
 call minpac#add('flazz/vim-colorschemes')
 
 " Go
@@ -260,10 +259,6 @@ call minpac#add('vim-scripts/loremipsum')
 " Cleans installed packages
 command! PackUpdate call minpac#update()
 command! PackClean call minpac#clean()
-
-" Super Tab {
-    let g:SuperTabDefaultCompletionType = "<C-X><C-O>"
-"}
 
 " indentLine {
     " let g:indentLine_color_term = 232
