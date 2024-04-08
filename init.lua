@@ -44,7 +44,9 @@ command! -nargs=0 -bar Share execute "!cat % | curl -F 'sprunge=<-' http://sprun
 
 vim.api.nvim_create_autocmd({'FileType'}, {
   pattern = {'sh'},
-  command = 'nmap <f5> :w<cr>:!%%%<cr>',
+  callback = function(args)
+    vim.keymap.set('n', '<f5>', ':w<cr>:!%%%<cr>')
+  end
 })
 vim.api.nvim_create_autocmd({'FileType'}, {
   pattern = {'html,xml,css,md,json'},
@@ -58,6 +60,7 @@ vim.api.nvim_create_autocmd({'FileType'}, {
   callback = function()
     vim.opt.shiftwidth = 2
     vim.opt.softtabstop = 2
+    vim.keymap.set('n', '<f5>', ':w<cr>:!lua %<cr>')
   end
 })
 
