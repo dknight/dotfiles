@@ -1,7 +1,7 @@
 local homedir = vim.fn.expand('$HOME')
-local uname = vim.fn.system('uname -s')
+-- local uname = vim.fn.system('uname -s')
 if vim.o.term:find('256color') then
-    vim.go.t_ut = true
+  vim.go.t_ut = true
 end
 vim.g.mapleader = ','
 vim.opt.exrc = false
@@ -12,7 +12,7 @@ vim.opt.omnifunc = 'syntaxcomplete#Complete'
 vim.opt.spelllang = 'en_us'
 vim.opt.foldmethod = 'indent'
 vim.opt.foldlevel = 99
-vim.opt.clipboard = 'unnamedplus'
+vim.opt.clipboard = 'unnamed'
 vim.opt.tabstop = 4
 vim.opt.shiftwidth = 4
 vim.opt.softtabstop = 4
@@ -33,17 +33,32 @@ vim.opt.textwidth = 78
 -------------------------- ctags -----------------------------------------
 -- Use correct patterns if needed
 -- vim.api.nvim_create_autocmd({'BufWritePost'}, {
---   pattern = {'*'},
---   command = vim.fn.system('ctags -R'),
+-- pattern = {'*'},
+--  command = vim.fn.system('ctags -R'),
 -- })
 -------------------------- Commands --------------------------------------
 -- Share the code with https://sprunge.us
 vim.cmd([[
 command! -nargs=0 -bar Share execute "!cat % | curl -F 'sprunge=<-' http://sprunge.us"
 ]])
+
 vim.api.nvim_create_autocmd({'FileType'}, {
   pattern = {'sh'},
   command = 'nmap <f5> :w<cr>:!%%%<cr>',
+})
+vim.api.nvim_create_autocmd({'FileType'}, {
+  pattern = {'html,xml,css,md,json'},
+  callback = function(args)
+   vim.opt.shiftwidth = 2
+    vim.opt.softtabstop = 2
+  end
+})
+vim.api.nvim_create_autocmd({'FileType'}, {
+  pattern = {'lua'},
+  callback = function()
+    vim.opt.shiftwidth = 2
+    vim.opt.softtabstop = 2
+  end
 })
 
 -------------------------- Abbreviations ---------------------------------
@@ -78,6 +93,7 @@ vim.keymap.set({'n', 'i'}, '<leader>,', 'A,<esc>')
 vim.keymap.set({'n', 'x',}, '&', '<cmd>&&<esc>')
 vim.keymap.set('n', '<c-l>', '<cmd>set hlsearch!<cr>')
 vim.keymap.set('c', '%%', '<c-r>=fnameescape(expand("%:h"))."/"<cr>')
+vim.keymap.set('n', '<leader>s', ':setlocal spell!<cr>')
 -------------------------- Plugins ---------------------------------------
 local lazypath = vim.fn.stdpath('data') .. '/lazy/lazy.nvim'
 if not vim.loop.fs_stat(lazypath) then
@@ -93,45 +109,48 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 local plugins = {
-    -- Common
-    'tpope/vim-commentary',
-    'tpope/vim-surround',
-    'tpope/vim-repeat',
-    'tpope/vim-abolish',
-    'vim-airline/vim-airline',
-    'vim-airline/vim-airline-themes',
-    'ctrlpvim/ctrlp.vim',
-    'Yggdroot/indentLine',
-    'jiangmiao/auto-pairs',
-    'nelstrom/vim-visual-star-search',
-    'dhruvasagar/vim-table-mode',
-    'flazz/vim-colorschemes',
-    'Evalir/dosbox-vim-colorscheme',
-    'johnfrankmorgan/whitespace.nvim',
-    'neovim/nvim-lspconfig',
-    'neoclide/coc.nvim',
-    -- Go
-    'fatih/vim-go',
-    -- Web
-    'mattn/emmet-vim',
-    'vim-scripts/loremipsum',
+  -- Common
+  'tpope/vim-commentary',
+  'tpope/vim-surround',
+  'tpope/vim-repeat',
+  'tpope/vim-abolish',
+  'vim-airline/vim-airline',
+  'vim-airline/vim-airline-themes',
+  'ctrlpvim/ctrlp.vim',
+  'Yggdroot/indentLine',
+  'jiangmiao/auto-pairs',
+  'nelstrom/vim-visual-star-search',
+  'dhruvasagar/vim-table-mode',
+  'flazz/vim-colorschemes',
+  'Evalir/dosbox-vim-colorscheme',
+  'johnfrankmorgan/whitespace.nvim',
+  'neovim/nvim-lspconfig',
+  'neoclide/coc.nvim',
+  -- Go
+  'fatih/vim-go',
+  -- Web
+  'mattn/emmet-vim',
+  'vim-scripts/loremipsum',
 }
 
 -- Aurline
 vim.g.airline_theme = 'serene'
 vim.g.airline_powerline_fonts = 0
 vim.g.airline_symbols = {
-    maxlinenr = '',
-    colnr = ':',
-    linenr = ' ',
+  maxlinenr = '',
+  colnr = ':',
+  linenr = ' ',
 }
 
---Emmet
+-- Emmet
 vim.g.user_emmet_leader_key = '<C-y>'
 vim.g.user_emmet_install_global = 0
 vim.api.nvim_create_autocmd({'FileType'}, {
-  pattern = {'html,css,markdown'},
-  command = 'EmmetInstall',
+  pattern = {'html,xml,css,md,json'},
+  callback = function(args)
+    vim.opt.shiftwidth = 2
+    vim.opt.softtabstop = 2
+  end
 })
 
 -- Vim surround
