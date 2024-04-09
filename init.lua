@@ -149,10 +149,11 @@ vim.g.airline_symbols = {
 vim.g.user_emmet_leader_key = '<C-y>'
 vim.g.user_emmet_install_global = 0
 vim.api.nvim_create_autocmd({'FileType'}, {
-  pattern = {'html,xml,css,md,json'},
+  pattern = {"html", "xml", "css", "md", "json"},
   callback = function(args)
     vim.opt.shiftwidth = 2
     vim.opt.softtabstop = 2
+    vim.cmd("EmmetInstall")
   end
 })
 
