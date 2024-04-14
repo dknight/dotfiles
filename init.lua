@@ -134,7 +134,13 @@ local plugins = {
   -- Web
   'mattn/emmet-vim',
   'vim-scripts/loremipsum',
+  -- heavy
+  'dpelle/vim-LanguageTool'
 }
+
+-- languagetool
+-- https://languagetool.org/download/
+vim.g.languagetool_jar='$HOME/.config/LanguageTool-5.2/languagetool-commandline.jar'
 
 -- Aurline
 vim.g.airline_theme = 'serene'
@@ -170,6 +176,7 @@ vim.g.netrw_browse_split = 0
 vim.g.netrw_winsize = 100
 vim.g.netrw_altv = 1
 vim.keymap.set({'n', 'i'}, '<c-g>', '<cmd>Vex<cr>')
+
 
 require('lazy').setup(plugins, opts)
 require('whitespace-nvim').highlight()
