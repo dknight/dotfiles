@@ -12,7 +12,9 @@ export GOROOT="/usr/lib/golang"
 export PATH="/home/xdkn1ght/.luarocks/bin:/usr/lib64/ccache:/usr/local/bin:/usr/bin:/bin:/usr/local/sbin:/usr/sbin:$HOME/.local/bin:$HOME/bin:$GOBIN"
 export VIM="$HOME/.config/nvim"
 export LYNX_CFG="$HOME/lab/dotfiles/lynx.cfg"
-AUGUSTUS_CONFIG_PATH="$HOME/games/augustus/config"
+export EDITOR=/usr/bin/nvim
+export VIEWER=/usr/bin/less
+export PAGER=/usr/bin/less
 
 # ======== ALIASES ========
 alias python=python3
@@ -90,17 +92,11 @@ cpuld() {
 		awk '{printf 100 - $1 "%"}'
 }
 
+# Lua related stuff
+# LSP
+PATH="$PATH:$HOME/.config/lua-language-server-3.7.4-linux-x64/bin"
+
 # Node and webdev realted stuff.
-
-# pnpm
-export PNPM_HOME="/home/xdkn1ght/.local/share/pnpm"
-case ":$PATH:" in
-  *":$PNPM_HOME:"*) ;;
-  *) export PATH="$PNPM_HOME:$PATH" ;;
-esac
-# pnpm end
-
-
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
@@ -112,6 +108,4 @@ source <(ng completion script)
 # Load Angular CLI autocompletion.
 source <(ng completion script)
 
-# Lua LSP
-PATH="$PATH:$HOME/.config/lua-language-server-3.7.4-linux-x64/bin"
 
