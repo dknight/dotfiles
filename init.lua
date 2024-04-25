@@ -1,7 +1,7 @@
 local homedir = vim.fn.expand('$HOME')
 -- local uname = vim.fn.system('uname -s')
 if vim.o.term:find('256color') then
-  vim.go.t_ut = true
+	vim.go.t_ut = true
 end
 vim.g.mapleader = ','
 vim.opt.exrc = false
@@ -16,16 +16,16 @@ vim.opt.clipboard = 'unnamed'
 vim.opt.tabstop = 4
 vim.opt.shiftwidth = 4
 vim.opt.softtabstop = 4
-vim.opt.expandtab = true
+vim.opt.expandtab = false
 vim.opt.smartindent = true
 vim.opt.list = true
 vim.opt.ignorecase = true
 vim.opt.infercase = true
 vim.opt.smartcase = true
-vim.opt.listchars = {tab = '>~', trail = '.'} -- , eol = '$'
+vim.opt.listchars = {tab = '⏵ ', trail = '.'} -- , eol = '$'
 vim.opt.rulerformat = '%l,%v'
 vim.opt.colorcolumn = '75,79'
-vim.opt.undofile =  true
+vim.opt.undofile =	true
 vim.opt.undodir =  homedir .. '/.undodir'
 vim.opt.lazyredraw = false
 vim.opt.textwidth = 78
@@ -34,7 +34,7 @@ vim.opt.textwidth = 78
 -- Use correct patterns if needed
 -- vim.api.nvim_create_autocmd({'BufWritePost'}, {
 -- pattern = {'*'},
---  command = vim.fn.system('ctags -R'),
+--	command = vim.fn.system('ctags -R'),
 -- })
 -------------------------- Commands --------------------------------------
 -- Share the code with https://sprunge.us
@@ -43,25 +43,32 @@ command! -nargs=0 -bar Share execute "!cat % | curl -F 'sprunge=<-' http://sprun
 ]])
 
 vim.api.nvim_create_autocmd({'FileType'}, {
-  pattern = {'sh'},
-  callback = function(args)
-    vim.keymap.set('n', '<f5>', ':w<cr>:!%%%<cr>')
-  end
+	pattern = {'sh'},
+		callback = function(args)
+		vim.keymap.set('n', '<f5>', ':w<cr>:!%%%<cr>')
+	end
 })
 vim.api.nvim_create_autocmd({'FileType'}, {
-  pattern = {'html,xml,css,md,json'},
-  callback = function(args)
-   vim.opt.shiftwidth = 2
-    vim.opt.softtabstop = 2
-  end
+	pattern = {'html,xml,css,md,json'},
+	callback = function(args)
+		vim.opt.shiftwidth = 2
+		vim.opt.softtabstop = 2
+		vim.opt.expandtab = true
+		vim.cmd("EmmetInstall")
+	end
 })
 vim.api.nvim_create_autocmd({'FileType'}, {
-  pattern = {'lua'},
-  callback = function()
-    vim.opt.shiftwidth = 2
-    vim.opt.softtabstop = 2
-    vim.keymap.set('n', '<f5>', ':w<cr>:!lua %<cr>')
-  end
+	pattern = {'lua'},
+	callback = function()
+		vim.opt.shiftwidth = 4
+		vim.opt.softtabstop = 4
+		vim.keymap.set('n', '<f5>', ':w<cr>:!lua %<cr>')
+	end
+})
+
+vim.api.nvim_create_autocmd({'BufWritePre'}, {
+	pattern = {'*'},
+	command = [[ %s/\s\+$//e ]]
 })
 
 -------------------------- Abbreviations ---------------------------------
@@ -100,41 +107,41 @@ vim.keymap.set('n', '<leader>s', ':setlocal spell!<cr>')
 -------------------------- Plugins ---------------------------------------
 local lazypath = vim.fn.stdpath('data') .. '/lazy/lazy.nvim'
 if not vim.loop.fs_stat(lazypath) then
-  vim.fn.system({
-    'git',
-    'clone',
-    '--filter=blob:none',
-    'https://github.com/folke/lazy.nvim.git',
-    '--branch=stable', -- latest stable release
-    lazypath,
-  })
+	vim.fn.system({
+		'git',
+		'clone',
+		'--filter=blob:none',
+		'https://github.com/folke/lazy.nvim.git',
+		'--branch=stable', -- latest stable release
+		lazypath,
+	})
 end
 vim.opt.rtp:prepend(lazypath)
 
 local plugins = {
-  -- Common
-  'tpope/vim-commentary',
-  'tpope/vim-surround',
-  'tpope/vim-repeat',
-  'tpope/vim-abolish',
-  'vim-airline/vim-airline',
-  'vim-airline/vim-airline-themes',
-  'ctrlpvim/ctrlp.vim',
-  'Yggdroot/indentLine',
-  'jiangmiao/auto-pairs',
-  'nelstrom/vim-visual-star-search',
-  'dhruvasagar/vim-table-mode',
-  'flazz/vim-colorschemes',
-  'johnfrankmorgan/whitespace.nvim',
-  'neovim/nvim-lspconfig',
-  'neoclide/coc.nvim',
-  -- Go
-  -- 'fatih/vim-go',
-  -- Web
-  -- 'mattn/emmet-vim',
-  -- 'vim-scripts/loremipsum',
-  'rhysd/vim-grammarous',
-  -- 'dpelle/vim-LanguageTool'
+	-- Common
+	'tpope/vim-commentary',
+	'tpope/vim-surround',
+	'tpope/vim-repeat',
+	'tpope/vim-abolish',
+	'vim-airline/vim-airline',
+	'vim-airline/vim-airline-themes',
+	'ctrlpvim/ctrlp.vim',
+	'Yggdroot/indentLine',
+	'jiangmiao/auto-pairs',
+	'nelstrom/vim-visual-star-search',
+	'dhruvasagar/vim-table-mode',
+	'flazz/vim-colorschemes',
+	'neovim/nvim-lspconfig',
+	'neoclide/coc.nvim',
+	-- Go
+	-- 'fatih/vim-go',
+	-- Web
+	-- 'mattn/emmet-vim',
+	-- 'vim-scripts/loremipsum',
+	-- text
+	'rhysd/vim-grammarous',
+	-- 'dpelle/vim-LanguageTool'
 }
 
 -- languagetool
@@ -146,22 +153,14 @@ vim.g["grammarous#jar_url"] = 'https://www.languagetool.org/download/LanguageToo
 vim.g.airline_theme = 'serene'
 vim.g.airline_powerline_fonts = 0
 vim.g.airline_symbols = {
-  maxlinenr = '',
-  colnr = ':',
-  linenr = ' ',
+	maxlinenr = '',
+	colnr = ':',
+	linenr = ' ',
 }
 
 -- Emmet
 vim.g.user_emmet_leader_key = '<C-y>'
 vim.g.user_emmet_install_global = 0
-vim.api.nvim_create_autocmd({'FileType'}, {
-  pattern = {"html", "xml", "css", "md", "json"},
-  callback = function(args)
-    vim.opt.shiftwidth = 2
-    vim.opt.softtabstop = 2
-    vim.cmd("EmmetInstall")
-  end
-})
 
 -- Vim surround
 vim.g.surround_indent = 1
@@ -179,9 +178,12 @@ vim.keymap.set({'n', 'i'}, '<c-g>', '<cmd>Vex<cr>')
 
 
 require('lazy').setup(plugins, opts)
-require('whitespace-nvim').highlight()
 
+-- Colors
 vim.cmd.colorscheme('wasabi256')
+vim.cmd([[
+	highlight NonText ctermbg=None ctermfg=238
+]])
 
 -- TODO make function to swith to russian.
 --et spelllang=ru_ru
