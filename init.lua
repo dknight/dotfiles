@@ -125,22 +125,22 @@ local plugins = {
   'nelstrom/vim-visual-star-search',
   'dhruvasagar/vim-table-mode',
   'flazz/vim-colorschemes',
-  'Evalir/dosbox-vim-colorscheme',
   'johnfrankmorgan/whitespace.nvim',
   'neovim/nvim-lspconfig',
   'neoclide/coc.nvim',
   -- Go
-  'fatih/vim-go',
+  -- 'fatih/vim-go',
   -- Web
-  'mattn/emmet-vim',
-  'vim-scripts/loremipsum',
-  -- heavy
-  'dpelle/vim-LanguageTool'
+  -- 'mattn/emmet-vim',
+  -- 'vim-scripts/loremipsum',
+  'rhysd/vim-grammarous',
+  -- 'dpelle/vim-LanguageTool'
 }
 
 -- languagetool
 -- https://languagetool.org/download/
-vim.g.languagetool_jar='$HOME/.config/LanguageTool-5.2/languagetool-commandline.jar'
+-- vim.g.languagetool_cmd='java -jar $HOME/.config/LanguageTool-5.9/languagetool-commandline.jar'
+vim.g["grammarous#jar_url"] = 'https://www.languagetool.org/download/LanguageTool-5.9.zip'
 
 -- Aurline
 vim.g.airline_theme = 'serene'
