@@ -70,10 +70,10 @@ vim.api.nvim_create_autocmd({ "FileType" }, {
 
 vim.api.nvim_create_autocmd({ "BufWritePost" }, {
 	pattern = { "*.lua" },
-	command = [[
-		%s/\s\+$//e
-		!stylua %
-	]],
+	callback = function()
+		vim.cmd([[silent! %s/\s\+$//e]])
+		vim.cmd([[silent! !stylua %]])
+	end
 })
 
 --------------------- Generic  Abbreviations -----------------------------
