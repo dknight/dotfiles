@@ -64,6 +64,7 @@ vim.api.nvim_create_autocmd({ "FileType" }, {
 		vim.opt.shiftwidth = 4
 		vim.opt.softtabstop = 4
 		vim.keymap.set("n", "<f5>", ":w<cr>:!lua %<cr>")
+		vim.cmd("iab <expr> kv 'print(k, v)'")
 	end,
 })
 
@@ -75,7 +76,7 @@ vim.api.nvim_create_autocmd({ "BufWritePost" }, {
 	]],
 })
 
--------------------------- Abbreviations ---------------------------------
+--------------------- Generic  Abbreviations -----------------------------
 vim.cmd("iab <expr> date! system('date +%Y-%m-%d')")
 vim.cmd("iab <expr> datetime! system('date --rfc-3339=seconds')")
 
