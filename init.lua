@@ -140,7 +140,10 @@ local plugins = {
 	"neovim/nvim-lspconfig",
 	"neoclide/coc.nvim",
 	-- lua
-	"ckipp01/stylua-nvim", -- npm i -g @johnnymorganz/stylua-bin
+	{
+		"ckipp01/stylua-nvim", -- npm i -g @johnnymorganz/stylua-bin
+		config_file = "$HOME/lab/dotfiles/stylua.toml",
+	},
 	{
 		"S1M0N38/love2d.nvim",
 		cmd = "LoveRun",
@@ -164,7 +167,8 @@ local plugins = {
 -- languagetool
 -- https://languagetool.org/download/
 -- vim.g.languagetool_cmd="java -jar $HOME/.config/LanguageTool-5.9/languagetool-commandline.jar"
-vim.g["grammarous#jar_url"] = "https://www.languagetool.org/download/LanguageTool-5.9.zip"
+vim.g["grammarous#jar_url"] =
+	"https://www.languagetool.org/download/LanguageTool-5.9.zip"
 
 -- Aurline
 vim.g.airline_theme = "serene"
