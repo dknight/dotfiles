@@ -64,6 +64,7 @@ vim.api.nvim_create_autocmd({ "FileType" }, {
 		vim.opt.shiftwidth = 4
 		vim.opt.softtabstop = 4
 		vim.keymap.set("n", "<f5>", ":w<cr>:!lua %<cr>")
+		vim.keymap.set("n", "<f8>", ":w<cr>:!love %<cr>")
 		vim.cmd("iab <expr> kv 'print(k, v)'")
 	end,
 })
@@ -73,7 +74,7 @@ vim.api.nvim_create_autocmd({ "BufWritePost" }, {
 	callback = function()
 		vim.cmd([[silent! %s/\s\+$//e]])
 		vim.cmd([[silent! !stylua %]])
-	end
+	end,
 })
 
 --------------------- Generic  Abbreviations -----------------------------
