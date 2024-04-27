@@ -64,7 +64,7 @@ vim.api.nvim_create_autocmd({ "FileType" }, {
 		vim.opt.shiftwidth = 4
 		vim.opt.softtabstop = 4
 		vim.keymap.set("n", "<f5>", ":w<cr>:!lua %<cr>")
-		vim.keymap.set("n", "<f8>", ":w<cr>:!love %<cr>")
+		vim.keymap.set("n", "<f6>", ":w<cr>:silent! !love .<cr>")
 		vim.cmd("iab <expr> kv 'print(k, v)'")
 	end,
 })
@@ -140,6 +140,7 @@ local plugins = {
 	"flazz/vim-colorschemes",
 	"neovim/nvim-lspconfig",
 	"neoclide/coc.nvim",
+	-- lua
 	"ckipp01/stylua-nvim", -- npm i -g @johnnymorganz/stylua-bin
 	-- Go
 	-- "fatih/vim-go",
