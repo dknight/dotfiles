@@ -46,7 +46,7 @@ command! -nargs=0 -bar Share execute "!cat % | curl -F "sprunge=<-" http://sprun
 vim.api.nvim_create_autocmd({ "FileType" }, {
 	pattern = { "sh" },
 	callback = function(args)
-		vim.keymap.set("n", "<f5>", ":w<cr>:!%%%<cr>")
+		vim.keymap.set("n", "<f5>", "<cmd>w<cr><cmd>!%%%<cr>")
 	end,
 })
 vim.api.nvim_create_autocmd({ "FileType" }, {
@@ -63,7 +63,7 @@ vim.api.nvim_create_autocmd({ "FileType" }, {
 	callback = function()
 		vim.opt.shiftwidth = 4
 		vim.opt.softtabstop = 4
-		vim.keymap.set("n", "<f5>", ":w<cr>:!lua %<cr>")
+		vim.keymap.set("n", "<f5>", "<cmd>w<cr><cmd>!lua %<cr>")
 		vim.cmd("iab <expr> kv 'print(k, v)'")
 	end,
 })
@@ -150,7 +150,7 @@ local plugins = {
 		opts = {},
 		keys = {
 			{ "<leader>v", desc = "LÖVE" },
-			{ "<f6>", "<cmd>LoveRun<cr>", desc = "Run LÖVE" },
+			{ "<f6>", "<cmd>w<cr><cmd>LoveRun<cr>", desc = "Run LÖVE" },
 			{ "<f7>", "<cmd>LoveStop<cr>", desc = "Stop LÖVE" },
 		},
 	},
