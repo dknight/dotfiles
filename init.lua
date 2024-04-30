@@ -64,7 +64,6 @@ vim.api.nvim_create_autocmd({ "FileType" }, {
 		vim.opt.shiftwidth = 4
 		vim.opt.softtabstop = 4
 		vim.keymap.set("n", "<f5>", "<cmd>w<cr><cmd>!lua %<cr>")
-		vim.cmd("iab <expr> kv 'print(k, v)'")
 	end,
 })
 
@@ -140,6 +139,7 @@ local plugins = {
 	"neovim/nvim-lspconfig",
 	"neoclide/coc.nvim",
 	-- lua
+	"dcampos/nvim-snippy",
 	{
 		"ckipp01/stylua-nvim", -- npm i -g @johnnymorganz/stylua-bin
 		config_file = "$HOME/lab/dotfiles/stylua.toml",
@@ -198,6 +198,17 @@ vim.g.netrw_altv = 1
 vim.keymap.set({ "n", "i" }, "<c-g>", "<cmd>Vex<cr>")
 
 require("lazy").setup(plugins, opts)
+require("snippy").setup({
+	mappings = {
+		is = {
+			["<Tab>"] = "expand_or_advance",
+			["<S-Tab>"] = "previous",
+		},
+		nx = {
+			["<leader>x"] = "cut_text",
+		},
+	},
+})
 
 -- Colors
 vim.cmd.colorscheme("wasabi256")
