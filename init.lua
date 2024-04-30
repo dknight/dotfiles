@@ -50,7 +50,7 @@ vim.api.nvim_create_autocmd({ "FileType" }, {
 	end,
 })
 vim.api.nvim_create_autocmd({ "FileType" }, {
-	pattern = { "html,xml,css,json" },
+	pattern = { "html,xml,css" },
 	callback = function(args)
 		vim.opt.shiftwidth = 2
 		vim.opt.softtabstop = 2

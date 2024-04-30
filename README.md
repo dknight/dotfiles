@@ -5,6 +5,15 @@ You can take them and do whatever you want  without any restrictions.
 
 Shield: [![CC BY 4.0][cc-by-shield]][cc-by]
 
+## Install
+
+```shell
+ln -s snippets $HOME/.config/nvim/runtime/snippets
+ln -s init.lua $HOME/.config/nvim/init.lua
+ln -s lspconfig.lua $HOME/.config/nvim/lspconfig.lua
+ln -s mc $HOME/.config/mc
+```
+
 This work is licensed under a
 [Creative Commons Attribution 4.0 International License][cc-by].
 
