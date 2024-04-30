@@ -3,3 +3,16 @@ snippet kv
 
 snippet date
 	Current date is `strftime('%c')`
+
+snippet class
+	local ${1:Class} = {}
+	${1:Class}.__index = ${1:Class}
+
+	function ${1:Class}:new()
+		local instance = {}
+		instance.prop = 'something'
+		return setmetatable(instance, self)
+	end
+
+	return ${1:Class}
+
