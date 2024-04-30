@@ -9,9 +9,9 @@ snippet class
 	${1:Class}.__index = ${1:Class}
 
 	function ${1:Class}:new()
-		local instance = {}
-		-- instance.prop = 'something'
-		return setmetatable(instance, self)
+		local t = {}
+		-- t.prop = 'something'
+		return setmetatable(t, self)
 	end
 
 	return ${1:Class}
