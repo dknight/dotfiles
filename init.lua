@@ -201,8 +201,8 @@ require("lazy").setup(plugins, opts)
 require("snippy").setup({
 	mappings = {
 		is = {
-			["<Tab>"] = "expand_or_advance",
-			["<S-Tab>"] = "previous",
+			["<C-K>"] = "expand_or_advance",
+			["<C-S-K>"] = "previous",
 		},
 		nx = {
 			["<leader>x"] = "cut_text",
