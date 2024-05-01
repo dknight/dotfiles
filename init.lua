@@ -55,7 +55,7 @@ vim.api.nvim_create_autocmd({ "FileType" }, {
 		vim.opt.shiftwidth = 2
 		vim.opt.softtabstop = 2
 		vim.opt.expandtab = true
-		vim.cmd("EmmetInstall")
+		-- vim.cmd("EmmetInstall")
 	end,
 })
 vim.api.nvim_create_autocmd({ "FileType" }, {
@@ -167,8 +167,7 @@ local plugins = {
 -- languagetool
 -- https://languagetool.org/download/
 -- vim.g.languagetool_cmd="java -jar $HOME/.config/LanguageTool-5.9/languagetool-commandline.jar"
-vim.g["grammarous#jar_url"] =
-	"https://www.languagetool.org/download/LanguageTool-5.9.zip"
+vim.g["grammarous#jar_url"] = "https://www.languagetool.org/download/LanguageTool-5.9.zip"
 
 -- Aurline
 vim.g.airline_theme = "serene"

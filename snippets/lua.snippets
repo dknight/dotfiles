@@ -5,14 +5,26 @@ snippet date
 	Current date is `strftime('%c')`
 
 snippet class
-	local ${1:Class} = {}
+	---@class ${1:Class}
+	---@field public ${2:prop} string
+	local ${1:Class} = {
+		-- ${2:prop} = 'something'
+	}
 	${1:Class}.__index = ${1:Class}
 
+	---@return ${1:Class}
 	function ${1:Class}:new()
 		local t = {}
-		-- t.prop = 'something'
 		return setmetatable(t, self)
 	end
 
 	return ${1:Class}
 
+snippet classclosure
+	local function ${1:Class}(${2})
+		local self = {
+			${2}
+		}
+
+		return self
+	end
