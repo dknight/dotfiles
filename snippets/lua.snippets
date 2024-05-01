@@ -6,15 +6,15 @@ snippet date
 
 snippet class
 	---@class ${1:Class}
-	---@field public ${2:prop} string
+	---@field public ${2:prop} ${3:number}
 	local ${1:Class} = {
-		-- ${2:prop} = 'something'
+		-- ${2:prop} = 0
 	}
 	${1:Class}.__index = ${1:Class}
 
 	---@return ${1:Class}
 	function ${1:Class}:new()
-		local t = {}
+		self.${2:prop} = ${3:number}
 		return setmetatable(t, self)
 	end
 
