@@ -21,6 +21,22 @@ snippet class
 
 	return ${1:Class}
 
+snippet classextend
+	local ${1:SuperClass} = require("${1:SuperClass}")
+
+	---@class ${2:SubClass}
+	local ${2:SubClass} = {}
+
+	---@return ${2:SubClass}
+	function ${2:SubClass}:new()
+		local t = {}
+		setmetatable(t, { __index = ${2:SubClass} })
+		setmetatable(self, { __index = ${1:SuperClass} })
+		return t
+	end
+
+	return ${2:SubClass}
+
 snippet classclosure
 	local function ${1:Class}(${2})
 		local self = {
