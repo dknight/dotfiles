@@ -14,8 +14,9 @@ snippet class
 
 	---@return ${1:Class}
 	function ${1:Class}:new()
-		self.${2:prop} = 0
-		return setmetatable({}, self)
+		local t = {}
+		t.${2:prop} = 0
+		return setmetatable(t, self)
 	end
 
 	return ${1:Class}
