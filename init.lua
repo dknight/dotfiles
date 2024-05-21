@@ -143,6 +143,7 @@ local plugins = {
 	{
 		"ckipp01/stylua-nvim", -- npm i -g @johnnymorganz/stylua-bin
 		config_file = "$HOME/lab/dotfiles/stylua.toml",
+		column_width = 78,
 	},
 	{
 		"S1M0N38/love2d.nvim",
