@@ -1,5 +1,7 @@
 local homedir = vim.fn.expand("$HOME")
+local stylua_cfg = homedir .. "/lab/dotfiles/stylua.toml"
 -- local uname = vim.fn.system("uname -s")
+
 if vim.o.term:find("256color") then
 	vim.go.t_ut = true
 end
@@ -70,8 +72,12 @@ vim.api.nvim_create_autocmd({ "FileType" }, {
 vim.api.nvim_create_autocmd({ "BufWritePost" }, {
 	pattern = { "*.lua" },
 	callback = function()
+		local stylua_cmd = "silent! silent! !stylua --config-path="
+			.. stylua_cfg
+			.. " %"
+		print(stylua_cmd)
 		vim.cmd([[silent! %s/\s\+$//e]])
-		vim.cmd([[silent! !stylua %]])
+		vim.cmd(stylua_cmd)
 	end,
 })
 
@@ -142,8 +148,11 @@ local plugins = {
 	"dcampos/nvim-snippy",
 	{
 		"ckipp01/stylua-nvim", -- npm i -g @johnnymorganz/stylua-bin
-		config_file = "$HOME/lab/dotfiles/stylua.toml",
-		column_width = 78,
+		config = function()
+			require("stylua-nvim").setup({
+				config_file = stylua_cfg,
+			})
+		end,
 	},
 	{
 		"S1M0N38/love2d.nvim",
