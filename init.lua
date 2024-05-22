@@ -72,10 +72,9 @@ vim.api.nvim_create_autocmd({ "FileType" }, {
 vim.api.nvim_create_autocmd({ "BufWritePost" }, {
 	pattern = { "*.lua" },
 	callback = function()
-		local stylua_cmd = "silent! silent! !stylua --config-path="
+		local stylua_cmd = "silent! !stylua --config-path="
 			.. stylua_cfg
 			.. " %"
-		print(stylua_cmd)
 		vim.cmd([[silent! %s/\s\+$//e]])
 		vim.cmd(stylua_cmd)
 	end,
