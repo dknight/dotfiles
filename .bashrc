@@ -20,7 +20,7 @@ export PAGER=/usr/bin/less
 alias python=python3
 alias pip=pip3
 alias resres="xrandr --output eDP-1 --mode 1920x1080"
-alias tmux="TERM=xterm-256color tmux"
+alias tmux="TERM=screen-256color tmux"
 alias cal='cal -m'
 alias ll='ls -alF'
 alias la='ls -A'
