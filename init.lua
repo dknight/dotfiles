@@ -2,9 +2,6 @@ local homedir = vim.fn.expand("$HOME")
 local stylua_cfg = homedir .. "/lab/dotfiles/stylua.toml"
 -- local uname = vim.fn.system("uname -s")
 
-if vim.o.term:find("256color") then
-	vim.go.t_ut = true
-end
 vim.g.mapleader = ","
 vim.opt.exrc = false
 vim.opt.secure = true
@@ -143,6 +140,7 @@ local plugins = {
 	"flazz/vim-colorschemes",
 	"neovim/nvim-lspconfig",
 	"neoclide/coc.nvim",
+	"nvim-treesitter/nvim-treesitter", --run :TSInstall
 	-- lua
 	"dcampos/nvim-snippy",
 	{
