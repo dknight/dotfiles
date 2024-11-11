@@ -250,10 +250,10 @@ call minpac#add('dhruvasagar/vim-table-mode')
 call minpac#add('flazz/vim-colorschemes')
 
 " Go
-call minpac#add('fatih/vim-go')
+" call minpac#add('fatih/vim-go')
 
 " Web
-call minpac#add('mattn/emmet-vim')
+" call minpac#add('mattn/emmet-vim')
 call minpac#add('vim-scripts/loremipsum')
 
 " Cleans installed packages
