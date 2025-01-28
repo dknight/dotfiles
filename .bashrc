@@ -15,7 +15,7 @@ export LYNX_CFG="$HOME/lab/dotfiles/lynx.cfg"
 export EDITOR=/usr/bin/nvim
 export VIEWER=/usr/bin/less
 export PAGER=/usr/bin/less
-export PLAYDATE_SDK_PATH="$HOME/Apps/PlaydateSDK-2.6.0"
+export PLAYDATE_SDK_PATH="$HOME/Apps/PlaydateSDK-2.6.2"
 
 # ======== ALIASES ========
 alias python=python3
@@ -29,7 +29,6 @@ alias l='ls -CF'
 alias l.='ls -d .* --color=auto'
 alias vim=nvim
 alias vi=nvim
-alias qcheckers='echo Stop playing checkers, no need to fuck bains'
 
 # ==== HTTP server
 function serve() {
@@ -47,7 +46,8 @@ function serve() {
 # ======== USEFUL ========
 # Shortcut to download mp3 from youtube.
 yt2mp3() {
-	youtube-dl --extract-audio --audio-format mp3 $1
+	# youtube-dl --extract-audio --audio-format mp3 $1
+	yt-dlp --extract-audio --audio-format mp3 $1
 }
 
 # No ttyctl, so we need to save and then restore terminal settings.
