@@ -11,7 +11,6 @@ export GOBIN="$GOPATH/bin"
 export GOROOT="/usr/lib/golang"
 export PATH="/home/xdkn1ght/.luarocks/bin:/usr/lib64/ccache:/usr/local/bin:/usr/bin:/bin:/usr/local/sbin:/usr/sbin:$HOME/.local/bin:$HOME/bin:$GOBIN"
 export VIM="$HOME/.config/nvim"
-export LYNX_CFG="$HOME/lab/dotfiles/lynx.cfg"
 export EDITOR=/usr/bin/nvim
 export VIEWER=/usr/bin/less
 export PAGER=/usr/bin/less
