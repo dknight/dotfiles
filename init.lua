@@ -110,7 +110,7 @@ vim.keymap.set({ "n", "x" }, "&", "<cmd>&&<esc>")
 vim.keymap.set("n", "<c-l>", "<cmd>set hlsearch!<cr>")
 vim.keymap.set("c", "%%", '<c-r>=fnameescape(expand("%:h"))."/"<cr>')
 vim.keymap.set("n", "<leader>s", ":setlocal spell!<cr>")
--------------------------- Plugins ---------------------------------------
+-------------------------- Plugins --------------------------------------
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not vim.loop.fs_stat(lazypath) then
 	vim.fn.system({

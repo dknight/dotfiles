@@ -95,7 +95,7 @@ cpuld() {
 
 # Lua related stuff
 # LSP
-PATH="$PATH:$HOME/.config/lua-language-server-3.7.4-linux-x64/bin"
+PATH="$PATH:$HOME/.config/lsp/bin"
 
 # Node and webdev realted stuff.
 export NVM_DIR="$HOME/.nvm"
