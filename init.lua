@@ -126,31 +126,21 @@ vim.opt.rtp:prepend(lazypath)
 
 local plugins = {
 	-- Common
+	"neovim/nvim-lspconfig",
 	"tpope/vim-commentary",
 	"tpope/vim-surround",
 	"tpope/vim-repeat",
-	"tpope/vim-abolish",
 	"vim-airline/vim-airline",
 	"vim-airline/vim-airline-themes",
 	"ctrlpvim/ctrlp.vim",
-	"Yggdroot/indentLine",
 	"jiangmiao/auto-pairs",
 	"nelstrom/vim-visual-star-search",
 	"dhruvasagar/vim-table-mode",
 	"flazz/vim-colorschemes",
-	"neovim/nvim-lspconfig",
 	"neoclide/coc.nvim",
 	"nvim-treesitter/nvim-treesitter", --run :TSInstall
 	-- lua
 	"dcampos/nvim-snippy",
-	{
-		"ckipp01/stylua-nvim", -- npm i -g @johnnymorganz/stylua-bin
-		config = function()
-			require("stylua-nvim").setup({
-				config_file = stylua_cfg,
-			})
-		end,
-	},
 	{
 		"S1M0N38/love2d.nvim",
 		cmd = "LoveRun",
@@ -195,7 +185,7 @@ vim.g.netrw_winsize = 100
 vim.g.netrw_altv = 1
 vim.keymap.set({ "n", "i" }, "<c-g>", "<cmd>Vex<cr>")
 
-require("lazy").setup(plugins, opts)
+require("lazy").setup(plugins, {})
 require("snippy").setup({
 	mappings = {
 		is = {
@@ -215,7 +205,46 @@ vim.cmd([[
 ]])
 
 -- LSP
-require("lspconfig").lua_ls.setup({})
+require("lspconfig").lua_ls.setup({
+	-- on_attach = on_attach,
+	on_init = function(client)
+		local path = client.workspace_folders[1].name
+		if
+			vim.loop.fs_stat(path .. "/.luarc.json")
+			or vim.loop.fs_stat(path .. "/.luarc.jsonc")
+		then
+			return
+		end
+
+		client.config.settings.Lua =
+			vim.tbl_deep_extend("force", client.config.settings.Lua, {
+				runtime = {
+					-- Tell the language server which version of Lua you're using
+					-- (most likely LuaJIT in the case of Neovim)
+					version = "LuaJIT",
+				},
+				-- Make the server aware of Neovim runtime files
+				workspace = {
+					checkThirdParty = false,
+					library = {
+						vim.env.VIMRUNTIME,
+						-- Depending on the usage, you might want to add additional paths here.
+						"${3rd}/love2d/library",
+						-- "${3rd}/busted/library",
+					},
+					-- or pull in all of 'runtimepath'. NOTE: this is a lot slower
+					-- library = vim.api.nvim_get_runtime_file("", true)
+				},
+			})
+	end,
+	settings = {
+		Lua = {
+			runtime = {
+				version = "Lua 5.4",
+			},
+		},
+	},
+})
 
 -- TODO make function to swith to russian.
 --et spelllang=ru_ru

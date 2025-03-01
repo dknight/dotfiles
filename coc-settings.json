@@ -1,0 +1,36 @@
+{
+  "languageserver": {
+    "lua": {
+      "cwd": "/home/xdkn1ght/.config/lua-lsp",
+      "command": "/home/xdkn1ght/.config/lua-lsp/bin/lua-language-server",
+      "filetypes": ["lua"],
+      "rootPatterns": [".git/"]
+    }
+  },
+  "settings": {
+    "Lua": {
+        "format": {
+            "defaultConfig": {
+                "indent_style": "tab",
+                "indent_style: 4"
+            }"
+        },
+      "workspace": {
+        "library": [],
+        "maxPreload": 2000,
+        "preloadFileSize": 1000
+      },
+      "runtime": {
+        "version": "Lua 5.4"
+      },
+      "diagnostics": {
+        "enable": true,
+        "globals": ["hs", "vim", "it", "describe", "before_each", "after_each"],
+        "disable": ["lowercase-global"]
+      },
+      "completion": {
+        "keywordSnippet": "Disable"
+      }
+    }
+  }
+}
