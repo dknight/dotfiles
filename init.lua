@@ -166,44 +166,7 @@ local plugins = {
 	-- Web
 	-- "mattn/emmet-vim",
 	-- "vim-scripts/loremipsum",
-	-- text
-	"rhysd/vim-grammarous",
-	-- "dpelle/vim-LanguageTool"
-	-- {
-	-- 	"Bryley/neoai.nvim",
-	-- 	dependencies = {
-	-- 		"MunifTanjim/nui.nvim",
-	-- 	},
-	-- 	cmd = {
-	-- 		"NeoAI",
-	-- 		"NeoAIOpen",
-	-- 		"NeoAIClose",
-	-- 		"NeoAIToggle",
-	-- 		"NeoAIContext",
-	-- 		"NeoAIContextOpen",
-	-- 		"NeoAIContextClose",
-	-- 		"NeoAIInject",
-	-- 		"NeoAIInjectCode",
-	-- 		"NeoAIInjectContext",
-	-- 		"NeoAIInjectContextCode",
-	-- 	},
-	-- 	keys = {
-	-- 		{ "<leader>as", desc = "summarize text" },
-	-- 		{ "<leader>ag", desc = "generate git message" },
-	-- 	},
-	-- 	config = function()
-	-- 		require("neoai").setup({
-	-- 			-- Options go here
-	-- 		})
-	-- 	end,
-	-- },
 }
-
--- languagetool
--- https://languagetool.org/download/
--- vim.g.languagetool_cmd="java -jar $HOME/.config/LanguageTool-5.9/languagetool-commandline.jar"
-vim.g["grammarous#jar_url"] =
-	"https://www.languagetool.org/download/LanguageTool-5.9.zip"
 
 -- Aurline
 vim.g.airline_theme = "serene"
@@ -250,6 +213,9 @@ vim.cmd.colorscheme("wasabi256")
 vim.cmd([[
 	highlight NonText ctermbg=None ctermfg=238
 ]])
+
+-- LSP
+require("lspconfig").lua_ls.setup({})
 
 -- TODO make function to swith to russian.
 --et spelllang=ru_ru
