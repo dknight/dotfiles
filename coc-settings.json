@@ -3,20 +3,26 @@
     "lua": {
       "cwd": "/home/xdkn1ght/.config/lua-lsp",
       "command": "/home/xdkn1ght/.config/lua-lsp/bin/lua-language-server",
-      "filetypes": ["lua"],
-      "rootPatterns": [".git/"]
+      "filetypes": [
+        "lua"
+      ],
+      "rootPatterns": [
+        ".git/"
+      ]
     }
   },
   "settings": {
     "Lua": {
-        "format": {
-            "defaultConfig": {
-                "indent_style": "tab",
-                "indent_style: 4"
-            }"
-        },
+      "format": {
+        "defaultConfig": {
+          "indent_style": "tab",
+          "indent_style:": 4
+        }
+      },
       "workspace": {
-        "library": [],
+        "library": [
+          "/home/xdkn1ght/.config/nvim/runtime"
+        ],
         "maxPreload": 2000,
         "preloadFileSize": 1000
       },
@@ -25,8 +31,17 @@
       },
       "diagnostics": {
         "enable": true,
-        "globals": ["hs", "vim", "it", "describe", "before_each", "after_each"],
-        "disable": ["lowercase-global"]
+        "globals": [
+          "hs",
+          "vim",
+          "it",
+          "describe",
+          "before_each",
+          "after_each"
+        ],
+        "disable": [
+          "lowercase-global"
+        ]
       },
       "completion": {
         "keywordSnippet": "Disable"
