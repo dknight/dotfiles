@@ -38,9 +38,9 @@ vim.opt.endoffile = true
 -- })
 -------------------------- Commands --------------------------------------
 -- Share the code with https://sprunge.us
-vim.cmd([[
-command! -nargs=0 -bar Share execute "!cat % | curl -F "sprunge=<-" http://sprunge.us"
-]])
+-- vim.cmd([[
+-- command! -nargs=0 -bar Share execute "!cat % | curl -F "sprunge=<-" http://sprunge.us"
+-- ]])
 
 vim.api.nvim_create_autocmd({ "FileType" }, {
 	pattern = { "sh" },
@@ -60,8 +60,6 @@ vim.api.nvim_create_autocmd({ "FileType" }, {
 vim.api.nvim_create_autocmd({ "FileType" }, {
 	pattern = { "lua" },
 	callback = function()
-		vim.opt.shiftwidth = 4
-		vim.opt.softtabstop = 4
 		vim.keymap.set("n", "<f5>", "<cmd>w<cr><cmd>!lua %<cr>")
 	end,
 })
