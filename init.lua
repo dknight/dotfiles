@@ -1,7 +1,7 @@
 local homedir = vim.fn.expand("$HOME")
-local stylua_cfg = homedir .. "/lab/dotfiles/stylua.toml"
--- local uname = vim.fn.system("uname -s")
+local stylua_cfg = homedir .. "/lab/dotfiles/.stylua.toml"
 
+-- local uname = vim.fn.system("uname -s")
 vim.g.mapleader = ","
 vim.opt.exrc = false
 vim.opt.secure = true
@@ -204,7 +204,6 @@ vim.cmd([[
 
 -- LSP
 require("lspconfig").lua_ls.setup({
-	-- on_attach = on_attach,
 	on_init = function(client)
 		local path = client.workspace_folders[1].name
 		if
