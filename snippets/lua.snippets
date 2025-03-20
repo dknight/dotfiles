@@ -1,5 +1,12 @@
 snippet kv
-	print(k, v)
+	for k, v in pairs($1) do
+		print(k, v)
+	end
+
+snippet ikv
+	for i, v in ipairs($1) do
+		print(i, v)
+	end
 
 snippet date
 	Current date is `strftime('%c')`
