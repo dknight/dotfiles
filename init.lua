@@ -11,7 +11,7 @@ vim.opt.mouse = ""
 vim.opt.spelllang = "en_us"
 vim.opt.foldmethod = "indent"
 vim.opt.foldlevel = 99
-vim.opt.clipboard = "unnamed"
+vim.opt.clipboard = "unnamedplus"
 vim.opt.tabstop = 4
 vim.opt.shiftwidth = 4
 vim.opt.softtabstop = 4
@@ -136,7 +136,8 @@ local plugins = {
 	"dhruvasagar/vim-table-mode",
 	"flazz/vim-colorschemes",
 	"neoclide/coc.nvim",
-	"nvim-treesitter/nvim-treesitter", --run :TSInstall
+	--:TSInstall c lua vim vimdoc markdown
+	"nvim-treesitter/nvim-treesitter",
 	-- lua
 	"dcampos/nvim-snippy",
 	{
