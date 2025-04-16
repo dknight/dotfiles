@@ -13,7 +13,7 @@ if not (vim.uv or vim.loop).fs_stat(lazypath) then
 	if vim.v.shell_error ~= 0 then
 		vim.api.nvim_echo({
 			{ "Failed to clone lazy.nvim:\n", "ErrorMsg" },
-			{ out, "WarningMsg" },
+			{ out,                            "WarningMsg" },
 			{ "\nPress any key to exit..." },
 		}, true, {})
 		vim.fn.getchar()
@@ -24,7 +24,6 @@ vim.opt.rtp:prepend(lazypath)
 
 -- local uname = vim.fn.system("uname -s")
 local homedir = vim.fn.expand("$HOME")
-local stylua_cfg = homedir .. "/lab/dotfiles/.stylua.toml"
 
 -- Make sure to setup `mapleader` and `maplocalleader` before
 -- loading lazy.nvim so that mappings are correct.
@@ -95,11 +94,7 @@ vim.api.nvim_create_autocmd({ "FileType" }, {
 vim.api.nvim_create_autocmd({ "BufWritePost" }, {
 	pattern = { "*.lua" },
 	callback = function()
-		local stylua_cmd = "silent! !stylua --config-path="
-			.. stylua_cfg
-			.. " %"
-		vim.cmd([[silent! %s/\s\+$//e]])
-		vim.cmd(stylua_cmd)
+		vim.lsp.buf.format({ async = true })
 	end,
 })
 
@@ -162,8 +157,8 @@ local plugins = {
 		opts = {},
 		keys = {
 			{ "<leader>v", desc = "LÖVE" },
-			{ "<f6>", "<cmd>w<cr><cmd>LoveRun<cr>", desc = "Run LÖVE" },
-			{ "<f7>", "<cmd>LoveStop<cr>", desc = "Stop LÖVE" },
+			{ "<f6>",      "<cmd>w<cr><cmd>LoveRun<cr>", desc = "Run LÖVE" },
+			{ "<f7>",      "<cmd>LoveStop<cr>",          desc = "Stop LÖVE" },
 		},
 	},
 	-- Go
@@ -260,6 +255,13 @@ require("lspconfig").lua_ls.setup({
 					-- or pull in all of 'runtimepath'. NOTE: this is a lot slower
 					-- library = vim.api.nvim_get_runtime_file("", true)
 				},
+				format = {
+					enabled = true,
+					indent_style = "tab",
+					tab_size = "4",
+					trim_trailing_whitespace = true,
+					trim_final_newlines = true,
+				}
 			})
 	end,
 	settings = {
