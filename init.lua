@@ -1,4 +1,4 @@
--- Lazy setup
+	-- Lazy setup
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not (vim.uv or vim.loop).fs_stat(lazypath) then
 	local lazyrepo = "https://github.com/folke/lazy.nvim.git"
@@ -94,7 +94,7 @@ vim.api.nvim_create_autocmd({ "FileType" }, {
 vim.api.nvim_create_autocmd({ "BufWritePost" }, {
 	pattern = { "*.lua" },
 	callback = function()
-		vim.lsp.buf.format({ async = true })
+		vim.lsp.buf.format({ async = false })
 	end,
 })
 
@@ -241,7 +241,14 @@ require("lspconfig").lua_ls.setup({
 				runtime = {
 					-- Tell the language server which version of Lua you're using
 					-- (most likely LuaJIT in the case of Neovim)
-					version = "LuaJIT",
+					version = "LuaJIT", -- 5.4
+					special = {
+						love = {
+							filesystem = {
+								load = "loadfile",
+							},
+						}
+					}
 				},
 				-- Make the server aware of Neovim runtime files
 				workspace = {
