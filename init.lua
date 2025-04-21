@@ -1,4 +1,4 @@
-	-- Lazy setup
+-- Lazy setup
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not (vim.uv or vim.loop).fs_stat(lazypath) then
 	local lazyrepo = "https://github.com/folke/lazy.nvim.git"
@@ -262,13 +262,15 @@ require("lspconfig").lua_ls.setup({
 					-- or pull in all of 'runtimepath'. NOTE: this is a lot slower
 					-- library = vim.api.nvim_get_runtime_file("", true)
 				},
+
 				format = {
-					enabled = true,
-					indent_style = "tab",
-					tab_size = "4",
-					trim_trailing_whitespace = true,
-					trim_final_newlines = true,
-				}
+					enabled = false,
+					defaultConfig = {
+						indent_style = "tab",
+						tab_width = "4",
+						max_line_length = "80",
+					},
+				},
 			})
 	end,
 	settings = {
