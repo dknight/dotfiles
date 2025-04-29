@@ -227,6 +227,16 @@ vim.cmd([[
 
 -- LSP
 require("lspconfig").lua_ls.setup({
+	Lua = {
+		format = {
+			enabled = false,
+			defaultConfig = {
+				indent_style = "tab",
+				tab_width = "4",
+				max_line_length = "80",
+			},
+		},
+	},
 	on_init = function(client)
 		local path = client.workspace_folders[1].name
 		if
@@ -261,15 +271,6 @@ require("lspconfig").lua_ls.setup({
 					},
 					-- or pull in all of 'runtimepath'. NOTE: this is a lot slower
 					-- library = vim.api.nvim_get_runtime_file("", true)
-				},
-
-				format = {
-					enabled = false,
-					defaultConfig = {
-						indent_style = "tab",
-						tab_width = "4",
-						max_line_length = "80",
-					},
 				},
 			})
 	end,
