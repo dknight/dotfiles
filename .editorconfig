@@ -1,0 +1,6 @@
+[*.lua]
+indent_style=tab
+indent_size=4
+tab_width=4
+quote_style=double
+max_line_length=80
