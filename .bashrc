@@ -15,6 +15,7 @@ export EDITOR=/usr/bin/nvim
 export VIEWER=/usr/bin/less
 export PAGER=/usr/bin/less
 export PLAYDATE_SDK_PATH="$HOME/Apps/PlaydateSDK-2.7.2"
+export PLAYDATE_LUACATS_PATH="$HOME/.config/playdate-luacats"
 
 # ======== ALIASES ========
 alias python=python3
