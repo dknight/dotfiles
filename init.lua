@@ -127,7 +127,7 @@ vim.cmd("iab <expr> datetime! system('date --rfc-3339=seconds')")
 -------------------------------------------------------------------------------
 -- Colors
 -------------------------------------------------------------------------------
--- vim.cmd.colorscheme("wasabi256")
+vim.cmd.colorscheme("habamax")
 vim.cmd([[
 	highlight NonText ctermbg=None ctermfg=238
 ]])
@@ -199,7 +199,6 @@ local plugins = {
 	"jiangmiao/auto-pairs",
 	"nelstrom/vim-visual-star-search",
 	"dhruvasagar/vim-table-mode",
-	"flazz/vim-colorschemes",
 	--:TSInstall c lua vim vimdoc markdown
 	"nvim-treesitter/nvim-treesitter",
 	-- lua
@@ -272,7 +271,7 @@ require("lazy").setup(plugins, {
 	},
 	-- Configure any other settings here. See the documentation for more details.
 	-- colorscheme that will be used when installing plugins.
-	install = { colorscheme = { "habamax" } },
+	install = { colorscheme = { "retrobox" } },
 	-- automatically check for plugin updates
 	checker = { enabled = true },
 })
@@ -305,7 +304,7 @@ cmp.setup({
 		end,
 	},
 	window = {
-		completion = cmp.config.window.bordered(),
+		-- completion = cmp.config.window.bordered(),
 		-- documentation = cmp.config.window.bordered(),
 	},
 	mapping = cmp.mapping.preset.insert({
