@@ -2,7 +2,8 @@
 	name = Dmitri Smirnov
 	email = smirnov.dmitri@gmail.com
 [credential]
-	helper = store
+	helper = /usr/local/bin/git-credential-manager
+	credentialStore = secretservice
 [color]
 	ui = auto
 [alias]
@@ -15,7 +16,7 @@
     lg2 = log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold cyan)%aD%C(reset) %C(bold green)(%ar)%C(reset)%C(auto)%d%C(reset)%n''          %C(white)%s%C(reset) %C(dim white)- %an%C(reset)'
     lg = lg1
 [init]
-	defaultBranch = master
+	defaultBranch = main
 [diff]
 	tool = "nvim -d"
 [merge]
