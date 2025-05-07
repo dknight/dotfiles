@@ -174,6 +174,7 @@ vim.keymap.set("n", "gi", "<cmd>lua vim.lsp.buf.implementation()<cr>",
 	{ buffer = 0 })
 vim.keymap.set("n", "<leader>dk", "<cmd>lua vim.diagnostic.goto_next()<cr>")
 vim.keymap.set("n", "<leader>dj", "<cmd>lua vim.diagnostic.goto_prev()<cr>")
+vim.keymap.set("n", "<leader>dl", "<cmd>Telescope diagnostics<cr>")
 vim.keymap.set("n", "<leader>r", "<cmd>lua vim.lsp.buf.rename()<cr>")
 vim.keymap.set("n", "<leader>A", "<cmd>lua vim.lsp.buf.code.acion()<cr>")
 
@@ -201,6 +202,7 @@ local plugins = {
 	"dhruvasagar/vim-table-mode",
 	--:TSInstall c lua vim vimdoc markdown
 	"nvim-treesitter/nvim-treesitter",
+	"nvim-telescope/telescope.nvim",
 	-- lua
 	{
 		"S1M0N38/love2d.nvim",
