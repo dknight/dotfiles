@@ -1,4 +1,14 @@
+-------------------------------------------------------------------------------
+-- Locals
+-------------------------------------------------------------------------------
+
+-- local uname = vim.fn.system("uname -s")
+local homedir = vim.fn.expand("$HOME")
+
+
+-------------------------------------------------------------------------------
 -- Lazy setup
+-------------------------------------------------------------------------------
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not (vim.uv or vim.loop).fs_stat(lazypath) then
 	local lazyrepo = "https://github.com/folke/lazy.nvim.git"
@@ -22,19 +32,20 @@ if not (vim.uv or vim.loop).fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
--- local uname = vim.fn.system("uname -s")
-local homedir = vim.fn.expand("$HOME")
 
+-------------------------------------------------------------------------------
+-- Vim options
+--
 -- Make sure to setup `mapleader` and `maplocalleader` before
 -- loading lazy.nvim so that mappings are correct.
 -- This is also a good place to setup other settings (vim.opt)
+-------------------------------------------------------------------------------
 vim.g.mapleader = ","
 vim.g.maplocalleader = "\\"
 vim.opt.exrc = false
 vim.opt.secure = true
 vim.opt.number = true
 vim.opt.mouse = ""
--- vim.opt.omnifunc = "syntaxcomplete#Complete"
 vim.opt.spelllang = "en_us"
 vim.opt.foldmethod = "indent"
 vim.opt.foldlevel = 99
@@ -57,7 +68,10 @@ vim.opt.lazyredraw = false
 vim.opt.textwidth = 78
 vim.opt.endoffile = true
 
--------------------------- ctags -----------------------------------------
+
+-------------------------------------------------------------------------------
+-- ctags
+-------------------------------------------------------------------------------
 -- Use correct patterns if needed
 -- vim.api.nvim_create_autocmd({"BufWritePost"}, {
 -- pattern = {"*"},
@@ -69,14 +83,18 @@ vim.opt.endoffile = true
 -- command! -nargs=0 -bar Share execute "!cat % | curl -F "sprunge=<-" http://sprunge.us"
 -- ]])
 
+
+-------------------------------------------------------------------------------
+-- Auto commands
+-------------------------------------------------------------------------------
 vim.api.nvim_create_autocmd({ "FileType" }, {
-	pattern = { "sh" },
+	pattern = { "*.sh" },
 	callback = function(args)
 		vim.keymap.set("n", "<f5>", "<cmd>w<cr><cmd>!%%%<cr>")
 	end,
 })
 vim.api.nvim_create_autocmd({ "FileType" }, {
-	pattern = { "html,xml,css" },
+	pattern = { "*.html,*.xml,*.css" },
 	callback = function(args)
 		vim.opt.shiftwidth = 2
 		vim.opt.softtabstop = 2
@@ -85,7 +103,7 @@ vim.api.nvim_create_autocmd({ "FileType" }, {
 	end,
 })
 vim.api.nvim_create_autocmd({ "FileType" }, {
-	pattern = { "lua" },
+	pattern = { "*.lua" },
 	callback = function()
 		vim.keymap.set("n", "<f5>", "<cmd>w<cr><cmd>!lua %<cr>")
 	end,
@@ -98,10 +116,26 @@ vim.api.nvim_create_autocmd({ "BufWritePost" }, {
 	end,
 })
 
---------------------- Generic  Abbreviations -----------------------------
+
+-------------------------------------------------------------------------------
+-- Common abbreviations
+-------------------------------------------------------------------------------
 vim.cmd("iab <expr> date! system('date +%Y-%m-%d')")
 vim.cmd("iab <expr> datetime! system('date --rfc-3339=seconds')")
--------------------------- Mappings --------------------------------------
+
+
+-------------------------------------------------------------------------------
+-- Colors
+-------------------------------------------------------------------------------
+-- vim.cmd.colorscheme("wasabi256")
+vim.cmd([[
+	highlight NonText ctermbg=None ctermfg=238
+]])
+
+
+-------------------------------------------------------------------------------
+-- Key mappings
+-------------------------------------------------------------------------------
 vim.keymap.set("n", "<c-s>", "<cmd>write<cr>")
 vim.keymap.set("i", "jk", "<Esc>")
 vim.keymap.set({ "i", "n", "v" }, "<up>", "<nop>")
@@ -130,8 +164,23 @@ vim.keymap.set({ "n", "x" }, "&", "<cmd>&&<esc>")
 vim.keymap.set("n", "<c-l>", "<cmd>set hlsearch!<cr>")
 vim.keymap.set("c", "%%", '<c-r>=fnameescape(expand("%:h"))."/"<cr>')
 vim.keymap.set("n", "<leader>s", ":setlocal spell!<cr>")
--------------------------- Plugins --------------------------------------
 
+vim.keymap.set("n", "K", "<cmd>lua vim.lsp.buf.hover()<cr>", { buffer = 0 })
+vim.keymap.set("n", "gd", "<cmd>lua vim.lsp.buf.definition()<cr>",
+	{ buffer = 0 })
+vim.keymap.set("n", "gT", "<cmd>lua vim.lsp.buf.type_definition()<cr>",
+	{ buffer = 0 })
+vim.keymap.set("n", "gi", "<cmd>lua vim.lsp.buf.implementation()<cr>",
+	{ buffer = 0 })
+vim.keymap.set("n", "<leader>dk", "<cmd>lua vim.diagnostic.goto_next()<cr>")
+vim.keymap.set("n", "<leader>dj", "<cmd>lua vim.diagnostic.goto_prev()<cr>")
+vim.keymap.set("n", "<leader>r", "<cmd>lua vim.lsp.buf.rename()<cr>")
+vim.keymap.set("n", "<leader>A", "<cmd>lua vim.lsp.buf.code.acion()<cr>")
+
+
+-------------------------------------------------------------------------------
+-- Plugins
+-------------------------------------------------------------------------------
 local plugins = {
 	-- Common
 	"neovim/nvim-lspconfig",
@@ -140,6 +189,8 @@ local plugins = {
 	"hrsh7th/cmp-path",
 	"hrsh7th/cmp-cmdline",
 	"hrsh7th/nvim-cmp",
+	"L3MON4D3/LuaSnip",
+	"saadparwaiz1/cmp_luasnip",
 	"tpope/vim-commentary",
 	"tpope/vim-surround",
 	"tpope/vim-repeat",
@@ -150,20 +201,28 @@ local plugins = {
 	"nelstrom/vim-visual-star-search",
 	"dhruvasagar/vim-table-mode",
 	"flazz/vim-colorschemes",
-	"neoclide/coc.nvim",
 	--:TSInstall c lua vim vimdoc markdown
 	"nvim-treesitter/nvim-treesitter",
 	-- lua
-	"dcampos/nvim-snippy",
-	"dcampos/cmp-snippy",
 	{
 		"S1M0N38/love2d.nvim",
 		cmd = "LoveRun",
 		opts = {},
 		keys = {
-			{ "<leader>v", desc = "LÖVE" },
-			{ "<f6>",      "<cmd>w<cr><cmd>LoveRun<cr>", desc = "Run LÖVE" },
-			{ "<f7>",      "<cmd>LoveStop<cr>",          desc = "Stop LÖVE" },
+			{
+				"<leader>v",
+				desc = "LÖVE",
+			},
+			{
+				"<f6>",
+				"<cmd>w<cr><cmd>LoveRun<cr>",
+				desc = "Run LÖVE",
+			},
+			{
+				"<f7>",
+				"<cmd>LoveStop<cr>",
+				desc = "Stop LÖVE",
+			},
 		},
 	},
 	-- Go
@@ -173,8 +232,11 @@ local plugins = {
 	-- "vim-scripts/loremipsum",
 }
 
--- Aurline
-vim.g.airline_theme = "serene"
+
+-------------------------------------------------------------------------------
+-- Airline
+-------------------------------------------------------------------------------
+vim.g.airline_theme = "wombat"
 vim.g.airline_powerline_fonts = 0
 vim.g.airline_symbols = {
 	maxlinenr = "",
@@ -182,17 +244,29 @@ vim.g.airline_symbols = {
 	linenr = " ",
 }
 
+
+-------------------------------------------------------------------------------
 -- Emmet
+-------------------------------------------------------------------------------
 vim.g.user_emmet_leader_key = "<C-y>"
 vim.g.user_emmet_install_global = 0
 
+
+-------------------------------------------------------------------------------
 -- Vim surround
+-------------------------------------------------------------------------------
 vim.g.surround_indent = 1
 
--- CtrlP
+
+-------------------------------------------------------------------------------
+-- Ctrl-P
+-------------------------------------------------------------------------------
 vim.g.wildignore = "*/node_modules/*,*.so,*.swp,*.zip,*.git,*.o,*.a,"
 
+
+-------------------------------------------------------------------------------
 -- netrw
+-------------------------------------------------------------------------------
 vim.g.netrw_banner = 1
 vim.g.netrw_liststyle = 3
 vim.g.netrw_browse_split = 0
@@ -200,7 +274,10 @@ vim.g.netrw_winsize = 100
 vim.g.netrw_altv = 1
 vim.keymap.set({ "n", "i" }, "<c-g>", "<cmd>Vex<cr>")
 
--- Setup lazy.nvim
+
+-------------------------------------------------------------------------------
+-- Setup Lazy
+-------------------------------------------------------------------------------
 require("lazy").setup(plugins, {
 	spec = {
 		-- import your plugins
@@ -212,100 +289,36 @@ require("lazy").setup(plugins, {
 	-- automatically check for plugin updates
 	checker = { enabled = true },
 })
-require("snippy").setup({
-	mappings = {
-		is = {
-			["<C-K>"] = "expand_or_advance",
-			["<C-S-K>"] = "previous",
-		},
-		nx = {
-			["<leader>x"] = "cut_text",
-		},
-	},
-})
 
--- Colors
-vim.cmd.colorscheme("wasabi256")
-vim.cmd([[
-	highlight NonText ctermbg=None ctermfg=238
-]])
 
+-------------------------------------------------------------------------------
 -- LSP
+-------------------------------------------------------------------------------
 require("lspconfig").lua_ls.setup({
-	on_init = function(client)
-		local path = client.workspace_folders[1].name
-		if
-			vim.loop.fs_stat(path .. "/.luarc.json")
-			or vim.loop.fs_stat(path .. "/.luarc.jsonc")
-		then
-			return
-		end
-
-		client.config.settings.Lua =
-			vim.tbl_deep_extend("force", client.config.settings.Lua, {
-				runtime = {
-					-- Tell the language server which version of Lua you're using
-					-- (most likely LuaJIT in the case of Neovim)
-					version = "LuaJIT", -- 5.4
-					special = {
-						love = {
-							filesystem = {
-								load = "loadfile",
-							},
-						}
-					}
-				},
-				-- Make the server aware of Neovim runtime files
-				workspace = {
-					checkThirdParty = false,
-					library = {
-						vim.env.VIMRUNTIME,
-						-- Depending on the usage, you might want to add additional paths here.
-						"${3rd}/love2d/library",
-						-- "${3rd}/busted/library",
-					},
-					-- or pull in all of 'runtimepath'. NOTE: this is a lot slower
-					-- library = vim.api.nvim_get_runtime_file("", true)
-				},
-			})
+	on_attach = function()
+		-- add code if needed
 	end,
-	settings = {
-		Lua = {
-			runtime = {
-				version = "Lua 5.4",
-			},
-		},
-	},
+	on_init = function(_client)
+		-- add code if needed
+	end,
 })
 
--- TODO make function to swith to russian.
---et spelllang=ru_ru
---set keymap=russian-jcuken
--- TODO contribute estonian language (when free time or ask help)
--- http://ftp.vim.org/vim/runtime/spell/README.txt
--- Set up nvim-cmp.
 
-
+-------------------------------------------------------------------------------
+-- cmp
+-------------------------------------------------------------------------------
+require("luasnip.loaders.from_snipmate").lazy_load()
+vim.opt.completeopt = { "menu", "menuone", "noselect" }
 local cmp = require("cmp")
 cmp.setup({
 	snippet = {
 		-- REQUIRED - you must specify a snippet engine
 		expand = function(args)
-			vim.fn["vsnip#anonymous"](args.body) -- For `vsnip` users.
-			-- require('luasnip').lsp_expand(args.body) -- For `luasnip` users.
-			require("snippy").expand_snippet(args.body) -- For `snippy` users.
-			-- vim.fn["UltiSnips#Anon"](args.body) -- For `ultisnips` users.
-			-- vim.snippet.expand(args.body) -- For native neovim snippets (Neovim v0.10+)
-
-			-- For `mini.snippets` users:
-			-- local insert = MiniSnippets.config.expand.insert or MiniSnippets.default_insert
-			-- insert({ body = args.body }) -- Insert at cursor
-			-- cmp.resubscribe({ "TextChangedI", "TextChangedP" })
-			-- require("cmp.config").set_onetime({ sources = {} })
+			require("luasnip").lsp_expand(args.body)
 		end,
 	},
 	window = {
-		-- completion = cmp.config.window.bordered(),
+		completion = cmp.config.window.bordered(),
 		-- documentation = cmp.config.window.bordered(),
 	},
 	mapping = cmp.mapping.preset.insert({
@@ -317,16 +330,21 @@ cmp.setup({
 	}),
 	sources = cmp.config.sources({
 		{ name = "nvim_lsp" },
-		-- { name = 'vsnip' }, -- For vsnip users.
-		-- { name = 'luasnip' }, -- For luasnip users.
-		-- { name = 'ultisnips' }, -- For ultisnips users.
-		{ name = "snippy" }, -- For snippy users.
+		{ name = "luasnip" }, -- For luasnip users.
 	}, {
 		{ name = "buffer" },
-	})
+	}),
 })
 
--- To use git you need to install the plugin petertriho/cmp-git and uncomment lines below
+
+local capabilities = require("cmp_nvim_lsp").default_capabilities()
+-- Add for each lsp server you've enabled.
+require("lspconfig")["lua_ls"].setup {
+	capabilities = capabilities,
+}
+
+-- To use git you need to install the plugin petertriho/cmp-git and
+-- uncomment lines below
 -- Set configuration for specific filetype.
 --[[ cmp.setup.filetype('gitcommit', {
     sources = cmp.config.sources({
@@ -335,30 +353,13 @@ cmp.setup({
       { name = 'buffer' },
     })
  })
- require("cmp_git").setup() ]] --
+ require("cmp_git").setup()
+--]]
 
--- Use buffer source for `/` and `?` (if you enabled `native_menu`, this won't work anymore).
-cmp.setup.cmdline({ "/", "?" }, {
-	mapping = cmp.mapping.preset.cmdline(),
-	sources = {
-		{ name = "buffer" }
-	}
-})
 
--- Use cmdline & path source for ':' (if you enabled `native_menu`, this won't work anymore).
-cmp.setup.cmdline(":", {
-	mapping = cmp.mapping.preset.cmdline(),
-	sources = cmp.config.sources({
-		{ name = "path" }
-	}, {
-		{ name = "cmdline" }
-	}),
-	matching = { disallow_symbol_nonprefix_matching = false }
-})
-
--- Set up lspconfig.
-local capabilities = require("cmp_nvim_lsp").default_capabilities()
--- Replace <YOUR_LSP_SERVER> with each lsp server you've enabled.
-require("lspconfig")["lua_ls"].setup {
-	capabilities = capabilities
-}
+-------------------------------------------------------------------------------
+-- TODO
+-------------------------------------------------------------------------------
+-- TODO make function to swith to russian.
+--set spelllang=ru_ru
+--set keymap=russian-jcuken
