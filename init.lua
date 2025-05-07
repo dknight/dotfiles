@@ -94,14 +94,13 @@ vim.api.nvim_create_autocmd({ "FileType" }, {
 vim.api.nvim_create_autocmd({ "BufWritePost" }, {
 	pattern = { "*.lua" },
 	callback = function()
-		vim.lsp.buf.format({ async = false })
+		vim.lsp.buf.format({ async = true })
 	end,
 })
 
 --------------------- Generic  Abbreviations -----------------------------
 vim.cmd("iab <expr> date! system('date +%Y-%m-%d')")
 vim.cmd("iab <expr> datetime! system('date --rfc-3339=seconds')")
-
 -------------------------- Mappings --------------------------------------
 vim.keymap.set("n", "<c-s>", "<cmd>write<cr>")
 vim.keymap.set("i", "jk", "<Esc>")
