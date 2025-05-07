@@ -195,7 +195,6 @@ local plugins = {
 	"tpope/vim-surround",
 	"tpope/vim-repeat",
 	"vim-airline/vim-airline",
-	"vim-airline/vim-airline-themes",
 	"ctrlpvim/ctrlp.vim",
 	"jiangmiao/auto-pairs",
 	"nelstrom/vim-visual-star-search",
@@ -230,18 +229,6 @@ local plugins = {
 	-- Web
 	-- "mattn/emmet-vim",
 	-- "vim-scripts/loremipsum",
-}
-
-
--------------------------------------------------------------------------------
--- Airline
--------------------------------------------------------------------------------
-vim.g.airline_theme = "wombat"
-vim.g.airline_powerline_fonts = 0
-vim.g.airline_symbols = {
-	maxlinenr = "",
-	colnr = ":",
-	linenr = " ",
 }
 
 
