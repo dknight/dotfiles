@@ -35,10 +35,6 @@ vim.opt.rtp:prepend(lazypath)
 
 -------------------------------------------------------------------------------
 -- Vim options
---
--- Make sure to setup `mapleader` and `maplocalleader` before
--- loading lazy.nvim so that mappings are correct.
--- This is also a good place to setup other settings (vim.opt)
 -------------------------------------------------------------------------------
 vim.g.mapleader = ","
 vim.g.maplocalleader = "\\"
@@ -53,7 +49,7 @@ vim.opt.clipboard = "unnamedplus"
 vim.opt.tabstop = 4
 vim.opt.shiftwidth = 4
 vim.opt.softtabstop = 4
--- vim.opt.expandtab = false
+vim.opt.expandtab = false
 vim.opt.smartindent = true
 vim.opt.list = true
 vim.opt.ignorecase = true
@@ -264,7 +260,7 @@ vim.keymap.set({ "n", "i" }, "<c-g>", "<cmd>Vex<cr>")
 
 
 -------------------------------------------------------------------------------
--- Setup Lazy
+-- Load Lazy
 -------------------------------------------------------------------------------
 require("lazy").setup(plugins, {
 	spec = {
@@ -280,7 +276,7 @@ require("lazy").setup(plugins, {
 
 
 -------------------------------------------------------------------------------
--- LSP
+-- Load LSP
 -------------------------------------------------------------------------------
 require("lspconfig").lua_ls.setup({
 	on_attach = function()
@@ -293,9 +289,8 @@ require("lspconfig").lua_ls.setup({
 
 
 -------------------------------------------------------------------------------
--- nvim-cmp
+-- Load nvim-cmp
 -------------------------------------------------------------------------------
-require("luasnip.loaders.from_snipmate").lazy_load()
 vim.opt.completeopt = { "menu", "menuone", "noselect" }
 local cmp = require("cmp")
 cmp.setup({
@@ -330,6 +325,8 @@ local capabilities = require("cmp_nvim_lsp").default_capabilities()
 require("lspconfig")["lua_ls"].setup {
 	capabilities = capabilities,
 }
+
+require("luasnip.loaders.from_snipmate").lazy_load()
 
 -- To use git you need to install the plugin petertriho/cmp-git and
 -- uncomment lines below
