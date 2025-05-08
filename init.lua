@@ -7,7 +7,7 @@ local homedir = vim.fn.expand("$HOME")
 
 
 -------------------------------------------------------------------------------
--- Lazy setup
+-- Lazy.nvim install
 -------------------------------------------------------------------------------
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not (vim.uv or vim.loop).fs_stat(lazypath) then
@@ -293,7 +293,7 @@ require("lspconfig").lua_ls.setup({
 
 
 -------------------------------------------------------------------------------
--- cmp
+-- nvim-cmp
 -------------------------------------------------------------------------------
 require("luasnip.loaders.from_snipmate").lazy_load()
 vim.opt.completeopt = { "menu", "menuone", "noselect" }
@@ -318,7 +318,7 @@ cmp.setup({
 	}),
 	sources = cmp.config.sources({
 		{ name = "nvim_lsp" },
-		{ name = "luasnip" }, -- For luasnip users.
+		{ name = "luasnip" },
 	}, {
 		{ name = "buffer" },
 	}),
