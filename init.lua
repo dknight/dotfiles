@@ -73,11 +73,6 @@ vim.opt.endoffile = true
 -- pattern = {"*"},
 --	command = vim.fn.system("ctags -R"),
 -- })
--------------------------- Commands --------------------------------------
--- Share the code with https://sprunge.us
--- vim.cmd([[
--- command! -nargs=0 -bar Share execute "!cat % | curl -F "sprunge=<-" http://sprunge.us"
--- ]])
 
 
 -------------------------------------------------------------------------------
@@ -340,6 +335,48 @@ require("luasnip.loaders.from_snipmate").lazy_load()
  })
  require("cmp_git").setup()
 --]]
+
+
+
+-------------------------------------------------------------------------------
+-- Playdate
+-------------------------------------------------------------------------------
+vim.api.nvim_create_user_command("PlaydateNew", function(args)
+	local projectName = args.fargs[1] or "."
+	local command = table.concat({
+			"terminal",
+			"pd.sh",
+			"new",
+			projectName },
+		" ")
+	vim.cmd(command)
+	vim.cmd("startinsert")
+end, { nargs = 1 })
+
+vim.api.nvim_create_user_command("PlaydateRun", function(args)
+	local dir = args.fargs[1] or "."
+	vim.system({ "pd.sh", "-d", dir, "run" })
+end, { nargs = "?" })
+
+local TerminalCommands = {
+	build   = "Build",
+	stop    = "Stop",
+	restart = "Restart",
+}
+for cmd, capitalized in pairs(TerminalCommands) do
+	vim.api.nvim_create_user_command("Playdate" .. capitalized, function(args)
+		local dir = args.fargs[1] or "."
+		local command = table.concat({
+				"terminal",
+				"pd.sh",
+				"-d",
+				dir,
+				cmd },
+			" ")
+		vim.cmd(command)
+		vim.cmd("startinsert")
+	end, { nargs = "?" })
+end
 
 
 -------------------------------------------------------------------------------
