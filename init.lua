@@ -172,7 +172,7 @@ vim.keymap.set("n", "<leader>dk", "<cmd>lua vim.diagnostic.goto_next()<cr>")
 vim.keymap.set("n", "<leader>dj", "<cmd>lua vim.diagnostic.goto_prev()<cr>")
 vim.keymap.set("n", "<leader>dl", "<cmd>Telescope diagnostics<cr>")
 vim.keymap.set("n", "<leader>r", "<cmd>lua vim.lsp.buf.rename()<cr>")
-vim.keymap.set("n", "<leader>A", "<cmd>lua vim.lsp.buf.code.acion()<cr>")
+vim.keymap.set("n", "<leader>A", "<cmd>lua vim.lsp.buf.code.action()<cr>")
 
 
 -------------------------------------------------------------------------------
