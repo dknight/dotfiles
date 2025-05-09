@@ -378,7 +378,6 @@ for cmd, capitalized in pairs(TerminalCommands) do
 	end, { nargs = "?" })
 end
 
-
 vim.keymap.set({ "i", "n", "v" }, "<F7>", "<cmd>PlaydateBuild<cr>")
 vim.keymap.set({ "i", "n", "v" }, "<F8>", "<cmd>PlaydateRestart<cr>")
 
