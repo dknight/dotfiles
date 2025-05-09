@@ -16,6 +16,7 @@ export VIEWER=/usr/bin/less
 export PAGER=/usr/bin/less
 export PLAYDATE_SDK_PATH="$HOME/Apps/PlaydateSDK-2.7.2"
 export PLAYDATE_LUACATS_PATH="$HOME/.config/playdate-luacats"
+export PATH="$PATH:$PLAYDATE_SDK_PATH/bin"
 
 # ======== ALIASES ========
 alias python=python3
