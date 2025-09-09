@@ -5,7 +5,6 @@
 -- local uname = vim.fn.system("uname -s")
 local homedir = vim.fn.expand("$HOME")
 
-
 -------------------------------------------------------------------------------
 -- Lazy.nvim install
 -------------------------------------------------------------------------------
@@ -23,7 +22,7 @@ if not (vim.uv or vim.loop).fs_stat(lazypath) then
 	if vim.v.shell_error ~= 0 then
 		vim.api.nvim_echo({
 			{ "Failed to clone lazy.nvim:\n", "ErrorMsg" },
-			{ out,                            "WarningMsg" },
+			{ out, "WarningMsg" },
 			{ "\nPress any key to exit..." },
 		}, true, {})
 		vim.fn.getchar()
@@ -31,7 +30,6 @@ if not (vim.uv or vim.loop).fs_stat(lazypath) then
 	end
 end
 vim.opt.rtp:prepend(lazypath)
-
 
 -------------------------------------------------------------------------------
 -- Vim options
@@ -64,7 +62,6 @@ vim.opt.lazyredraw = false
 vim.opt.textwidth = 78
 vim.opt.endoffile = true
 
-
 -------------------------------------------------------------------------------
 -- ctags
 -------------------------------------------------------------------------------
@@ -74,18 +71,17 @@ vim.opt.endoffile = true
 --	command = vim.fn.system("ctags -R"),
 -- })
 
-
 -------------------------------------------------------------------------------
 -- Auto commands
 -------------------------------------------------------------------------------
 vim.api.nvim_create_autocmd({ "FileType" }, {
-	pattern = { "*.sh" },
+	pattern = { "sh" },
 	callback = function(args)
 		vim.keymap.set("n", "<f5>", "<cmd>w<cr><cmd>!%%%<cr>")
 	end,
 })
 vim.api.nvim_create_autocmd({ "FileType" }, {
-	pattern = { "*.html,*.xml,*.css" },
+	pattern = { "html", "xml", "css", "md" },
 	callback = function(args)
 		vim.opt.shiftwidth = 2
 		vim.opt.softtabstop = 2
@@ -94,26 +90,36 @@ vim.api.nvim_create_autocmd({ "FileType" }, {
 	end,
 })
 vim.api.nvim_create_autocmd({ "FileType" }, {
-	pattern = { "*.lua" },
+	pattern = { "lua" },
 	callback = function()
-		vim.keymap.set("n", "<f5>", "<cmd>w<cr><cmd>!lua %<cr>")
+		vim.keymap.set("n", "<f5>", "<cmd>w<cr><cmd>!lua %<cr>", {
+			buffer = true,
+			silent = true,
+		})
 	end,
 })
-
 vim.api.nvim_create_autocmd({ "BufWritePost" }, {
-	pattern = { "*.lua" },
+	pattern = { "lua" },
 	callback = function()
-		vim.lsp.buf.format({ async = true })
+		-- vim.lsp.buf.format({ async = true })
+		vim.cmd([[silent! !stylua --column-width=78 %]])
 	end,
 })
-
+vim.api.nvim_create_autocmd("FileType", {
+	pattern = { "c" },
+	callback = function()
+		vim.keymap.set("n", "<f5>", "<cmd>!gcc % -o %< && ./%<<CR>", {
+			buffer = true,
+			silent = true,
+		})
+	end,
+})
 
 -------------------------------------------------------------------------------
 -- Common abbreviations
 -------------------------------------------------------------------------------
 vim.cmd("iab <expr> date! system('date +%Y-%m-%d')")
 vim.cmd("iab <expr> datetime! system('date --rfc-3339=seconds')")
-
 
 -------------------------------------------------------------------------------
 -- Colors
@@ -122,7 +128,6 @@ vim.cmd.colorscheme("habamax")
 vim.cmd([[
 	highlight NonText ctermbg=None ctermfg=238
 ]])
-
 
 -------------------------------------------------------------------------------
 -- Key mappings
@@ -157,18 +162,29 @@ vim.keymap.set("c", "%%", '<c-r>=fnameescape(expand("%:h"))."/"<cr>')
 vim.keymap.set("n", "<leader>s", ":setlocal spell!<cr>")
 
 vim.keymap.set("n", "K", "<cmd>lua vim.lsp.buf.hover()<cr>", { buffer = 0 })
-vim.keymap.set("n", "gd", "<cmd>lua vim.lsp.buf.definition()<cr>",
-	{ buffer = 0 })
-vim.keymap.set("n", "gT", "<cmd>lua vim.lsp.buf.type_definition()<cr>",
-	{ buffer = 0 })
-vim.keymap.set("n", "gi", "<cmd>lua vim.lsp.buf.implementation()<cr>",
-	{ buffer = 0 })
+vim.keymap.set(
+	"n",
+	"gd",
+	"<cmd>lua vim.lsp.buf.definition()<cr>",
+	{ buffer = 0 }
+)
+vim.keymap.set(
+	"n",
+	"gT",
+	"<cmd>lua vim.lsp.buf.type_definition()<cr>",
+	{ buffer = 0 }
+)
+vim.keymap.set(
+	"n",
+	"gi",
+	"<cmd>lua vim.lsp.buf.implementation()<cr>",
+	{ buffer = 0 }
+)
 vim.keymap.set("n", "<leader>dk", "<cmd>lua vim.diagnostic.goto_next()<cr>")
 vim.keymap.set("n", "<leader>dj", "<cmd>lua vim.diagnostic.goto_prev()<cr>")
 vim.keymap.set("n", "<leader>dl", "<cmd>Telescope diagnostics<cr>")
 vim.keymap.set("n", "<leader>r", "<cmd>lua vim.lsp.buf.rename()<cr>")
 vim.keymap.set("n", "<leader>A", "<cmd>lua vim.lsp.buf.code.action()<cr>")
-
 
 -------------------------------------------------------------------------------
 -- Plugins
@@ -216,13 +232,10 @@ local plugins = {
 			},
 		},
 	},
+	"ckipp01/stylua-nvim",
 	-- Go
 	-- "fatih/vim-go",
-	-- Web
-	-- "mattn/emmet-vim",
-	-- "vim-scripts/loremipsum",
 }
-
 
 -------------------------------------------------------------------------------
 -- Emmet
@@ -230,18 +243,15 @@ local plugins = {
 vim.g.user_emmet_leader_key = "<C-y>"
 vim.g.user_emmet_install_global = 0
 
-
 -------------------------------------------------------------------------------
 -- Vim surround
 -------------------------------------------------------------------------------
 vim.g.surround_indent = 1
 
-
 -------------------------------------------------------------------------------
 -- Ctrl-P
 -------------------------------------------------------------------------------
 vim.g.wildignore = "*/node_modules/*,*.so,*.swp,*.zip,*.git,*.o,*.a,"
-
 
 -------------------------------------------------------------------------------
 -- netrw
@@ -252,7 +262,6 @@ vim.g.netrw_browse_split = 0
 vim.g.netrw_winsize = 100
 vim.g.netrw_altv = 1
 vim.keymap.set({ "n", "i" }, "<c-g>", "<cmd>Vex<cr>")
-
 
 -------------------------------------------------------------------------------
 -- Load Lazy
@@ -269,7 +278,6 @@ require("lazy").setup(plugins, {
 	checker = { enabled = true },
 })
 
-
 -------------------------------------------------------------------------------
 -- Load LSP
 -------------------------------------------------------------------------------
@@ -281,7 +289,6 @@ require("lspconfig").lua_ls.setup({
 		-- add code if needed
 	end,
 })
-
 
 -------------------------------------------------------------------------------
 -- Load nvim-cmp
@@ -314,12 +321,11 @@ cmp.setup({
 	}),
 })
 
-
 local capabilities = require("cmp_nvim_lsp").default_capabilities()
 -- Add for each lsp server you've enabled.
-require("lspconfig")["lua_ls"].setup {
+require("lspconfig")["lua_ls"].setup({
 	capabilities = capabilities,
-}
+})
 
 require("luasnip.loaders.from_snipmate").lazy_load()
 
@@ -336,19 +342,17 @@ require("luasnip.loaders.from_snipmate").lazy_load()
  require("cmp_git").setup()
 --]]
 
-
-
 -------------------------------------------------------------------------------
 -- Playdate
 -------------------------------------------------------------------------------
 vim.api.nvim_create_user_command("PlaydateNew", function(args)
 	local projectName = args.fargs[1] or "."
 	local command = table.concat({
-			"terminal",
-			"pd.sh",
-			"new",
-			projectName },
-		" ")
+		"terminal",
+		"pd.sh",
+		"new",
+		projectName,
+	}, " ")
 	vim.cmd(command)
 	vim.cmd("startinsert")
 end, { nargs = 1 })
@@ -359,27 +363,28 @@ vim.api.nvim_create_user_command("PlaydateRun", function(args)
 end, { nargs = "?" })
 
 local TerminalCommands = {
-	build   = "Build",
-	stop    = "Stop",
+	build = "Build",
+	stop = "Stop",
 	restart = "Restart",
 }
 for cmd, capitalized in pairs(TerminalCommands) do
 	vim.api.nvim_create_user_command("Playdate" .. capitalized, function(args)
 		local dir = args.fargs[1] or "."
 		local command = table.concat({
-				"terminal",
-				"pd.sh",
-				"-d",
-				dir,
-				cmd },
-			" ")
+			"terminal",
+			"pd.sh",
+			"-d",
+			dir,
+			cmd,
+		}, " ")
 		vim.cmd(command)
 		vim.cmd("startinsert")
 	end, { nargs = "?" })
 end
 
-vim.keymap.set({ "i", "n", "v" }, "<F7>", "<cmd>PlaydateBuild<cr>")
-vim.keymap.set({ "i", "n", "v" }, "<F8>", "<cmd>PlaydateRestart<cr>")
+-- vim.keymap.set({ "i", "n", "v" }, "<F9>", "<cmd>PlaydateRun<cr>")
+-- vim.keymap.set({ "i", "n", "v" }, "<F9>", "<cmd>PlaydateBuild<cr>")
+vim.keymap.set({ "i", "n", "v" }, "<F10>", "<cmd>PlaydateRun<cr>")
 
 -------------------------------------------------------------------------------
 -- TODO
