@@ -106,8 +106,12 @@ vim.api.nvim_create_autocmd({ "BufWritePost" }, {
 	end,
 })
 vim.api.nvim_create_autocmd("FileType", {
-	pattern = { "c" },
+	pattern = { "c", "cpp" },
 	callback = function()
+		vim.cmd([[
+			inoreabbrev if if () {<CR>}<Esc>O
+			inoreabbrev for for () {<CR>}<Esc>O
+		]])
 		vim.keymap.set("n", "<f5>", "<cmd>!gcc % -o %< && ./%<<CR>", {
 			buffer = true,
 			silent = true,
