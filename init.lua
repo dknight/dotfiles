@@ -195,7 +195,6 @@ vim.keymap.set("n", "<leader>A", "<cmd>lua vim.lsp.buf.code.action()<cr>")
 -------------------------------------------------------------------------------
 local plugins = {
 	-- Common
-	"neovim/nvim-lspconfig",
 	"hrsh7th/cmp-nvim-lsp",
 	"hrsh7th/cmp-buffer",
 	"hrsh7th/cmp-path",
@@ -285,7 +284,9 @@ require("lazy").setup(plugins, {
 -------------------------------------------------------------------------------
 -- Load LSP
 -------------------------------------------------------------------------------
-require("lspconfig").lua_ls.setup({
+local capabilities = require("cmp_nvim_lsp").default_capabilities()
+vim.lsp.config("ts_ls", {
+	capabilities = capabilities,
 	on_attach = function()
 		-- add code if needed
 	end,
@@ -325,11 +326,6 @@ cmp.setup({
 	}),
 })
 
-local capabilities = require("cmp_nvim_lsp").default_capabilities()
--- Add for each lsp server you've enabled.
-require("lspconfig")["lua_ls"].setup({
-	capabilities = capabilities,
-})
 
 require("luasnip.loaders.from_snipmate").lazy_load()
 
