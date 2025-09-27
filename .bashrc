@@ -28,8 +28,9 @@ alias ll='ls -alF'
 alias la='ls -A'
 alias l='ls -CF'
 alias l.='ls -d .* --color=auto'
-alias vim=nvim
-alias vi=nvim
+# alias vim=nvim
+# alias vi=nvim
+alias vi='VIM= vim -u $HOME/lab/dotfiles/essential.vim'
 
 # ==== HTTP server
 function serve() {

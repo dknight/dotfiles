@@ -326,21 +326,7 @@ cmp.setup({
 	}),
 })
 
-
 require("luasnip.loaders.from_snipmate").lazy_load()
-
--- To use git you need to install the plugin petertriho/cmp-git and
--- uncomment lines below
--- Set configuration for specific filetype.
---[[ cmp.setup.filetype('gitcommit', {
-    sources = cmp.config.sources({
-      { name = 'git' },
-    }, {
-      { name = 'buffer' },
-    })
- })
- require("cmp_git").setup()
---]]
 
 -------------------------------------------------------------------------------
 -- Playdate
@@ -386,9 +372,3 @@ end
 -- vim.keymap.set({ "i", "n", "v" }, "<F9>", "<cmd>PlaydateBuild<cr>")
 vim.keymap.set({ "i", "n", "v" }, "<F10>", "<cmd>PlaydateRun<cr>")
 
--------------------------------------------------------------------------------
--- TODO
--------------------------------------------------------------------------------
--- TODO make function to swith to russian.
---set spelllang=ru_ru
---set keymap=russian-jcuken
