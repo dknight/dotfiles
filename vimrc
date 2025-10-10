@@ -1,11 +1,18 @@
 set nocompatible
+set number
+set hidden
+
+syntax on
 filetype plugin on
 filetype plugin indent on
-syntax on
-set omnifunc=syntaxcomplete#Complete
 colorscheme darkblue
-set number
+
 augroup omnifuncs
 	autocmd!
 	autocmd FileType * setlocal omnifunc=syntaxcomplete#Complete
 augroup END
+
+" Shortcuts
+inoremap jk <esc>
+noremap ]b :bprev<cr>
+noremap [b :bnext<cr>
