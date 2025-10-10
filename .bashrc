@@ -10,8 +10,7 @@ export GOPATH="$HOME/go"
 export GOBIN="$GOPATH/bin"
 export GOROOT="/usr/lib/golang"
 export PATH="$HOME/.luarocks/bin:/usr/lib64/ccache:/usr/local/bin:/usr/bin:/bin:/usr/local/sbin:/usr/sbin:$HOME/.local/bin:$HOME/bin:$GOBIN:$HOME/.cargo/bin"
-export VIM="$HOME/.config/nvim"
-export EDITOR=/usr/bin/nvim
+export EDITOR=/usr/bin/vim
 export VIEWER=/usr/bin/less
 export PAGER=/usr/bin/less
 export PLAYDATE_SDK_PATH="$HOME/Apps/PlaydateSDK-2.7.6"
@@ -28,9 +27,7 @@ alias ll='ls -alF'
 alias la='ls -A'
 alias l='ls -CF'
 alias l.='ls -d .* --color=auto'
-# alias vim=nvim
-# alias vi=nvim
-alias vi='VIM= vim -u $HOME/lab/dotfiles/essential.vim'
+alias vi='VIM= vim -u $HOME/lab/dotfiles/vimrc'
 
 # ==== HTTP server
 function serve() {
