@@ -9,7 +9,7 @@ fi
 export GOPATH="$HOME/go"
 export GOBIN="$GOPATH/bin"
 export GOROOT="/usr/lib/golang"
-export PATH="$HOME/.luarocks/bin:/usr/lib64/ccache:/usr/local/bin:/usr/bin:/bin:/usr/local/sbin:/usr/sbin:$HOME/.local/bin:$HOME/bin:$GOBIN:$HOME/.cargo/bin"
+export PATH="$HOME/.luarocks/bin:/usr/lib64/ccache:/usr/local/bin:/usr/bin:/bin:/usr/local/sbin:/usr/sbin:$HOME/.local/bin:$HOME/bin:$GOBIN:$HOME/.cargo/bin:$HOME/Apps/zxbasic"
 export EDITOR=/usr/bin/vim
 export VIEWER=/usr/bin/less
 export PAGER=/usr/bin/less
