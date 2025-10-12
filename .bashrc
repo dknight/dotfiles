@@ -16,6 +16,8 @@ export PAGER=/usr/bin/less
 export PLAYDATE_SDK_PATH="$HOME/Apps/PlaydateSDK-2.7.6"
 export PLAYDATE_LUACATS_PATH="$HOME/.config/playdate-luacats"
 export PATH="$PATH:$PLAYDATE_SDK_PATH/bin"
+export PATH="$HOME/.config/lua-lsp/bin:$PATH"
+export VIM="$HOME/.config/nvim"
 
 # ======== ALIASES ========
 alias python=python3
@@ -27,7 +29,9 @@ alias ll='ls -alF'
 alias la='ls -A'
 alias l='ls -CF'
 alias l.='ls -d .* --color=auto'
-alias vi='VIM= vim -u $HOME/lab/dotfiles/vimrc'
+#alias vi='VIM= /usr/bin/vim -u $HOME/lab/dotfiles/vimrc'
+alias vim=nvim
+alias vi=nvim
 
 # ==== HTTP server
 function serve() {
