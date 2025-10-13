@@ -1,4 +1,4 @@
---------------------------------------------------------------------------
+----------3---------------------------------------------------------------
 -- Locals
 --------------------------------------------------------------------------
 
@@ -121,8 +121,8 @@ vim.api.nvim_create_autocmd({ "BufWritePost" }, {
 vim.api.nvim_create_autocmd({ "FileType" }, {
 	pattern = { "basic" },
 	callback = function(args)
-		print "Hello"
 		vim.keymap.set("n", "<f5>", "<cmd>w<cr><cmd>!zxbc -f tap -aB % -o %<.tap<cr>")
+		vim.keymap.set("n", "<f6>", "<cmd>!fbzx %<.tap<cr>")
 	end,
 })
 
@@ -165,9 +165,9 @@ vim.keymap.set("n", "]T", "<cmd>tablast<cr>", { silent = true })
 vim.keymap.set("n", "<leader>T", "<cmd>tabnew<cr>", { silent = true })
 vim.keymap.set("n", "<leader>j", "<cmd>m.+1<cr>")
 vim.keymap.set("n", "<leader>k", "<cmd>m.-2<cr>")
-vim.keymap.set({ "n", "i" }, "<leader>;", "A;<esc>")
-vim.keymap.set({ "n", "i" }, "<leader>,", "A,<esc>")
-vim.keymap.set({ "n", "x" }, "&", "<cmd>&&<esc>")
+vim.keymap.set({ "n", "i" }, "<leader>;", "A;<Esc>")
+vim.keymap.set({ "n", "i" }, "<leader>,", "A,<Esc>")
+vim.keymap.set({ "n", "x" }, "&", "<cmd>&&<Esc>")
 vim.keymap.set("n", "<c-l>", "<cmd>set hlsearch!<cr>")
 vim.keymap.set("c", "%%", '<c-r>=fnameescape(expand("%:h"))."/"<cr>')
 vim.keymap.set("n", "<leader>s", ":setlocal spell!<cr>")
