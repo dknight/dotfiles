@@ -32,7 +32,7 @@ alias l.='ls -d .* --color=auto'
 #alias vi='VIM= /usr/bin/vim -u $HOME/lab/dotfiles/vimrc'
 alias vim=nvim
 alias vi=nvim
-alias fbzx=zx
+alias zx=fbzx
 
 # ==== HTTP server
 function serve() {
