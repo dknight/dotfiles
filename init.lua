@@ -220,6 +220,7 @@ local plugins = {
 	"ctrlpvim/ctrlp.vim",
 	"jiangmiao/auto-pairs",
 	"nelstrom/vim-visual-star-search",
+	-- use command :TableModeEnable
 	"dhruvasagar/vim-table-mode",
 	--:TSInstall c lua vim vimdoc markdown
 	"nvim-treesitter/nvim-treesitter",
