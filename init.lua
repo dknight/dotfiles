@@ -121,7 +121,11 @@ vim.api.nvim_create_autocmd({ "BufWritePost" }, {
 vim.api.nvim_create_autocmd({ "FileType" }, {
 	pattern = { "basic" },
 	callback = function(args)
-		vim.keymap.set("n", "<f5>", "<cmd>w<cr><cmd>!zxbc -f tap -aB % -o %<.tap<cr>")
+		vim.keymap.set("n",
+			"<f5>",
+			"<cmd>w<cr>\z
+			<cmd>!zmakebas -o %<.tap %<cr>"
+		)
 		vim.keymap.set("n", "<f6>", "<cmd>!fbzx %<.tap<cr>")
 	end,
 })
