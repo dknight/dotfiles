@@ -1,4 +1,4 @@
-----------3---------------------------------------------------------------
+--------------------------------------------------------------------------
 -- Locals
 --------------------------------------------------------------------------
 
@@ -119,15 +119,37 @@ vim.api.nvim_create_autocmd({ "BufWritePost" }, {
 	end,
 })
 
-local zmakebas_cmd= "<cmd>!zmakebas -o %<.tap %<cr>"
+-- ZX emulator. Here I use fbzx; replace it if you different one.
+local zxEmulator = "fbzx"
+
+-- Command to run the zmakebas compiler.
+local zmakebasCmd = "<cmd>!zmakebas -o %<.tap %"
+
+-- Command to run the emulator. It may differ for other emulators;
+-- adjust as needed.
+local zxCmd = "<cmd>!" .. zxEmulator .. " %<.tap"
+
 vim.api.nvim_create_autocmd({ "FileType" }, {
 	pattern = { "basic" },
 	callback = function(args)
-		vim.keymap.set("n",
+		-- In BASIC, we usually type line numbers manually.
+		-- Set this to true if you want automatic line numbering,
+		-- during compilation.
+		vim.opt.number = false
+
+		-- Map the F5 key to save and compile.
+		vim.keymap.set(
+			"n",
 			"<f5>",
-			"<cmd>w<cr>\z" .. zmakebas_cmd
+			"<cmd>w<cr>" .. zmakebasCmd .. "<cr>"
 		)
-		vim.keymap.set("n", "<f6>", zmakebas_cmd .. "<cmd>!fbzx %<.tap<cr>")
+
+		-- Map the F6 key to save, compile and run.
+		vim.keymap.set(
+			"n",
+			"<f6>",
+			zmakebasCmd .. "<cr>" .. zxCmd .. "<cr>"
+		)
 	end,
 })
 
