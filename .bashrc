@@ -13,7 +13,7 @@ export PATH="$HOME/.luarocks/bin:/usr/lib64/ccache:/usr/local/bin:/usr/bin:/bin:
 export EDITOR=/usr/bin/vim
 export VIEWER=/usr/bin/less
 export PAGER=/usr/bin/less
-export PLAYDATE_SDK_PATH="$HOME/Apps/PlaydateSDK-2.7.6"
+export PLAYDATE_SDK_PATH="$HOME/Apps/PlaydateSDK-3.0.0"
 export PLAYDATE_LUACATS_PATH="$HOME/.config/playdate-luacats"
 export PATH="$PATH:$PLAYDATE_SDK_PATH/bin"
 export PATH="$HOME/.config/lua-lsp/bin:$PATH"
@@ -22,7 +22,6 @@ export VIM="$HOME/.config/nvim"
 # ======== ALIASES ========
 alias python=python3
 alias pip=pip3
-alias resres="xrandr --output eDP-1 --mode 1920x1080"
 alias tmux="TERM=screen-256color tmux"
 alias cal='cal -m'
 alias ll='ls -alF'
