@@ -22,7 +22,7 @@ if not (vim.uv or vim.loop).fs_stat(lazypath) then
 	if vim.v.shell_error ~= 0 then
 		vim.api.nvim_echo({
 			{ "Failed to clone lazy.nvim:\n", "ErrorMsg" },
-			{ out, "WarningMsg" },
+			{ out,                            "WarningMsg" },
 			{ "\nPress any key to exit..." },
 		}, true, {})
 		vim.fn.getchar()
@@ -98,14 +98,7 @@ vim.api.nvim_create_autocmd({ "FileType" }, {
 		})
 	end,
 })
-vim.api.nvim_create_autocmd({ "BufWritePost" }, {
-	pattern = { "lua" },
-	callback = function()
-		vim.lsp.buf.format({ async = true })
-		-- vim.cmd([[silent! !stylua --column-width=78 %]])
-	end,
-})
-		vim.api.nvim_create_autocmd("FileType", {
+vim.api.nvim_create_autocmd("FileType", {
 	pattern = { "c", "cpp" },
 	callback = function()
 		vim.cmd([[
@@ -166,7 +159,10 @@ vim.cmd.colorscheme("darkblue")
 vim.cmd([[
 	highlight NonText ctermbg=None ctermfg=238
 ]])
-
+vim.api.nvim_set_hl(
+	0,
+	"MatchParen",
+	{ bg = "none", bold = true })
 --------------------------------------------------------------------------
 -- Key mappings
 --------------------------------------------------------------------------
@@ -199,7 +195,8 @@ vim.keymap.set("n", "<c-l>", "<cmd>set hlsearch!<cr>")
 vim.keymap.set("c", "%%", '<c-r>=fnameescape(expand("%:h"))."/"<cr>')
 vim.keymap.set("n", "<leader>s", ":setlocal spell!<cr>")
 
-vim.keymap.set("n", "K", "<cmd>lua vim.lsp.buf.hover()<cr>", { buffer = 0 })
+vim.keymap.set("n", "K", "<cmd>lua vim.lsp.buf.hover()<cr>",
+	{ buffer = 0 })
 vim.keymap.set(
 	"n",
 	"gd",
@@ -309,8 +306,8 @@ require("lazy").setup(plugins, {
 		-- import your plugins
 		{ import = "plugins" },
 	},
-	-- Configure any other settings here. See the documentation for more details.
-	-- colorscheme that will be used when installing plugins.
+	-- Configure any other settings here. See the documentation for
+	-- more details, colorscheme that will be used when installing plugins.
 	install = { colorscheme = { "retrobox" } },
 	-- automatically check for plugin updates
 	checker = { enabled = true },
@@ -320,16 +317,38 @@ require("lazy").setup(plugins, {
 -- Load LSP
 --------------------------------------------------------------------------
 local capabilities = require("cmp_nvim_lsp").default_capabilities()
-vim.lsp.config("ts_ls", {
+local lua_ls_config = {
+	name = "lua_ls",
+	cmd = { "lua-language-server" },
+	root_dir = vim.fs.root(0, { "init.lua", ".git" }),
 	capabilities = capabilities,
-	on_attach = function()
-		-- add code if needed
+
+	settings = {
+		Lua = {
+			format = {
+				enable = true,
+				column_limit = 78,
+			},
+		},
+	},
+
+	on_attach = function(client, bufnr)
+		-- format on save (real working solution)
+		vim.api.nvim_create_autocmd("BufWritePre", {
+			buffer = bufnr,
+			callback = function()
+				vim.lsp.buf.format()
+			end,
+		})
 	end,
-	on_init = function(_client)
-		-- add code if needed
+}
+
+vim.api.nvim_create_autocmd("FileType", {
+	pattern = "lua",
+	callback = function(event)
+		vim.lsp.start(lua_ls_config)
 	end,
 })
-
 --------------------------------------------------------------------------
 -- Load nvim-cmp
 --------------------------------------------------------------------------
@@ -391,18 +410,19 @@ local TerminalCommands = {
 	restart = "Restart",
 }
 for cmd, capitalized in pairs(TerminalCommands) do
-	vim.api.nvim_create_user_command("Playdate" .. capitalized, function(args)
-		local dir = args.fargs[1] or "."
-		local command = table.concat({
-			"terminal",
-			"pd.sh",
-			"-d",
-			dir,
-			cmd,
-		}, " ")
-		vim.cmd(command)
-		vim.cmd("startinsert")
-	end, { nargs = "?" })
+	vim.api.nvim_create_user_command("Playdate" .. capitalized,
+		function(args)
+			local dir = args.fargs[1] or "."
+			local command = table.concat({
+				"terminal",
+				"pd.sh",
+				"-d",
+				dir,
+				cmd,
+			}, " ")
+			vim.cmd(command)
+			vim.cmd("startinsert")
+		end, { nargs = "?" })
 end
 
 -- vim.keymap.set({ "i", "n", "v" }, "<F9>", "<cmd>PlaydateRun<cr>")
