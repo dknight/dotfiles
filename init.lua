@@ -155,7 +155,7 @@ vim.cmd("iab <expr> datetime! system('date --rfc-3339=seconds')")
 --------------------------------------------------------------------------
 --------- Colors ---------------------------------------------------------
 --------------------------------------------------------------------------
-vim.cmd.colorscheme("darkblue")
+vim.cmd.colorscheme("sorbet")
 vim.cmd([[
 	highlight NonText ctermbg=None ctermfg=238
 ]])
