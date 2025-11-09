@@ -321,7 +321,7 @@ local lua_ls_config = {
 	name = "lua_ls",
 	cmd = { "lua-language-server" },
 	root_dir = vim.fs.root(0,
-		{ ".luarc.json", ".luarc.jsonc", "init.lua", ".git" }),
+		{ ".luarc.json", ".luarc.jsonc", "main.lua", "init.lua" }),
 	capabilities = capabilities,
 
 	settings = {
