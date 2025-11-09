@@ -1,35 +1,14 @@
 --------------------------------------------------------------------------
 -- Locals
 --------------------------------------------------------------------------
-
--- local uname = vim.fn.system("uname -s")
 local homedir = vim.fn.expand("$HOME")
-
---------------------------------------------------------------------------
--- Lazy.nvim install
---------------------------------------------------------------------------
-local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
-if not (vim.uv or vim.loop).fs_stat(lazypath) then
-	local lazyrepo = "https://github.com/folke/lazy.nvim.git"
-	local out = vim.fn.system({
-		"git",
-		"clone",
-		"--filter=blob:none",
-		"--branch=stable",
-		lazyrepo,
-		lazypath,
-	})
-	if vim.v.shell_error ~= 0 then
-		vim.api.nvim_echo({
-			{ "Failed to clone lazy.nvim:\n", "ErrorMsg" },
-			{ out,                            "WarningMsg" },
-			{ "\nPress any key to exit..." },
-		}, true, {})
-		vim.fn.getchar()
-		os.exit(1)
-	end
+local feedkey = function(k)
+	vim.api.nvim_feedkeys(
+		vim.api.nvim_replace_termcodes(k, true, false, true),
+		"n",
+		false
+	)
 end
-vim.opt.rtp:prepend(lazypath)
 
 --------------------------------------------------------------------------
 -- Vim options
@@ -62,28 +41,22 @@ vim.opt.lazyredraw = false
 vim.opt.textwidth = 78
 vim.opt.endoffile = true
 vim.opt.completeopt = { "menu", "menuone", "noselect" }
-
---------------------------------------------------------------------------
--- ctags
---------------------------------------------------------------------------
--- Use correct patterns if needed
--- vim.api.nvim_create_autocmd({"BufWritePost"}, {
--- pattern = {"*"},
---	command = vim.fn.system("ctags -R"),
--- })
+vim.opt.shortmess:append("c")
+vim.opt.guicursor = "n-v-c:block-Cursor"
+vim.opt.termguicolors = false
 
 --------------------------------------------------------------------------
 -- Auto commands
 --------------------------------------------------------------------------
 vim.api.nvim_create_autocmd({ "FileType" }, {
 	pattern = { "sh" },
-	callback = function(args)
+	callback = function(_)
 		vim.keymap.set("n", "<f5>", "<cmd>w<cr><cmd>!%%%<cr>")
 	end,
 })
 vim.api.nvim_create_autocmd({ "FileType" }, {
 	pattern = { "html", "xml", "css", "md" },
-	callback = function(args)
+	callback = function(_)
 		vim.opt.shiftwidth = 2
 		vim.opt.softtabstop = 2
 		vim.opt.expandtab = true
@@ -113,40 +86,6 @@ vim.api.nvim_create_autocmd("FileType", {
 	end,
 })
 
--- ZX emulator. Here I use fbzx; replace it if you different one.
-local zxEmulator = "fbzx"
-
--- Command to run the zmakebas compiler.
-local zmakebasCmd = "<cmd>!zmakebas -o %<.tap %"
-
--- Command to run the emulator. It may differ for other emulators;
--- adjust as needed.
-local zxCmd = "<cmd>!" .. zxEmulator .. " %<.tap"
-
-vim.api.nvim_create_autocmd({ "FileType" }, {
-	pattern = { "basic" },
-	callback = function(args)
-		-- In BASIC, we usually type line numbers manually.
-		-- Set this to true if you want automatic line numbering,
-		-- during compilation.
-		vim.opt.number = false
-
-		-- Map the F5 key to save and compile.
-		vim.keymap.set(
-			"n",
-			"<f5>",
-			"<cmd>w<cr>" .. zmakebasCmd .. "<cr>"
-		)
-
-		-- Map the F6 key to save, compile and run.
-		vim.keymap.set(
-			"n",
-			"<f6>",
-			zmakebasCmd .. "<cr>" .. zxCmd .. "<cr>"
-		)
-	end,
-})
-
 --------------------------------------------------------------------------
 -- Common abbreviations
 --------------------------------------------------------------------------
@@ -154,7 +93,7 @@ vim.cmd("iab <expr> date! system('date +%Y-%m-%d')")
 vim.cmd("iab <expr> datetime! system('date --rfc-3339=seconds')")
 
 --------------------------------------------------------------------------
---------- Colors ---------------------------------------------------------
+-- Colors
 --------------------------------------------------------------------------
 vim.cmd.colorscheme("sorbet")
 vim.cmd([[
@@ -164,6 +103,7 @@ vim.api.nvim_set_hl(
 	0,
 	"MatchParen",
 	{ bg = "none", bold = true })
+
 --------------------------------------------------------------------------
 -- Key mappings
 --------------------------------------------------------------------------
@@ -195,26 +135,6 @@ vim.keymap.set("n", "<c-l>", "<cmd>set hlsearch!<cr>")
 vim.keymap.set("c", "%%", '<c-r>=fnameescape(expand("%:h"))."/"<cr>')
 vim.keymap.set("n", "<leader>s", ":setlocal spell!<cr>")
 
-vim.keymap.set("n", "K", "<cmd>lua vim.lsp.buf.hover()<cr>",
-	{ buffer = 0 })
-vim.keymap.set(
-	"n",
-	"gd",
-	"<cmd>lua vim.lsp.buf.definition()<cr>",
-	{ buffer = 0 }
-)
-vim.keymap.set(
-	"n",
-	"gT",
-	"<cmd>lua vim.lsp.buf.type_definition()<cr>",
-	{ buffer = 0 }
-)
-vim.keymap.set(
-	"n",
-	"gi",
-	"<cmd>lua vim.lsp.buf.implementation()<cr>",
-	{ buffer = 0 }
-)
 vim.keymap.set("n", "<leader>dk", "<cmd>lua vim.diagnostic.goto_next()<cr>")
 vim.keymap.set("n", "<leader>dj", "<cmd>lua vim.diagnostic.goto_prev()<cr>")
 vim.keymap.set("n", "<leader>dl", "<cmd>Telescope diagnostics<cr>")
@@ -222,27 +142,45 @@ vim.keymap.set("n", "<leader>r", "<cmd>lua vim.lsp.buf.rename()<cr>")
 vim.keymap.set("n", "<leader>A", "<cmd>lua vim.lsp.buf.code.action()<cr>")
 
 --------------------------------------------------------------------------
+-- Install Lazy.nvim
+--------------------------------------------------------------------------
+local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+if not (vim.uv or vim.loop).fs_stat(lazypath) then
+	local lazyrepo = "https://github.com/folke/lazy.nvim.git"
+	local out = vim.fn.system({
+		"git",
+		"clone",
+		"--filter=blob:none",
+		"--branch=stable",
+		lazyrepo,
+		lazypath,
+	})
+	if vim.v.shell_error ~= 0 then
+		vim.api.nvim_echo({
+			{ "Failed to clone lazy.nvim:\n", "ErrorMsg" },
+			{ out,                            "WarningMsg" },
+			{ "\nPress any key to exit..." },
+		}, true, {})
+		vim.fn.getchar()
+		os.exit(1)
+	end
+end
+vim.opt.rtp:prepend(lazypath)
+
+--------------------------------------------------------------------------
 -- Plugins
 --------------------------------------------------------------------------
 local plugins = {
-	-- Common
-	"hrsh7th/cmp-nvim-lsp",
-	"hrsh7th/nvim-cmp",
 	"L3MON4D3/LuaSnip",
-	"saadparwaiz1/cmp_luasnip",
 	"tpope/vim-commentary",
 	"tpope/vim-surround",
 	"tpope/vim-repeat",
-	"vim-airline/vim-airline",
 	"ctrlpvim/ctrlp.vim",
 	"jiangmiao/auto-pairs",
 	"nelstrom/vim-visual-star-search",
-	-- use command :TableModeEnable
-	"dhruvasagar/vim-table-mode",
-	--:TSInstall c lua vim vimdoc markdown
-	"nvim-treesitter/nvim-treesitter",
+	"dhruvasagar/vim-table-mode",   -- use command :TableModeEnable
+	"nvim-treesitter/nvim-treesitter", --:TSInstall c lua vim vimdoc markdown
 	"nvim-telescope/telescope.nvim",
-	-- lua
 	{
 		"S1M0N38/love2d.nvim",
 		cmd = "LoveRun",
@@ -264,16 +202,25 @@ local plugins = {
 			},
 		},
 	},
-	"ckipp01/stylua-nvim",
 	-- Go
 	-- "fatih/vim-go",
 }
 
 --------------------------------------------------------------------------
--- Emmet
+-- Load Lazy.nvim
 --------------------------------------------------------------------------
-vim.g.user_emmet_leader_key = "<C-y>"
-vim.g.user_emmet_install_global = 0
+require("lazy").setup(plugins, {
+	spec = {
+		-- import your plugins
+		{ import = "plugins" },
+	},
+	-- Configure any other settings here. See the documentation for
+	-- more details, colorscheme that will be used when installing plugins.
+	install = { colorscheme = { "retrobox" } },
+	-- automatically check for plugin updates
+	checker = { enabled = true },
+})
+
 
 --------------------------------------------------------------------------
 -- Vim surround
@@ -296,30 +243,13 @@ vim.g.netrw_altv = 1
 vim.keymap.set({ "n", "i" }, "<c-g>", "<cmd>Vex<cr>")
 
 --------------------------------------------------------------------------
--- Load Lazy
---------------------------------------------------------------------------
-require("lazy").setup(plugins, {
-	spec = {
-		-- import your plugins
-		{ import = "plugins" },
-	},
-	-- Configure any other settings here. See the documentation for
-	-- more details, colorscheme that will be used when installing plugins.
-	install = { colorscheme = { "retrobox" } },
-	-- automatically check for plugin updates
-	checker = { enabled = true },
-})
-
---------------------------------------------------------------------------
 -- Load LSP
 --------------------------------------------------------------------------
-local capabilities = require("cmp_nvim_lsp").default_capabilities()
 local lua_ls_config = {
 	name = "lua_ls",
 	cmd = { "lua-language-server" },
 	root_dir = vim.fs.root(0,
 		{ ".luarc.json", ".luarc.jsonc", "main.lua", "init.lua" }),
-	capabilities = capabilities,
 
 	settings = {
 		Lua = {
@@ -330,7 +260,7 @@ local lua_ls_config = {
 		},
 	},
 
-	on_attach = function(client, bufnr)
+	on_attach = function(_, bufnr)
 		-- format on save (real working solution)
 		vim.api.nvim_create_autocmd("BufWritePre", {
 			buffer = bufnr,
@@ -343,49 +273,89 @@ local lua_ls_config = {
 
 vim.api.nvim_create_autocmd("FileType", {
 	pattern = "lua",
-	callback = function(event)
+	callback = function()
 		vim.lsp.start(lua_ls_config)
 	end,
 })
---------------------------------------------------------------------------
--- Load nvim-cmp
---------------------------------------------------------------------------
 
+vim.api.nvim_create_autocmd("LspAttach", {
+	callback = function(args)
+		vim.bo[args.buf].omnifunc = "v:lua.vim.lsp.omnifunc"
+	end,
+})
+
+vim.api.nvim_create_autocmd({ "TextChangedI", "TextChangedP" }, {
+	callback = function()
+		-- Don't trigger if menu open or no LSP
+		if vim.fn.pumvisible() == 1 then return end
+		if not next(vim.lsp.get_clients({ bufnr = 0 })) then return end
+
+		local line = vim.api.nvim_get_current_line()
+		local col = vim.fn.col(".")
+
+		if col == 0 then return end
+
+		local ch = line:sub(col - 1, col - 1)
+
+		-- Trigger only on words / . / _
+		if ch:match("[%w_.]") then
+			feedkey("<C-x><C-o>")
+		end
+	end,
+})
+
+--------------------------------------------------------------------------
+-- luasnip
+--------------------------------------------------------------------------
 require("luasnip.loaders.from_snipmate").lazy_load()
-
 local luasnip = require("luasnip")
 
--- TAB: expand or jump
+-- SMART TAB
 vim.keymap.set("i", "<Tab>", function()
 	if luasnip.expand_or_jumpable() then
-		return "<Plug>luasnip-expand-or-jump"
-	else
-		return "<Tab>"
+		luasnip.expand_or_jump()
+		return
 	end
-end, { silent = true, expr = true })
 
--- Shift-TAB: jump backwards
+	if vim.fn.pumvisible() == 1 then
+		feedkey("<C-n>")
+		return
+	end
+
+	feedkey("<Tab>")
+end, { silent = true })
+
 vim.keymap.set("i", "<S-Tab>", function()
-	luasnip.jump(-1)
+	if luasnip.jumpable(-1) then
+		luasnip.jump(-1)
+		return
+	end
+
+	if vim.fn.pumvisible() == 1 then
+		feedkey("<C-p>")
+		return
+	end
+
+	feedkey("<S-Tab>")
 end, { silent = true })
 
--- Snippet mode: jump forward/backward
 vim.keymap.set("s", "<Tab>", function()
-	luasnip.jump(1)
-end, { silent = true })
+	if luasnip.jumpable(1) then
+		luasnip.jump(1)
+	end
+end)
 
 vim.keymap.set("s", "<S-Tab>", function()
-	luasnip.jump(-1)
-end, { silent = true })
-
--- Change choice in choiceNodes
-vim.keymap.set({ "i", "s" }, "<C-E>", function()
-	if luasnip.choice_active() then
-		return "<Plug>luasnip-next-choice"
-	else
-		return "<C-E>"
+	if luasnip.jumpable(-1) then
+		luasnip.jump(-1)
 	end
-end, { silent = true, expr = true })
+end)
+
+vim.keymap.set({ "i", "s" }, "<C-e>", function()
+	if luasnip.choice_active() then
+		luasnip.change_choice(1)
+	end
+end)
 
 --------------------------------------------------------------------------
 -- Playdate
@@ -434,3 +404,40 @@ vim.keymap.set({ "i", "n", "v" },
 	"<F10>",
 	"<cmd>w<cr><cmd>PlaydateRun<cr>"
 )
+
+------------------------------------------------------------------------------
+--- ZX Spectrum BASIC
+------------------------------------------------------------------------------
+-- ZX emulator. Here I use fbzx; replace it if you different one.
+local zxEmulator = "fbzx"
+
+-- Command to run the zmakebas compiler.
+local zmakebasCmd = "<cmd>!zmakebas -o %<.tap %"
+
+-- Command to run the emulator. It may differ for other emulators;
+-- adjust as needed.
+local zxCmd = "<cmd>!" .. zxEmulator .. " %<.tap"
+
+vim.api.nvim_create_autocmd({ "FileType" }, {
+	pattern = { "basic" },
+	callback = function(_)
+		-- In BASIC, we usually type line numbers manually.
+		-- Set this to true if you want automatic line numbering,
+		-- during compilation.
+		vim.opt.number = false
+
+		-- Map the F5 key to save and compile.
+		vim.keymap.set(
+			"n",
+			"<f5>",
+			"<cmd>w<cr>" .. zmakebasCmd .. "<cr>"
+		)
+
+		-- Map the F6 key to save, compile and run.
+		vim.keymap.set(
+			"n",
+			"<f6>",
+			zmakebasCmd .. "<cr>" .. zxCmd .. "<cr>"
+		)
+	end,
+})
