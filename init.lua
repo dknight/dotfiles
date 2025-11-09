@@ -320,7 +320,8 @@ local capabilities = require("cmp_nvim_lsp").default_capabilities()
 local lua_ls_config = {
 	name = "lua_ls",
 	cmd = { "lua-language-server" },
-	root_dir = vim.fs.root(0, { "init.lua", ".git" }),
+	root_dir = vim.fs.root(0,
+		{ ".luarc.json", ".luarc.jsonc", "init.lua", ".git" }),
 	capabilities = capabilities,
 
 	settings = {
@@ -427,4 +428,7 @@ end
 
 -- vim.keymap.set({ "i", "n", "v" }, "<F9>", "<cmd>PlaydateRun<cr>")
 -- vim.keymap.set({ "i", "n", "v" }, "<F9>", "<cmd>PlaydateBuild<cr>")
-vim.keymap.set({ "i", "n", "v" }, "<F10>", "<cmd>PlaydateRun<cr>")
+vim.keymap.set({ "i", "n", "v" },
+	"<F10>",
+	"<cmd>w<cr><cmd>PlaydateRun<cr>"
+)
