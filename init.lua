@@ -61,6 +61,7 @@ vim.opt.undodir = homedir .. "/.undodir"
 vim.opt.lazyredraw = false
 vim.opt.textwidth = 78
 vim.opt.endoffile = true
+vim.opt.completeopt = { "menu", "menuone", "noselect" }
 
 --------------------------------------------------------------------------
 -- ctags
@@ -166,7 +167,6 @@ vim.api.nvim_set_hl(
 --------------------------------------------------------------------------
 -- Key mappings
 --------------------------------------------------------------------------
-vim.keymap.set("n", "<c-s>", "<cmd>write<cr>")
 vim.keymap.set("i", "jk", "<Esc>")
 vim.keymap.set({ "i", "n", "v" }, "<up>", "<nop>")
 vim.keymap.set({ "i", "n", "v" }, "<down>", "<nop>")
@@ -227,9 +227,6 @@ vim.keymap.set("n", "<leader>A", "<cmd>lua vim.lsp.buf.code.action()<cr>")
 local plugins = {
 	-- Common
 	"hrsh7th/cmp-nvim-lsp",
-	"hrsh7th/cmp-buffer",
-	"hrsh7th/cmp-path",
-	"hrsh7th/cmp-cmdline",
 	"hrsh7th/nvim-cmp",
 	"L3MON4D3/LuaSnip",
 	"saadparwaiz1/cmp_luasnip",
@@ -353,37 +350,42 @@ vim.api.nvim_create_autocmd("FileType", {
 --------------------------------------------------------------------------
 -- Load nvim-cmp
 --------------------------------------------------------------------------
-vim.opt.completeopt = { "menu", "menuone", "noselect" }
-local cmp = require("cmp")
-cmp.setup({
-	snippet = {
-		-- REQUIRED - you must specify a snippet engine
-		expand = function(args)
-			require("luasnip").lsp_expand(args.body)
-		end,
-	},
-	window = {
-		-- completion = cmp.config.window.bordered(),
-		-- documentation = cmp.config.window.bordered(),
-	},
-	mapping = cmp.mapping.preset.insert({
-		["<C-b>"] = cmp.mapping.scroll_docs(-4),
-		["<C-f>"] = cmp.mapping.scroll_docs(4),
-		["<C-Space>"] = cmp.mapping.complete(),
-		["<C-e>"] = cmp.mapping.abort(),
-		-- Accept currently selected item. Set `select` to `false` to
-		-- only confirm explicitly selected items.
-		["<CR>"] = cmp.mapping.confirm({ select = true }),
-	}),
-	sources = cmp.config.sources({
-		{ name = "nvim_lsp" },
-		{ name = "luasnip" },
-	}, {
-		{ name = "buffer" },
-	}),
-})
 
 require("luasnip.loaders.from_snipmate").lazy_load()
+
+local luasnip = require("luasnip")
+
+-- TAB: expand or jump
+vim.keymap.set("i", "<Tab>", function()
+	if luasnip.expand_or_jumpable() then
+		return "<Plug>luasnip-expand-or-jump"
+	else
+		return "<Tab>"
+	end
+end, { silent = true, expr = true })
+
+-- Shift-TAB: jump backwards
+vim.keymap.set("i", "<S-Tab>", function()
+	luasnip.jump(-1)
+end, { silent = true })
+
+-- Snippet mode: jump forward/backward
+vim.keymap.set("s", "<Tab>", function()
+	luasnip.jump(1)
+end, { silent = true })
+
+vim.keymap.set("s", "<S-Tab>", function()
+	luasnip.jump(-1)
+end, { silent = true })
+
+-- Change choice in choiceNodes
+vim.keymap.set({ "i", "s" }, "<C-E>", function()
+	if luasnip.choice_active() then
+		return "<Plug>luasnip-next-choice"
+	else
+		return "<C-E>"
+	end
+end, { silent = true, expr = true })
 
 --------------------------------------------------------------------------
 -- Playdate
