@@ -495,7 +495,7 @@ vim.api.nvim_create_autocmd({ "BufWritePre" }, {
 	callback = function()
 		local lines = vim.api.nvim_buf_get_lines(0, 0, -1, false)
 		for i, line in ipairs(lines) do
-			lines[i] = line:gsub("(%d+)%s*", "%1\t")
+			lines[i] = line:gsub("^(%d+)%s*", "%1\t")
 		end
 		vim.api.nvim_buf_set_lines(0, 0, -1, false, lines)
 	end,
