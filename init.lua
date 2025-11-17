@@ -42,7 +42,7 @@ vim.opt.textwidth = 78
 vim.opt.endoffile = true
 vim.opt.completeopt = { "menu", "menuone", "noselect" }
 vim.opt.shortmess:append("c")
-vim.opt.guicursor = "n-v-c:block-Cursor"
+-- vim.opt.guicursor = "n-v-c:block-Cursor"
 vim.opt.termguicolors = false
 
 --------------------------------------------------------------------------
