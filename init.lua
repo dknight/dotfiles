@@ -441,7 +441,6 @@ vim.api.nvim_create_autocmd({ "FileType" }, {
 		)
 
 		-- Auto increment line numbers
-		-- TODO: add to blog
 		local autoincrement = function(opts)
 			local newline = opts.newline or false
 			local line = vim.api.nvim_get_current_line()
