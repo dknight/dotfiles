@@ -1,0 +1,64 @@
+ Xft.dpi: 96
+!  start
+! *customization: -color
+
+XTerm*termName: xterm-256color
+XTerm*VT100*geometry: 80x38
+XTerm*eightBitInput: true
+XTerm*background: rgb:00/00/00
+XTerm*foreground: rgb:d6/d6/d6
+
+! Scroll
+XTerm*allowMouseOps: true
+XTerm*allowWheelOps: true
+XTerm*alternateScroll: false
+
+XTerm.vt100.allowTitleOps: true
+
+! Use a nice truetype font and size by default...
+XTerm*faceName: DejaVu Sans Mono Regular
+XTerm*faceSize: 14
+XTerm*faceAntialias: true
+
+! Every shell is a login shell by default (for inclusion of all necessary environment variables)
+XTerm*loginshell: true
+
+! I like a LOT of scrollback...
+XTerm*savelines: 16384
+
+! double-click to select whole URLs :D
+XTerm*charClass: 33:48,36-47:48,58-59:48,61:48,63-64:48,95:48,126:48
+
+XTerm.vt100.selectToClipboard: true
+
+! stop output to terminal from jumping down to bottom of scroll again
+XTerm*scrollTtyOutput: false
+
+XTerm*VT100.translations: #override <Btn1Up>: select-end(PRIMARY, CLIPBOARD, CUT_BUFFER0)
+
+XTerm*VT100.Translations: #override \n\
+		Alt <Key>u: select-needle("://") select-set(PRIMARY) \n\
+		Alt <Key>1: exec-formatted("firefox '%t'", PRIMARY) select-start() select-end()
+
+XTerm*scrollKey: true
+
+!Theme Nine
+! xterm*background: rgb:00/00/00
+! xterm*foreground: rgb:d6/d6/d6
+! xterm*color0:     rgb:00/00/00
+! xterm*color1:     rgb:9e/18/28
+! xterm*color2:     rgb:00/88/00
+! xterm*color3:     rgb:96/8a/38
+! xterm*color4:     rgb:41/41/71
+! xterm*color5:     rgb:96/3c/59
+! xterm*color6:     rgb:41/81/79
+! xterm*color7:     rgb:be/be/be
+! xterm*color8:     rgb:66/66/66
+! xterm*color9:     rgb:cf/61/71
+! xterm*color10:     rgb:7c/bc/8c
+! xterm*color11:     rgb:ff/f7/96
+! xterm*color12:     rgb:41/86/be
+! xterm*color13:     rgb:cf/9e/be
+! xterm*color14:     rgb:71/be/be
+! xterm*color15:    rgb:ff/ff/ff
+! xterm*cursorColor: #d6d6d6
