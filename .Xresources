@@ -35,11 +35,12 @@ XTerm.vt100.selectToClipboard: true
 ! stop output to terminal from jumping down to bottom of scroll again
 XTerm*scrollTtyOutput: false
 
-XTerm*VT100.translations: #override <Btn1Up>: select-end(PRIMARY, CLIPBOARD, CUT_BUFFER0)
-
-XTerm*VT100.Translations: #override \n\
-		Alt <Key>u: select-needle("://") select-set(PRIMARY) \n\
-		Alt <Key>1: exec-formatted("firefox '%t'", PRIMARY) select-start() select-end()
+XTerm*VT100.translations: #override \
+    <Btn1Down>: select-start() \n\
+    <Btn1Motion>: select-extend() \n\
+    <Btn1Up>: select-end(PRIMARY, CLIPBOARD, CUT_BUFFER0) \n\
+    Alt<Key>u: select-needle("://") select-set(PRIMARY) \n\
+    Alt<Key>1: exec-formatted("firefox '%t'", PRIMARY) select-start() select-end()
 
 XTerm*scrollKey: true
 

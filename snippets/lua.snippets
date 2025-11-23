@@ -12,44 +12,23 @@ snippet date
 	Current date is `strftime('%c')`
 
 snippet class
-	---@class ${1:Class}
-	---@field public ${2:prop} ${3:number}
 	local ${1:Class} = {}
 	${1:Class}.__index = ${1:Class}
 
-	---@return ${1:Class}
 	function ${1:Class}:new()
-		local t = {}
-		-- t.${2:prop} = 0
-		return setmetatable(t, self)
+		local t = o or {}
+		setmetatable(t, self)
+		self.__index = self
+		return t
 	end
 
 	return ${1:Class}
 
 snippet classextend
 	local ${1:SuperClass} = require("${1:SuperClass}")
-
-	---@class ${2:SubClass}
-	local ${2:SubClass} = {}
-
-	---@return ${2:SubClass}
-	function ${2:SubClass}:new()
-		local t = {}
-		setmetatable(t, { __index = ${2:SubClass} })
-		setmetatable(self, { __index = ${1:SuperClass} })
-		return t
-	end
+	local ${2:SubClass} = ${1:SuperClass}:new({})
 
 	return ${2:SubClass}
-
-snippet classclosure
-	local function ${1:Class}(${2})
-		local self = {
-			${2}
-		}
-
-		return self
-	end
 
 snippet love
 	function love.load()
