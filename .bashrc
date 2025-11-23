@@ -22,7 +22,6 @@ export VIM="$HOME/.config/nvim"
 # ======== ALIASES ========
 alias python=python3
 alias pip=pip3
-alias tmux="TERM=xterm-256color tmux"
 alias cal='cal -m'
 alias ll='ls -alF'
 alias la='ls -A'
