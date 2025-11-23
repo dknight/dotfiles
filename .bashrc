@@ -42,8 +42,7 @@ function serve() {
     python3 -m http.server -d "./$1" -b "$ip"
 }
 
-# ======== COSMETICS ========
-[ -n "$XTERM_VERSION" ] && transset-df -a 0.98 --id "$WINDOWID" >/dev/null
+# ======== TMUX ========
 [ -z "$TMUX" ] && export TERM=xterm-256color
 
 # ======== USEFUL ========

@@ -11,7 +11,8 @@ XTerm*foreground: rgb:d6/d6/d6
 ! Scroll
 XTerm*allowMouseOps: true
 XTerm*allowWheelOps: true
-XTerm*alternateScroll: false
+XTerm*alternateScroll: true
+XTerm*rightScrollBar: true
 
 XTerm.vt100.allowTitleOps: true
 
