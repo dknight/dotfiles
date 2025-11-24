@@ -8,7 +8,7 @@ Xft.dpi: 96
 XTerm*termName: xterm-256color
 
 ! Geometry
-XTerm*VT100*geometry: 80x38
+XTerm*VT100*geometry: 80x43
 
 ! Basic behaviour
 XTerm*eightBitInput: true
@@ -26,14 +26,9 @@ XTerm*rightScrollBar: true
 ! Title ops
 XTerm.vt100.allowTitleOps: true
 
-! Fonts
-XTerm*faceName: DejaVu Sans Mono
-XTerm*faceSize: 14
-XTerm*faceAntialias: true
-
 ! Colors
-XTerm*background: rgb:00/00/00
-XTerm*foreground: rgb:d6/d6/d6
+XTerm*background: black
+XTerm*foreground: gray
 
 ! Select to clipboard (PRIMARY + CLIPBOARD)
 XTerm.vt100.selectToClipboard: true
