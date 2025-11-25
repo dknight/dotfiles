@@ -8,7 +8,7 @@ Xft.dpi: 96
 XTerm*termName: xterm-256color
 
 ! Geometry
-XTerm*VT100*geometry: 80x43
+XTerm*VT100*geometry: 80x38
 
 ! Basic behaviour
 XTerm*eightBitInput: true
@@ -16,6 +16,9 @@ XTerm*loginshell: true
 XTerm*savelines: 16384
 XTerm*scrollTtyOutput: false
 XTerm*scrollKey: true
+
+XTerm*fontFace: Inconsolata
+xterm*faceSize: 16
 
 ! Allow mouse scrolling and operations
 XTerm*allowMouseOps: true
