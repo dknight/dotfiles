@@ -20,6 +20,9 @@ XTerm*scrollKey: true
 XTerm*fontFace: Inconsolata
 xterm*faceSize: 16
 
+! Copy selection to CLIPBOARD
+XTerm*selectToClipboard: true
+
 ! Allow mouse scrolling and operations
 XTerm*allowMouseOps: true
 XTerm*allowWheelOps: true
@@ -32,13 +35,6 @@ XTerm.vt100.allowTitleOps: true
 ! Colors
 XTerm*background: black
 XTerm*foreground: gray
-
-! Select to clipboard (PRIMARY + CLIPBOARD)
-XTerm.vt100.selectToClipboard: true
-
-! Modern paste
-XTerm*VT100.Translations: #override \
-    Ctrl Shift <Key>V: insert-selection(CLIPBOARD)
 
 ! Character classes for URL selection
 XTerm*charClass: 33:48,36-47:48,58-59:48,61:48,63-64:48,95:48,126:48
