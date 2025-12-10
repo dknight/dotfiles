@@ -1,14 +1,12 @@
 ! =============================
-!  XTerm configuration
+! XTerm modern Xft font config
 ! =============================
 
-Xft.dpi: 96
-
-! Terminal type
-XTerm*termName: xterm-256color
+XTerm*faceName: Incosolata
+XTerm*faceSize: 12
 
 ! Geometry
-XTerm*VT100*geometry: 80x38
+XTerm.VT100.geometry: 80x42
 
 ! Basic behaviour
 XTerm*eightBitInput: true
@@ -17,29 +15,24 @@ XTerm*savelines: 16384
 XTerm*scrollTtyOutput: false
 XTerm*scrollKey: true
 
-XTerm*fontFace: Inconsolata
-xterm*faceSize: 16
-
-! Allow mouse scrolling and operations
+! Mouse
 XTerm*allowMouseOps: true
 XTerm*allowWheelOps: true
 XTerm*alternateScroll: true
 XTerm*rightScrollBar: true
 
-! Title ops
+! Title
 XTerm.vt100.allowTitleOps: true
 
 ! Colors
 XTerm*background: black
 XTerm*foreground: gray
 
-! Select to clipboard (PRIMARY + CLIPBOARD)
+! Clipboard
 XTerm.vt100.selectToClipboard: true
 
-! Modern paste
-XTerm*VT100.Translations: #override \
-    Ctrl Shift <Key>V: insert-selection(CLIPBOARD)
+! Paste
+!XTerm*VT100.Translations: #override Ctrl Shift <Key>V: insert-selection(CLIPBOARD)
 
-! Character classes for URL selection
+! URL selection classes
 XTerm*charClass: 33:48,36-47:48,58-59:48,61:48,63-64:48,95:48,126:48
-
