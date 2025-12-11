@@ -7,11 +7,10 @@ fi
 export GOPATH="$HOME/go"
 export GOBIN="$GOPATH/bin"
 export GOROOT="/usr/lib/golang"
-export PATH="$HOME/.luarocks/bin:/usr/lib64/ccache:/usr/local/bin:/usr/bin:/bin:/usr/local/sbin:/usr/sbin:$HOME/.local/bin:$HOME/bin:$GOBIN:$HOME/.cargo/bin"
+export PATH="$HOME/.luarocks/bin:/usr/lib64/ccache:/usr/local/bin:/usr/bin:/bin:/usr/local/sbin:/usr/sbin:$HOME/.local/bin:$HOME/bin:$GOBIN:$HOME/.cargo/bin:$HOME/.config/lua-lsp/bin"
 export EDITOR=/usr/bin/vim
 export VIEWER=/usr/bin/less
 export PAGER=/usr/bin/less
-export PATH="$HOME/.config/lua-lsp/bin:$PATH"
 export VIM="$HOME/.config/nvim"
 
 # ======== ALIASES ========
@@ -22,7 +21,6 @@ alias ll='ls -alF'
 alias la='ls -A'
 alias l='ls -CF'
 alias l.='ls -d .* --color=auto'
-#alias vi='VIM= /usr/bin/vim -u $HOME/lab/dotfiles/vimrc'
 alias vim=nvim
 alias vi=nvim
 
@@ -43,24 +41,6 @@ function serve() {
 yt2mp3() {
 	# youtube-dl --extract-audio --audio-format mp3 $1
 	yt-dlp --extract-audio --audio-format mp3 $1
-}
-
-# No ttyctl, so we need to save and then restore terminal settings.
-# Diabled stopping interpretation of terminal for Vim
-# vim() {
-# 	# osx users, use stty -g
-# 	local STTYOPTS="$(stty --save)"
-# 	stty stop '' -ixoff
-# 	command vimx "$@"
-# 	stty "$STTYOPTS"
-# }
-
-# TODO: write a program?
-colors() {
-	for i in {0..255}; do
-		printf "\x1b[38;5;${i}mcolor${i} "
-	done
-	echo
 }
 
 clear_node_modules() {
@@ -89,20 +69,8 @@ cpuld() {
 		awk '{printf 100 - $1 "%"}'
 }
 
-# Lua related stuff
-# LSP
-PATH="$PATH:$HOME/.config/lua-lsp/bin"
 
 # Node and webdev realted stuff.
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-
-# Load Angular CLI autocompletion.
-# source <(ng completion script)
-
-
-# Load Angular CLI autocompletion.
-# source <(ng completion script)
-
-
