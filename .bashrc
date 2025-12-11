@@ -1,8 +1,6 @@
 # ======== GLOBALS ========
 export SERVER_IP=`hostname -I` # for browser sync
 export JAVA_HOME=/etc/alternatives/jre_1.8.0_openjdk
-export LUA_PATH="/usr/share/lua/5.4/?.lua;/usr/share/lua/5.4/?/init.lua;/usr/lib64/lua/5.4/?.lua;/usr/lib64/lua/5.4/?/init.lua;./?.lua;./?/init.lua;/home/xdkn1ght/.luarocks/share/lua/5.4/?.lua;/home/xdkn1ght/.luarocks/share/lua/5.4/?/init.lua;/usr/local/share/lua/5.4/?.lua;/usr/local/share/lua/5.4/?/init.lua"
-export LUA_CPATH="/usr/lib64/lua/5.4/?.so;/usr/lib64/lua/5.4/loadall.so;./?.so;/home/xdkn1ght/.luarocks/lib64/lua/5.4/?.so;/usr/local/share/lua/5.4/?.lua;/usr/local/share/lua/5.4/?/init.lua"
 if command -v most > /dev/null 2>&1; then
     export PAGER="most"
 fi
@@ -13,9 +11,6 @@ export PATH="$HOME/.luarocks/bin:/usr/lib64/ccache:/usr/local/bin:/usr/bin:/bin:
 export EDITOR=/usr/bin/vim
 export VIEWER=/usr/bin/less
 export PAGER=/usr/bin/less
-export PLAYDATE_SDK_PATH="$HOME/Apps/PlaydateSDK-3.0.1"
-export PLAYDATE_LUACATS_PATH="$HOME/.config/playdate-luacats"
-export PATH="$PATH:$PLAYDATE_SDK_PATH/bin"
 export PATH="$HOME/.config/lua-lsp/bin:$PATH"
 export VIM="$HOME/.config/nvim"
 
