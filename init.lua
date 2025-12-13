@@ -355,3 +355,6 @@ vim.keymap.set({ "i", "s" }, "<C-e>", function()
 		luasnip.change_choice(1)
 	end
 end)
+
+dofile(vim.fn.stdpath("config") .. "/playdate.lua")
+dofile(vim.fn.stdpath("config") .. "/zx.lua")

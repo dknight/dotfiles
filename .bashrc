@@ -1,16 +1,34 @@
 # ======== GLOBALS ========
 export SERVER_IP=`hostname -I` # for browser sync
 export JAVA_HOME=/etc/alternatives/jre_1.8.0_openjdk
+export LUA_PATH="/usr/share/lua/5.4/?.lua;/usr/share/lua/5.4/?/init.lua;/usr/lib64/lua/5.4/?.lua;/usr/lib64/lua/5.4/?/init.lua;./?.lua;./?/init.lua;/home/xdkn1ght/.luarocks/share/lua/5.4/?.lua;/home/xdkn1ght/.luarocks/share/lua/5.4/?/init.lua;/usr/local/share/lua/5.4/?.lua;/usr/local/share/lua/5.4/?/init.lua"
+export LUA_CPATH="/usr/lib64/lua/5.4/?.so;/usr/lib64/lua/5.4/loadall.so;./?.so;/home/xdkn1ght/.luarocks/lib64/lua/5.4/?.so;/usr/local/share/lua/5.4/?.lua;/usr/local/share/lua/5.4/?/init.lua"
 if command -v most > /dev/null 2>&1; then
     export PAGER="most"
 fi
 export GOPATH="$HOME/go"
 export GOBIN="$GOPATH/bin"
 export GOROOT="/usr/lib/golang"
-export PATH="$HOME/.luarocks/bin:/usr/lib64/ccache:/usr/local/bin:/usr/bin:/bin:/usr/local/sbin:/usr/sbin:$HOME/.local/bin:$HOME/bin:$GOBIN:$HOME/.cargo/bin:$HOME/.config/lua-lsp/bin"
+export PATH="\
+:/usr/lib64/ccache\
+:/usr/local/bin\
+:/usr/bin\
+:/bin\
+:/usr/local/sbin\
+:/usr/sbin\
+:$HOME/.local/bin\
+:$HOME/bin\
+:$HOME/.cargo/bin\
+:$HOME/.luarocks/bin\
+:$HOME/.config/lua-lsp/bin\
+:$GOBIN"
+
 export EDITOR=/usr/bin/vim
 export VIEWER=/usr/bin/less
 export PAGER=/usr/bin/less
+export PLAYDATE_SDK_PATH="$HOME/Apps/PlaydateSDK-3.0.2"
+export PLAYDATE_LUACATS_PATH="$HOME/.config/playdate-luacats"
+export PATH="$HOME/.config/lua-lsp/bin:$PATH"
 export VIM="$HOME/.config/nvim"
 
 # ======== ALIASES ========
@@ -37,9 +55,7 @@ function serve() {
 [ -z "$TMUX" ] && export TERM=xterm-256color
 
 # ======== USEFUL ========
-# Shortcut to download mp3 from youtube.
 yt2mp3() {
-	# youtube-dl --extract-audio --audio-format mp3 $1
 	yt-dlp --extract-audio --audio-format mp3 $1
 }
 
