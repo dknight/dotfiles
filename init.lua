@@ -62,15 +62,6 @@ vim.api.nvim_create_autocmd({ "FileType" }, {
 		-- vim.cmd("EmmetInstall")
 	end,
 })
-vim.api.nvim_create_autocmd({ "FileType" }, {
-	pattern = { "lua" },
-	callback = function()
-		vim.keymap.set("n", "<f5>", "<cmd>w<cr><cmd>!lua %<cr>", {
-			buffer = true,
-			silent = true,
-		})
-	end,
-})
 vim.api.nvim_create_autocmd("FileType", {
 	pattern = { "c", "cpp" },
 	callback = function()
@@ -180,29 +171,6 @@ local plugins = {
 	"dhruvasagar/vim-table-mode",   -- use command :TableModeEnable
 	"nvim-treesitter/nvim-treesitter", --:TSInstall c lua vim vimdoc markdown
 	"nvim-telescope/telescope.nvim",
-	{
-		"S1M0N38/love2d.nvim",
-		cmd = "LoveRun",
-		opts = {},
-		keys = {
-			{
-				"<leader>v",
-				desc = "LÖVE",
-			},
-			{
-				"<f6>",
-				"<cmd>w<cr><cmd>LoveRun<cr>",
-				desc = "Run LÖVE",
-			},
-			{
-				"<f7>",
-				"<cmd>LoveStop<cr>",
-				desc = "Stop LÖVE",
-			},
-		},
-	},
-	-- Go
-	-- "fatih/vim-go",
 }
 
 --------------------------------------------------------------------------
@@ -274,6 +242,10 @@ vim.api.nvim_create_autocmd("FileType", {
 	pattern = "lua",
 	callback = function()
 		vim.lsp.start(lua_ls_config)
+		vim.keymap.set("n", "<f5>", "<cmd>w<cr><cmd>!lua %<cr>", {
+			buffer = true,
+			silent = true,
+		})
 	end,
 })
 
