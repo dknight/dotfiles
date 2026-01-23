@@ -33,8 +33,6 @@ local function renumber_basic_lines()
 	vim.api.nvim_buf_set_lines(bufnr, 0, -1, false, new_lines)
 end
 
--- expose function globally (needed for keymap callback)
-_G.renumber_basic_lines = renumber_basic_lines
 vim.api.nvim_create_autocmd({ "FileType" }, {
 	pattern = { "basic" },
 	callback = function(args)
