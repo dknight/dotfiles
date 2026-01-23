@@ -171,6 +171,7 @@ local plugins = {
 	"dhruvasagar/vim-table-mode",   -- use command :TableModeEnable
 	"nvim-treesitter/nvim-treesitter", --:TSInstall c lua vim vimdoc markdown
 	"nvim-telescope/telescope.nvim",
+	"bakudankun/pico-8.vim",
 }
 
 --------------------------------------------------------------------------
@@ -329,5 +330,4 @@ vim.keymap.set({ "i", "s" }, "<C-e>", function()
 end)
 
 -- dofile(vim.fn.stdpath("config") .. "/playdate.lua")
--- dofile(vim.fn.stdpath("config") .. "/zx.lua")
--- dofile(vim.fn.stdpath("config") .. "/nes.lua")
+dofile(vim.fn.stdpath("config") .. "/zx.lua")

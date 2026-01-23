@@ -11,6 +11,30 @@ local zmakebasCmd = "<cmd>!zmakebas -o %<.tap %"
 -- adjust as needed.
 local zxCmd = "<cmd>!" .. zxEmulator .. " %<.tap"
 
+local function renumber_basic_lines()
+	local bufnr = vim.api.nvim_get_current_buf()
+	local lines = vim.api.nvim_buf_get_lines(bufnr, 0, -1, false)
+
+	local new_lines = {}
+	local number = 10
+	local step = 10
+
+	for _, line in ipairs(lines) do
+		if line:match("^%s*$") then
+			table.insert(new_lines, line)
+		else
+			-- remove existing leading line numbers
+			local stripped = line:gsub("^%s*%d+%s*", "")
+			table.insert(new_lines, string.format("%04d %s", number, stripped))
+			number = number + step
+		end
+	end
+
+	vim.api.nvim_buf_set_lines(bufnr, 0, -1, false, new_lines)
+end
+
+-- expose function globally (needed for keymap callback)
+_G.renumber_basic_lines = renumber_basic_lines
 vim.api.nvim_create_autocmd({ "FileType" }, {
 	pattern = { "basic" },
 	callback = function(args)
@@ -38,8 +62,6 @@ vim.api.nvim_create_autocmd({ "FileType" }, {
 vim.api.nvim_create_autocmd({ "FileType" }, {
 	pattern = { "basic" },
 	callback = function(_)
-		-- Rest of the keymaps from above
-
 		-- Auto increment line numbers
 		local autoincrement = function(opts)
 			local newline = opts.newline or false
@@ -50,22 +72,10 @@ vim.api.nvim_create_autocmd({ "FileType" }, {
 			end
 
 			local prev = tonumber(num)
-			local row = vim.api.nvim_win_get_cursor(0)[1]
 			local step = 10
 
-			if row > 1 then
-				local prevline = vim.api.nvim_buf_get_lines(
-					0, row - 2, row - 1, false
-				)[1]
-				local pnum = prevline:match("^%s*(%d+)")
-				if pnum then
-					pnum = tonumber(pnum)
-					step = prev - pnum
-				end
-			end
-
 			return string.format(
-				"%s\n%d\t",
+				"%s\n%04d",
 				newline and "\n" or "",
 				prev + step
 			)
@@ -86,6 +96,12 @@ vim.api.nvim_create_autocmd({ "FileType" }, {
 			vim.api.nvim_put(lines, "l", true, true)
 			vim.cmd("startinsert!")
 		end, { noremap = true })
+		vim.keymap.set(
+			"n",
+			"<leader>ln",
+			renumber_basic_lines,
+			{ buffer = true, desc = "Renumber BASIC lines" }
+		)
 	end,
 })
 
