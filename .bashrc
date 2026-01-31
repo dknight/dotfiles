@@ -21,7 +21,8 @@ export PATH="\
 :$HOME/.cargo/bin\
 :$HOME/.luarocks/bin\
 :$HOME/.config/lua-lsp/bin\
-:$GOBIN"
+:$GOBIN\
+:/opt/gradle/gradle-9.3.1/bin"
 
 export EDITOR=/usr/bin/vim
 export VIEWER=/usr/bin/less
