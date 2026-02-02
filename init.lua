@@ -171,7 +171,28 @@ local plugins = {
 	"dhruvasagar/vim-table-mode",   -- use command :TableModeEnable
 	"nvim-treesitter/nvim-treesitter", --:TSInstall c lua vim vimdoc markdown
 	"nvim-telescope/telescope.nvim",
-	-- "Bakudankun/PICO-8.vim",
+	{
+		"S1M0N38/love2d.nvim",
+		cmd = "LoveRun",
+		opts = {},
+		keys = {
+			{
+				"<leader>v",
+				desc = "LÖVE",
+			},
+			{
+				"<f6>",
+				"<cmd>w<cr><cmd>LoveRun<cr>",
+				desc = "Run LÖVE",
+			},
+			{
+				"<f7>",
+				"<cmd>LoveStop<cr>",
+				desc = "Stop LÖVE",
+			},
+		},
+	},
+	"Bakudankun/PICO-8.vim",
 }
 
 --------------------------------------------------------------------------
@@ -329,5 +350,22 @@ vim.keymap.set({ "i", "s" }, "<C-e>", function()
 	end
 end)
 
-dofile(vim.fn.stdpath("config") .. "/playdate.lua")
-dofile(vim.fn.stdpath("config") .. "/zx.lua")
+-------------------------------------------------------------------------
+-- pico-8
+-------------------------------------------------------------------------
+vim.api.nvim_create_autocmd("FileType", {
+	pattern = "pico8",
+	callback = function()
+		vim.lsp.start(lua_ls_config)
+		vim.keymap.set("n", "<f5>", "<cmd>w<cr><cmd>!pico8 %<cr>", {
+			buffer = true,
+			silent = true,
+		})
+		require("luasnip.loaders.from_snipmate").load({
+			paths = "~/.config/nvim/snippets",
+		})
+	end,
+})
+
+-- dofile(homedir .. "/lab/dotfiles/" .. "playdate.lua")
+-- dofile(homedir .. "/lab/dotfiles/" .. "zx.lua")
