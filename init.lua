@@ -362,10 +362,10 @@ vim.api.nvim_create_autocmd("FileType", {
 			silent = true,
 		})
 		require("luasnip.loaders.from_snipmate").load({
-			paths = "~/.config/nvim/snippets",
+			paths = vim.fn.stdpath("config") .. "/snippets",
 		})
 	end,
 })
 
--- dofile(homedir .. "/lab/dotfiles/" .. "playdate.lua")
--- dofile(homedir .. "/lab/dotfiles/" .. "zx.lua")
+dofile(vim.fn.stdpath("config") .. "/playdate.lua")
+dofile(vim.fn.stdpath("config") .. "/zx.lua")
