@@ -369,3 +369,4 @@ vim.api.nvim_create_autocmd("FileType", {
 
 dofile(vim.fn.stdpath("config") .. "/playdate.lua")
 dofile(vim.fn.stdpath("config") .. "/zx.lua")
+dofile(vim.fn.stdpath("config") .. "/nes.lua")
