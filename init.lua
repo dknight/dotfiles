@@ -192,7 +192,6 @@ local plugins = {
 			},
 		},
 	},
-	"Bakudankun/PICO-8.vim",
 }
 
 --------------------------------------------------------------------------
@@ -349,23 +348,6 @@ vim.keymap.set({ "i", "s" }, "<C-e>", function()
 		luasnip.change_choice(1)
 	end
 end)
-
--------------------------------------------------------------------------
--- pico-8
--------------------------------------------------------------------------
-vim.api.nvim_create_autocmd("FileType", {
-	pattern = "pico8",
-	callback = function()
-		vim.lsp.start(lua_ls_config)
-		vim.keymap.set("n", "<f5>", "<cmd>w<cr><cmd>!pico8 %<cr>", {
-			buffer = true,
-			silent = true,
-		})
-		require("luasnip.loaders.from_snipmate").load({
-			paths = vim.fn.stdpath("config") .. "/snippets",
-		})
-	end,
-})
 
 dofile(vim.fn.stdpath("config") .. "/playdate.lua")
 dofile(vim.fn.stdpath("config") .. "/zx.lua")
