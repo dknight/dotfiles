@@ -22,7 +22,6 @@ local emulate = "<cmd>!" .. emulator .. " %<.nes"
 vim.api.nvim_create_autocmd({ "FileType" }, {
 	pattern = { "asm_ca65" },
 	callback = function(args)
-		vim.g.asmsyntax = "ca65"
 		vim.cmd("hi asm_ca65HexNumber ctermfg=12")
 		vim.keymap.set(
 			"n",
