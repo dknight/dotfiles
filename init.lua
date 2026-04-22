@@ -192,7 +192,12 @@ local plugins = {
 			},
 		},
 	},
-	"maxbane/vim-asm_ca65",
+	{
+		"dknight/nes.nvim",
+		opts = {
+			emulator = "fceux",
+		},
+	},
 }
 
 --------------------------------------------------------------------------
@@ -352,4 +357,3 @@ end)
 
 dofile(vim.fn.stdpath("config") .. "/playdate.lua")
 dofile(vim.fn.stdpath("config") .. "/zx.lua")
-dofile(vim.fn.stdpath("config") .. "/nes.lua")
