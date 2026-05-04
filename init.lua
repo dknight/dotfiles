@@ -194,8 +194,12 @@ local plugins = {
 	},
 	{
 		"dknight/nes.nvim",
+		-- dir = "~/lab/nes.nvim",
+		name = "nes.nvim",
 		opts = {
 			emulator = "fceux",
+			build_key = "<F6>",
+			run_key = "<F10>",
 		},
 	},
 }
@@ -355,5 +359,5 @@ vim.keymap.set({ "i", "s" }, "<C-e>", function()
 	end
 end)
 
-dofile(vim.fn.stdpath("config") .. "/playdate.lua")
-dofile(vim.fn.stdpath("config") .. "/zx.lua")
+-- dofile(vim.fn.stdpath("config") .. "/playdate.lua")
+-- dofile(vim.fn.stdpath("config") .. "/zx.lua")
