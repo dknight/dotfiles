@@ -194,7 +194,10 @@ local plugins = {
 	},
 	{
 		"dknight/nes.nvim",
-		-- dir = "~/lab/nes.nvim",
+		-- dir = "~/lab/nes.nvim", -- dev
+		dependencies = {
+			"L3MON4D3/LuaSnip",
+		},
 		name = "nes.nvim",
 		opts = {
 			emulator = "fceux",
