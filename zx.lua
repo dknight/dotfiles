@@ -180,23 +180,10 @@ local sjasmplusCmd = "!sjasmplus %"
 local zxAsmRunCmd = "!" .. zxEmulator .. " %<.tap"
 
 --------------------------------------------------------------------------
--- Detect Z80 asm files
---------------------------------------------------------------------------
-vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
-	pattern = "*.asm",
-
-	callback = function(args)
-		vim.bo[args.buf].filetype = "z80"
-	end,
-})
-
---------------------------------------------------------------------------
 -- Z80 filetype config
 --------------------------------------------------------------------------
-
 vim.api.nvim_create_autocmd("FileType", {
-	pattern = "z80",
-
+	pattern = "asm",
 	callback = function(args)
 		------------------------------------------------------------------
 		-- Local options
