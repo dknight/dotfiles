@@ -171,40 +171,40 @@ local plugins = {
 	"dhruvasagar/vim-table-mode",   -- use command :TableModeEnable
 	"nvim-treesitter/nvim-treesitter", --:TSInstall c lua vim vimdoc markdown
 	"nvim-telescope/telescope.nvim",
-	{
-		"S1M0N38/love2d.nvim",
-		cmd = "LoveRun",
-		opts = {},
-		keys = {
-			{
-				"<leader>v",
-				desc = "LÖVE",
-			},
-			{
-				"<f6>",
-				"<cmd>w<cr><cmd>LoveRun<cr>",
-				desc = "Run LÖVE",
-			},
-			{
-				"<f7>",
-				"<cmd>LoveStop<cr>",
-				desc = "Stop LÖVE",
-			},
-		},
-	},
-	{
-		"dknight/nes.nvim",
-		-- dir = "~/lab/nes.nvim", -- dev
-		dependencies = {
-			"L3MON4D3/LuaSnip",
-		},
-		name = "nes.nvim",
-		opts = {
-			emulator = "fceux",
-			build_key = "<F6>",
-			run_key = "<F10>",
-		},
-	},
+	-- {
+	-- 	"S1M0N38/love2d.nvim",
+	-- 	cmd = "LoveRun",
+	-- 	opts = {},
+	-- 	keys = {
+	-- 		{
+	-- 			"<leader>v",
+	-- 			desc = "LÖVE",
+	-- 		},
+	-- 		{
+	-- 			"<f6>",
+	-- 			"<cmd>w<cr><cmd>LoveRun<cr>",
+	-- 			desc = "Run LÖVE",
+	-- 		},
+	-- 		{
+	-- 			"<f7>",
+	-- 			"<cmd>LoveStop<cr>",
+	-- 			desc = "Stop LÖVE",
+	-- 		},
+	-- 	},
+	-- },
+	-- {
+	-- 	"dknight/nes.nvim",
+	-- 	dependencies = {
+	-- 		"L3MON4D3/LuaSnip",
+	-- 	},
+	-- 	name = "nes.nvim",
+	-- 	opts = {
+	-- 		save_before_compile = true,
+	-- 		emulator = "fceux",
+	-- 		build_key = "<F6>",
+	-- 		run_key = "<F10>",
+	-- 	},
+	-- },
 }
 
 --------------------------------------------------------------------------
@@ -363,4 +363,4 @@ vim.keymap.set({ "i", "s" }, "<C-e>", function()
 end)
 
 -- dofile(vim.fn.stdpath("config") .. "/playdate.lua")
--- dofile(vim.fn.stdpath("config") .. "/zx.lua")
+dofile(vim.fn.stdpath("config") .. "/zx.lua")

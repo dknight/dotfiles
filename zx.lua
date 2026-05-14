@@ -1,16 +1,17 @@
 --------------------------------------------------------------------------
--- ZX Spectrum
+-- ZX Spectrum (BASIC)
 --------------------------------------------------------------------------
--- ZX emulator. Here I use fbzx; replace it if you different one.
+
+-- ZX emulator. Here I use fbzx; replace it if needed.
 local zxEmulator = "fbzx"
 
--- Command to run the zmakebas compiler.
-local zmakebasCmd = "<cmd>!zmakebas -o %<.tap %"
+-- Commands
+local zmakebasCmd = "!zmakebas -o %<.tap %"
+local zxCmd = "!" .. zxEmulator .. " %<.tap"
 
--- Command to run the emulator. It may differ for other emulators;
--- adjust as needed.
-local zxCmd = "<cmd>!" .. zxEmulator .. " %<.tap"
-
+--------------------------------------------------------------------------
+-- BASIC helpers
+--------------------------------------------------------------------------
 local function renumber_basic_lines()
 	local bufnr = vim.api.nvim_get_current_buf()
 	local lines = vim.api.nvim_buf_get_lines(bufnr, 0, -1, false)
@@ -23,9 +24,14 @@ local function renumber_basic_lines()
 		if line:match("^%s*$") then
 			table.insert(new_lines, line)
 		else
-			-- remove existing leading line numbers
+			-- Remove existing leading line numbers
 			local stripped = line:gsub("^%s*%d+%s*", "")
-			table.insert(new_lines, string.format("%04d %s", number, stripped))
+
+			table.insert(
+				new_lines,
+				string.format("%04d %s", number, stripped)
+			)
+
 			number = number + step
 		end
 	end
@@ -33,38 +39,27 @@ local function renumber_basic_lines()
 	vim.api.nvim_buf_set_lines(bufnr, 0, -1, false, new_lines)
 end
 
-vim.api.nvim_create_autocmd({ "FileType" }, {
-	pattern = { "basic" },
+--------------------------------------------------------------------------
+-- BASIC filetype config
+--------------------------------------------------------------------------
+vim.api.nvim_create_autocmd("FileType", {
+	pattern = "basic",
+
 	callback = function(args)
-		-- In BASIC, we usually type line numbers manually.
-		-- Set this to true if you want automatic line numbering,
-		-- during compilation.
-		vim.opt.number = false
+		------------------------------------------------------------------
+		-- Local options
+		------------------------------------------------------------------
+		vim.opt_local.number = false
 
-		-- Map the F5 key to save and compile.
-		vim.keymap.set(
-			"n",
-			"<f5>",
-			"<cmd>w<cr>" .. zmakebasCmd .. "<cr>"
-		)
-
-		-- Map the F6 key to save, compile and run.
-		vim.keymap.set(
-			"n",
-			"<f6>",
-			zmakebasCmd .. "<cr>" .. zxCmd .. "<cr>"
-		)
-	end,
-})
-
-vim.api.nvim_create_autocmd({ "FileType" }, {
-	pattern = { "basic" },
-	callback = function(_)
+		------------------------------------------------------------------
 		-- Auto increment line numbers
+		------------------------------------------------------------------
 		local autoincrement = function(opts)
 			local newline = opts.newline or false
+
 			local line = vim.api.nvim_get_current_line()
 			local num = line:match("^%s*(%d+)")
+
 			if not num then
 				return "\n"
 			end
@@ -78,38 +73,165 @@ vim.api.nvim_create_autocmd({ "FileType" }, {
 				prev + step
 			)
 		end
+
+		------------------------------------------------------------------
+		-- Insert mode Enter
+		------------------------------------------------------------------
 		vim.keymap.set(
-			"i", "<CR>",
+			"i",
+			"<CR>",
 			function()
 				return autoincrement({ newline = false })
 			end,
-			{ buffer = true, expr = true }
+			{
+				buffer = args.buf,
+				expr = true,
+			}
 		)
-		vim.keymap.set("n", "o", function()
-			local text = autoincrement({ newline = true })
-			local lines = {}
-			for line in text:gmatch("([^\n]*)\n?") do
-				if line ~= "" then table.insert(lines, line) end
-			end
-			vim.api.nvim_put(lines, "l", true, true)
-			vim.cmd("startinsert!")
-		end, { noremap = true })
+
+		------------------------------------------------------------------
+		-- Normal mode "o"
+		------------------------------------------------------------------
+		vim.keymap.set(
+			"n",
+			"o",
+			function()
+				local text = autoincrement({ newline = true })
+				local lines = {}
+
+				for line in text:gmatch("([^\n]*)\n?") do
+					if line ~= "" then
+						table.insert(lines, line)
+					end
+				end
+
+				vim.api.nvim_put(lines, "l", true, true)
+				vim.cmd("startinsert!")
+			end,
+			{
+				buffer = args.buf,
+			}
+		)
+
+		------------------------------------------------------------------
+		-- Renumber lines
+		------------------------------------------------------------------
 		vim.keymap.set(
 			"n",
 			"<leader>ln",
 			renumber_basic_lines,
-			{ buffer = true, desc = "Renumber BASIC lines" }
+			{
+				buffer = args.buf,
+				desc = "Re-number BASIC lines",
+			}
+		)
+
+		------------------------------------------------------------------
+		-- Build
+		------------------------------------------------------------------
+		vim.keymap.set(
+			"n",
+			"<F5>",
+			"<cmd>w<cr><cmd>" .. zmakebasCmd .. "<cr>",
+			{
+				buffer = args.buf,
+				desc = "Build BASIC program",
+			}
+		)
+
+		------------------------------------------------------------------
+		-- Build + Run
+		------------------------------------------------------------------
+		vim.keymap.set(
+			"n",
+			"<F6>",
+			"<cmd>w<cr>"
+			.. "<cmd>" .. zmakebasCmd .. "<cr>"
+			.. "<cmd>" .. zxCmd .. "<cr>",
+			{
+				buffer = args.buf,
+				desc = "Build and run BASIC program",
+			}
 		)
 	end,
 })
 
-vim.api.nvim_create_autocmd({ "BufWritePre" }, {
+--------------------------------------------------------------------------
+-- BASIC formatting before save
+--------------------------------------------------------------------------
+vim.api.nvim_create_autocmd("BufWritePre", {
 	pattern = "*.bas",
+
 	callback = function()
 		local lines = vim.api.nvim_buf_get_lines(0, 0, -1, false)
+
 		for i, line in ipairs(lines) do
 			lines[i] = line:gsub("^(%d+)%s*", "%1\t")
 		end
+
 		vim.api.nvim_buf_set_lines(0, 0, -1, false, lines)
+	end,
+})
+
+--------------------------------------------------------------------------
+-- ZX Spectrum ASM (sjasmplus)
+--------------------------------------------------------------------------
+local sjasmplusCmd = "!sjasmplus %"
+local zxAsmRunCmd = "!" .. zxEmulator .. " %<.tap"
+
+--------------------------------------------------------------------------
+-- Detect Z80 asm files
+--------------------------------------------------------------------------
+vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
+	pattern = "*.asm",
+
+	callback = function(args)
+		vim.bo[args.buf].filetype = "z80"
+	end,
+})
+
+--------------------------------------------------------------------------
+-- Z80 filetype config
+--------------------------------------------------------------------------
+
+vim.api.nvim_create_autocmd("FileType", {
+	pattern = "z80",
+
+	callback = function(args)
+		------------------------------------------------------------------
+		-- Local options
+		------------------------------------------------------------------
+		vim.opt_local.number = true
+		vim.opt_local.expandtab = false
+		vim.opt_local.tabstop = 8
+		vim.opt_local.shiftwidth = 8
+
+		------------------------------------------------------------------
+		-- Build
+		------------------------------------------------------------------
+		vim.keymap.set(
+			"n",
+			"<F5>",
+			"<cmd>w<cr><cmd>" .. sjasmplusCmd .. "<cr>",
+			{
+				buffer = args.buf,
+				desc = "Assemble Z80 source",
+			}
+		)
+
+		------------------------------------------------------------------
+		-- Build + Run
+		------------------------------------------------------------------
+		vim.keymap.set(
+			"n",
+			"<F6>",
+			"<cmd>w<cr>"
+			.. "<cmd>" .. sjasmplusCmd .. "<cr>"
+			.. "<cmd>" .. zxAsmRunCmd .. "<cr>",
+			{
+				buffer = args.buf,
+				desc = "Assemble and run Z80 program",
+			}
+		)
 	end,
 })
