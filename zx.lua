@@ -5,13 +5,17 @@
 -- ZX emulator. Here I use fbzx; replace it if needed.
 local zxEmulator = "fbzx"
 
--- Commands
-local zmakebasCmd = "!zmakebas -o %<.tap %"
-local zxCmd = "!" .. zxEmulator .. " %<.tap"
-
 --------------------------------------------------------------------------
 -- BASIC helpers
 --------------------------------------------------------------------------
+local function get_bas_file()
+	return vim.api.nvim_buf_get_name(0)
+end
+
+local function get_tap_file()
+	return get_bas_file():gsub("%.bas$", ".tap")
+end
+
 local function renumber_basic_lines()
 	local bufnr = vim.api.nvim_get_current_buf()
 	local lines = vim.api.nvim_buf_get_lines(bufnr, 0, -1, false)
@@ -39,6 +43,49 @@ local function renumber_basic_lines()
 	vim.api.nvim_buf_set_lines(bufnr, 0, -1, false, new_lines)
 end
 
+local function build_basic()
+	local build = vim.system(
+		{ "zmakebas", "-a", "10", get_bas_file() },
+		{ text = true }
+	):wait()
+	if build.code ~= 0 then
+		vim.notify(build.stderr, vim.log.levels.ERROR)
+	else
+		vim.notify(get_tap_file() .. " build successful")
+	end
+	return build
+end
+
+local function run_zx()
+	vim.notify("Emulation running...")
+	vim.system({
+		"sh",
+		"-c",
+		string.format([[
+			fbzx -nosound "%s" &
+			sleep 3
+			xdotool search --sync --name FBZX windowactivate
+			sleep 0.3
+			xdotool key j
+			sleep 0.2
+			xdotool keydown Control_L
+			xdotool key p
+			xdotool keyup Control_L
+			sleep 0.1
+			xdotool keydown Control_L
+			xdotool key p
+			xdotool keyup Control_L
+			sleep 0.2
+			xdotool key Return
+			sleep 0.2
+			xdotool key r
+			xdotool key Return
+		]], get_tap_file()),
+	}, {
+		detach = true,
+	})
+end
+
 --------------------------------------------------------------------------
 -- BASIC filetype config
 --------------------------------------------------------------------------
@@ -49,6 +96,9 @@ vim.api.nvim_create_autocmd("FileType", {
 		------------------------------------------------------------------
 		-- Local options
 		------------------------------------------------------------------
+		vim.opt_local.expandtab = false
+		vim.opt_local.tabstop = 8
+		vim.opt_local.shiftwidth = 8
 		vim.opt_local.number = false
 
 		------------------------------------------------------------------
@@ -129,36 +179,22 @@ vim.api.nvim_create_autocmd("FileType", {
 		------------------------------------------------------------------
 		-- Build
 		------------------------------------------------------------------
-		vim.keymap.set(
-			"n",
-			"<F9>",
-			"<cmd>w<cr><cmd>" .. zmakebasCmd .. "<cr>",
-			{
-				buffer = args.buf,
-				desc = "Build BASIC program",
-			}
-		)
+		vim.keymap.set("n", "<F9>", function()
+			vim.cmd("w")
+			build_basic()
+		end, {
+			desc = "Build BASIC program",
+		})
 
 		------------------------------------------------------------------
 		-- Build + Run
 		------------------------------------------------------------------
 		vim.keymap.set("n", "<F10>", function()
 			vim.cmd("w")
-
-			local currentFile = vim.api.nvim_buf_get_name(0)
-			local tapFile = currentFile:gsub("%.bas$", ".tap")
-
-			local build = vim.system(
-				{ "zmakebas", currentFile },
-				{ text = true }
-			):wait()
-
-			if build.code ~= 0 then
-				vim.notify(build.stderr, vim.log.levels.ERROR)
-				return
+			local build = build_basic()
+			if build.code == 0 then
+				run_zx()
 			end
-
-			vim.system({ "fbzx", tapFile }, { detach = true })
 		end, {
 			desc = "Build and run BASIC program",
 		})
@@ -169,7 +205,7 @@ vim.api.nvim_create_autocmd("FileType", {
 -- BASIC formatting before save
 --------------------------------------------------------------------------
 vim.api.nvim_create_autocmd("BufWritePre", {
-	pattern = "*.bas",
+	pattern = "basic",
 
 	callback = function()
 		local lines = vim.api.nvim_buf_get_lines(0, 0, -1, false)
