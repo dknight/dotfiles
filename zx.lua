@@ -45,7 +45,7 @@ end
 
 local function build_basic()
 	local build = vim.system(
-		{ "zmakebas", "-a", "10", get_bas_file() },
+		{ "zmakebas", "-o", get_tap_file(), get_bas_file() },
 		{ text = true }
 	):wait()
 	if build.code ~= 0 then
@@ -221,6 +221,7 @@ vim.api.nvim_create_autocmd("BufWritePre", {
 --------------------------------------------------------------------------
 -- ZX Spectrum ASM (sjasmplus)
 --------------------------------------------------------------------------
+-- TODO: make vim.system()
 local sjasmplusCmd = "!sjasmplus %"
 local zxAsmRunCmd = "!" .. zxEmulator .. " %<.tap"
 
