@@ -142,17 +142,26 @@ vim.api.nvim_create_autocmd("FileType", {
 		------------------------------------------------------------------
 		-- Build + Run
 		------------------------------------------------------------------
-		vim.keymap.set(
-			"n",
-			"<F10>",
-			"<cmd>w<cr>"
-			.. "<cmd>" .. zmakebasCmd .. "<cr>"
-			.. "<cmd>" .. zxCmd .. "<cr>",
-			{
-				buffer = args.buf,
-				desc = "Build and run BASIC program",
-			}
-		)
+		vim.keymap.set("n", "<F10>", function()
+			vim.cmd("w")
+
+			local currentFile = vim.api.nvim_buf_get_name(0)
+			local tapFile = currentFile:gsub("%.bas$", ".tap")
+
+			local build = vim.system(
+				{ "zmakebas", currentFile },
+				{ text = true }
+			):wait()
+
+			if build.code ~= 0 then
+				vim.notify(build.stderr, vim.log.levels.ERROR)
+				return
+			end
+
+			vim.system({ "fbzx", tapFile }, { detach = true })
+		end, {
+			desc = "Build and run BASIC program",
+		})
 	end,
 })
 
