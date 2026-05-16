@@ -131,7 +131,7 @@ vim.api.nvim_create_autocmd("FileType", {
 		------------------------------------------------------------------
 		vim.keymap.set(
 			"n",
-			"<F5>",
+			"<F9>",
 			"<cmd>w<cr><cmd>" .. zmakebasCmd .. "<cr>",
 			{
 				buffer = args.buf,
@@ -144,7 +144,7 @@ vim.api.nvim_create_autocmd("FileType", {
 		------------------------------------------------------------------
 		vim.keymap.set(
 			"n",
-			"<F6>",
+			"<F10>",
 			"<cmd>w<cr>"
 			.. "<cmd>" .. zmakebasCmd .. "<cr>"
 			.. "<cmd>" .. zxCmd .. "<cr>",
@@ -198,7 +198,7 @@ vim.api.nvim_create_autocmd("FileType", {
 		------------------------------------------------------------------
 		vim.keymap.set(
 			"n",
-			"<F5>",
+			"<F9>",
 			"<cmd>w<cr><cmd>" .. sjasmplusCmd .. "<cr>",
 			{
 				buffer = args.buf,
@@ -211,7 +211,7 @@ vim.api.nvim_create_autocmd("FileType", {
 		------------------------------------------------------------------
 		vim.keymap.set(
 			"n",
-			"<F6>",
+			"<F10>",
 			"<cmd>w<cr>"
 			.. "<cmd>" .. sjasmplusCmd .. "<cr>"
 			.. "<cmd>" .. zxAsmRunCmd .. "<cr>",
