@@ -168,8 +168,12 @@ local plugins = {
 	"ctrlpvim/ctrlp.vim",
 	"windwp/nvim-autopairs",
 	"nelstrom/vim-visual-star-search",
-	"dhruvasagar/vim-table-mode",   -- use command :TableModeEnable
-	"nvim-treesitter/nvim-treesitter", --:TSInstall c lua vim vimdoc markdown
+	"dhruvasagar/vim-table-mode", -- use command :TableModeEnable
+	{
+		"nvim-treesitter/nvim-treesitter",
+		branch = "main",
+		build = ":TSUpdate", --:TSInstall c lua vim vimdoc markdown
+	},
 	"nvim-telescope/telescope.nvim",
 	-- {
 	-- 	"S1M0N38/love2d.nvim",
@@ -362,5 +366,5 @@ vim.keymap.set({ "i", "s" }, "<C-e>", function()
 	end
 end)
 
--- dofile(vim.fn.stdpath("config") .. "/playdate.lua")
+dofile(vim.fn.stdpath("config") .. "/playdate.lua")
 dofile(vim.fn.stdpath("config") .. "/zx.lua")
