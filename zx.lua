@@ -16,27 +16,55 @@ local function get_tap_file()
 	return get_bas_file():gsub("%.bas$", ".tap")
 end
 
+local function next_multiple(n, step)
+	return math.floor(n / step) * step + step
+end
+
 local function renumber_basic_lines()
 	local bufnr = vim.api.nvim_get_current_buf()
 	local lines = vim.api.nvim_buf_get_lines(bufnr, 0, -1, false)
 
 	local new_lines = {}
-	local number = 10
+
 	local step = 10
+	local number = 10
 
 	for _, line in ipairs(lines) do
 		if line:match("^%s*$") then
 			table.insert(new_lines, line)
 		else
-			-- Remove existing leading line numbers
-			local stripped = line:gsub("^%s*%d+%s*", "")
+			local old_num, rest = line:match("^%s*(%d+)%s*(.*)$")
+			old_num = tonumber(old_num)
 
-			table.insert(
-				new_lines,
-				string.format("%04d %s", number, stripped)
-			)
+			if old_num then
+				if old_num == number then
+					table.insert(
+						new_lines,
+						string.format("%04d\t%s", old_num, rest)
+					)
 
-			number = number + step
+					number = number + step
+				elseif old_num > (number - step) and old_num < number then
+					table.insert(
+						new_lines,
+						string.format("%04d\t%s", old_num, rest)
+					)
+				else
+					table.insert(
+						new_lines,
+						string.format("%04d\t%s", number, rest)
+					)
+
+					number = number + step
+				end
+			else
+				table.insert(
+					new_lines,
+					string.format("%04d\t%s", number, line)
+				)
+
+				number = number + step
+			end
 		end
 	end
 
@@ -205,7 +233,7 @@ vim.api.nvim_create_autocmd("FileType", {
 -- BASIC formatting before save
 --------------------------------------------------------------------------
 vim.api.nvim_create_autocmd("BufWritePre", {
-	pattern = "basic",
+	pattern = "*.bas",
 
 	callback = function()
 		local lines = vim.api.nvim_buf_get_lines(0, 0, -1, false)
@@ -215,6 +243,7 @@ vim.api.nvim_create_autocmd("BufWritePre", {
 		end
 
 		vim.api.nvim_buf_set_lines(0, 0, -1, false, lines)
+		renumber_basic_lines()
 	end,
 })
 
