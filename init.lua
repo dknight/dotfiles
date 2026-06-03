@@ -196,6 +196,19 @@ local plugins = {
 	-- 		},
 	-- 	},
 	-- },
+	{
+		"dknight/zx.nvim",
+		-- dir = "~/lab/zx.nvim",
+		dependencies = {
+			"L3MON4D3/LuaSnip",
+		},
+		name = "zx.nvim",
+		opts = {
+			emulator = "fbzx",
+			build_key = "<F9>",
+			run_key = "<F10>",
+		},
+	},
 	-- {
 	-- 	"dknight/nes.nvim",
 	-- 	dependencies = {
@@ -366,5 +379,4 @@ vim.keymap.set({ "i", "s" }, "<C-e>", function()
 	end
 end)
 
-dofile(vim.fn.stdpath("config") .. "/playdate.lua")
-dofile(vim.fn.stdpath("config") .. "/zx.lua")
+-- dofile(vim.fn.stdpath("config") .. "/playdate.lua")
