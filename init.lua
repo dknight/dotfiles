@@ -207,21 +207,28 @@ local plugins = {
 			emulator = "fbzx",
 			build_key = "<F9>",
 			run_key = "<F10>",
+			emulator_opts = {
+				hook = true,
+				nosound = false,
+			},
 		},
 	},
-	-- {
-	-- 	"dknight/nes.nvim",
-	-- 	dependencies = {
-	-- 		"L3MON4D3/LuaSnip",
-	-- 	},
-	-- 	name = "nes.nvim",
-	-- 	opts = {
-	-- 		save_before_compile = true,
-	-- 		emulator = "fceux",
-	-- 		build_key = "<F6>",
-	-- 		run_key = "<F10>",
-	-- 	},
-	-- },
+	{
+		"dknight/nes.nvim",
+		-- dir = "~/lab/nes.nvim",
+		dependencies = {
+			"L3MON4D3/LuaSnip",
+		},
+		name = "nes.nvim",
+		opts = {
+			save_before_compile = true,
+			emulator = "fceux",
+			build_key = "<F6>",
+			clean_key = "<F9>",
+			run_key = "<F10>",
+			use_make = true,
+		},
+	},
 }
 
 --------------------------------------------------------------------------
@@ -248,7 +255,16 @@ vim.g.surround_indent = 1
 --------------------------------------------------------------------------
 -- Ctrl-P
 --------------------------------------------------------------------------
-vim.g.wildignore = "*/node_modules/*,*.so,*.swp,*.zip,*.git,*.o,*.a,"
+vim.opt.wildignore:append({
+	"*/node_modules/*",
+	"*.so",
+	"*.swp",
+	"*.zip",
+	"*.git",
+	"*.o",
+	"*.a",
+	"*.dbg",
+})
 
 --------------------------------------------------------------------------
 -- netrw
