@@ -196,39 +196,39 @@ local plugins = {
 	-- 		},
 	-- 	},
 	-- },
-	{
-		"dknight/zx.nvim",
-		-- dir = "~/lab/zx.nvim",
-		dependencies = {
-			"L3MON4D3/LuaSnip",
-		},
-		name = "zx.nvim",
-		opts = {
-			emulator = "fbzx",
-			build_key = "<F9>",
-			run_key = "<F10>",
-			emulator_opts = {
-				hook = true,
-				nosound = false,
-			},
-		},
-	},
-	{
-		"dknight/nes.nvim",
-		-- dir = "~/lab/nes.nvim",
-		dependencies = {
-			"L3MON4D3/LuaSnip",
-		},
-		name = "nes.nvim",
-		opts = {
-			save_before_compile = true,
-			emulator = "fceux",
-			build_key = "<F6>",
-			clean_key = "<F9>",
-			run_key = "<F10>",
-			use_make = true,
-		},
-	},
+	-- {
+	-- 	"dknight/zx.nvim",
+	-- 	dependencies = {
+	-- 		"L3MON4D3/LuaSnip",
+	-- 	},
+	-- 	name = "zx.nvim",
+	-- 	opts = {
+	-- 		emulator = "fbzx",
+	-- 		build_key = "<F9>",
+	-- 		run_key = "<F10>",
+	-- 		emulator_opts = {
+	-- 			hook = true,
+	-- 			nosound = false,
+	-- 		},
+	-- 	},
+	-- },
+	-- {
+	-- 	"dknight/nes.nvim",
+	-- 	-- dir = "~/lab/nes.nvim",
+	-- 	dependencies = {
+	-- 		"L3MON4D3/LuaSnip",
+	-- 	},
+	-- 	name = "nes.nvim",
+	-- 	opts = {
+	-- 		save_before_compile = true,
+	-- 		emulator = "Mesen",
+	-- 		-- emulator = "fceux",
+	-- 		build_key = "<F6>",
+	-- 		clean_key = "<F9>",
+	-- 		run_key = "<F10>",
+	-- 		use_make = true,
+	-- 	},
+	-- },
 }
 
 --------------------------------------------------------------------------
@@ -339,6 +339,35 @@ vim.api.nvim_create_autocmd({ "TextChangedI", "TextChangedP" }, {
 		if ch:match("[%w_.]") then
 			feedkey("<C-x><C-o>")
 		end
+	end,
+})
+
+--------------------------------------------------------------------------
+-- clang
+--------------------------------------------------------------------------
+local clangd_config = {
+	name = "clangd",
+	cmd = { "clangd" },
+	root_dir = vim.fs.root(0, {
+		"compile_commands.json",
+		"compile_flags.txt",
+		".git",
+	}),
+
+	on_attach = function(_, bufnr)
+		vim.api.nvim_create_autocmd("BufWritePre", {
+			buffer = bufnr,
+			callback = function()
+				vim.lsp.buf.format()
+			end,
+		})
+	end,
+}
+
+vim.api.nvim_create_autocmd("FileType", {
+	pattern = { "c", "cpp" },
+	callback = function()
+		vim.lsp.start(clangd_config)
 	end,
 })
 
