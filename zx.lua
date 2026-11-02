@@ -1,6 +1,7 @@
 --------------------------------------------------------------------------
 -- ZX Spectrum (BASIC)
 --------------------------------------------------------------------------
+-- This file exists only for historical purposes
 
 -- ZX emulator. Here I use fbzx; replace it if needed.
 local zxEmulator = "fbzx"
