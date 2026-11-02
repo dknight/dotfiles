@@ -76,7 +76,12 @@ vim.api.nvim_create_autocmd("FileType", {
 		vim.opt_local.textwidth = 80
 		vim.opt_local.colorcolumn = "80"
 
-		vim.keymap.set("n", "<f5>", "<cmd>w<cr><cmd>!gcc % -o %< && ./%<<CR>", {
+		local build_cmd = "<cmd>w<cr><cmd>!gcc % -o %< && ./%<<cr>"
+		if vim.uv.fs_stat("Makefile") ~= nil then
+			build_cmd = "<cmd>!make<cr>"
+		end
+
+		vim.keymap.set("n", "<f5>", build_cmd, {
 			buffer = true,
 			silent = true,
 		})
@@ -439,5 +444,3 @@ vim.keymap.set({ "i", "s" }, "<C-e>", function()
 		luasnip.change_choice(1)
 	end
 end)
-
--- dofile(vim.fn.stdpath("config") .. "/playdate.lua")
