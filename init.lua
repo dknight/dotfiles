@@ -63,13 +63,20 @@ vim.api.nvim_create_autocmd({ "FileType" }, {
 	end,
 })
 vim.api.nvim_create_autocmd("FileType", {
-	pattern = { "c", "cpp" },
+	pattern = "c",
 	callback = function()
-		vim.cmd([[
-			inoreabbrev if if () {<CR>}<Esc>O
-			inoreabbrev for for () {<CR>}<Esc>O
-		]])
-		vim.keymap.set("n", "<f5>", "<cmd>!gcc % -o %< && ./%<<CR>", {
+		vim.opt_local.tabstop = 8
+		vim.opt_local.shiftwidth = 8
+		vim.opt_local.softtabstop = 8
+		vim.opt_local.expandtab = false
+
+		vim.opt_local.cindent = true
+		vim.opt_local.smartindent = false
+
+		vim.opt_local.textwidth = 80
+		vim.opt_local.colorcolumn = "80"
+
+		vim.keymap.set("n", "<f5>", "<cmd>w<cr><cmd>!gcc % -o %< && ./%<<CR>", {
 			buffer = true,
 			silent = true,
 		})
@@ -221,8 +228,8 @@ local plugins = {
 	-- 	name = "nes.nvim",
 	-- 	opts = {
 	-- 		save_before_compile = true,
-	-- 		emulator = "Mesen",
-	-- 		-- emulator = "fceux",
+	-- 		-- emulator = "Mesen",
+	-- 		emulator = "fceux",
 	-- 		build_key = "<F6>",
 	-- 		clean_key = "<F9>",
 	-- 		run_key = "<F10>",
@@ -355,13 +362,22 @@ local clangd_config = {
 	}),
 
 	on_attach = function(_, bufnr)
-		vim.api.nvim_create_autocmd("BufWritePre", {
+		vim.keymap.set("n", "<leader>cf", function()
+			vim.lsp.buf.format()
+		end, {
 			buffer = bufnr,
-			callback = function()
-				vim.lsp.buf.format()
-			end,
+			silent = true,
 		})
 	end,
+
+	-- on_attach = function(_, bufnr)
+	-- 	vim.api.nvim_create_autocmd("BufWritePre", {
+	-- 		buffer = bufnr,
+	-- 		callback = function()
+	-- 			vim.lsp.buf.format()
+	-- 		end,
+	-- 	})
+	-- end,
 }
 
 vim.api.nvim_create_autocmd("FileType", {
