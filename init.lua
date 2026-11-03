@@ -78,7 +78,7 @@ vim.api.nvim_create_autocmd("FileType", {
 
 		local build_cmd = "<cmd>w<cr><cmd>!gcc % -o %< && ./%<<cr>"
 		if vim.uv.fs_stat("Makefile") ~= nil then
-			build_cmd = "<cmd>!make<cr>"
+			build_cmd = "<cmd>wa<cr><cmd>!make<cr>"
 		end
 
 		vim.keymap.set("n", "<f5>", build_cmd, {
