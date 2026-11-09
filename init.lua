@@ -224,23 +224,23 @@ local plugins = {
 	-- 		},
 	-- 	},
 	-- },
-	-- {
-	-- 	"dknight/nes.nvim",
-	-- 	-- dir = "~/lab/nes.nvim",
-	-- 	dependencies = {
-	-- 		"L3MON4D3/LuaSnip",
-	-- 	},
-	-- 	name = "nes.nvim",
-	-- 	opts = {
-	-- 		save_before_compile = true,
-	-- 		-- emulator = "Mesen",
-	-- 		emulator = "fceux",
-	-- 		build_key = "<F6>",
-	-- 		clean_key = "<F9>",
-	-- 		run_key = "<F10>",
-	-- 		use_make = true,
-	-- 	},
-	-- },
+	{
+		"dknight/nes.nvim",
+		-- dir = "~/lab/nes.nvim",
+		dependencies = {
+			"L3MON4D3/LuaSnip",
+		},
+		name = "nes.nvim",
+		opts = {
+			save_before_compile = true,
+			-- emulator = "Mesen",
+			emulator = "fceux",
+			build_key = "<F6>",
+			clean_key = "<F9>",
+			run_key = "<F10>",
+			use_make = true,
+		},
+	},
 }
 
 --------------------------------------------------------------------------
