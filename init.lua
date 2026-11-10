@@ -232,13 +232,11 @@ local plugins = {
 		},
 		name = "nes.nvim",
 		opts = {
-			save_before_compile = true,
 			-- emulator = "Mesen",
 			emulator = "fceux",
 			build_key = "<F6>",
 			clean_key = "<F10>",
 			run_key = "<F5>",
-			use_make = true,
 		},
 	},
 }
