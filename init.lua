@@ -234,9 +234,10 @@ local plugins = {
 		opts = {
 			-- emulator = "Mesen",
 			emulator = "fceux",
-			build_key = "<F6>",
-			clean_key = "<F10>",
 			run_key = "<F5>",
+			build_key = "<F6>",
+			simulate_key = "<F9>",
+			clean_key = "<F10>",
 		},
 	},
 }
