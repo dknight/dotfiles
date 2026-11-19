@@ -3,6 +3,13 @@ snippet kv
 		print(k, v)
 	end
 
+snippet kvkv
+	for _, v in pairs($1) do
+		for m, n in pairs(v)
+			print(m, n)
+		end
+	end
+
 snippet ikv
 	for i, v in ipairs($1) do
 		print(i, v)
